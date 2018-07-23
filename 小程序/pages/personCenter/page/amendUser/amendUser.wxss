@@ -1,0 +1,2 @@
+/* pages/personCenter/page/amendUser/amendUser.wxss */
+@import "../../../components/amendUser/amendUser.wxss";

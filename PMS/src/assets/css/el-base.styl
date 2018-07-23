@@ -1,0 +1,103 @@
+// 按钮组下方默认margin
+.el-row
+    margin-bottom 10px
+    font-size 14px
+// element按钮颜色
+.el-button--default 
+    color #6a9df6
+    border 1px solid #6a9df6
+// 调整element表单样式
+.el-table
+    user-select none
+    margin-bottom 10px
+.el-table thead
+    color #fff
+.el-table td,
+.el-table th,
+.el-table td input
+    text-align center
+.el-table td input
+    width 100%
+.el-table th
+    padding 8px 0
+.el-table td
+    padding 2px 0
+    color #000
+    //改变禁用时输入框
+.el-table td input:disabled
+    background-color: #fff;
+.el-input.is-disabled .el-input__inner
+    background-color #fff
+    border 0
+    color #777
+.el-input.is-disabled .el-input__inner::placeholder
+    color #999
+    //未禁用时输入框
+.el-input .el-input__inner::placeholder
+    color #777
+.el-input .el-input__inner
+    color #000
+
+.el-table .success-row
+    background #f0f9eb
+.el-table__header-wrapper, 
+.el-table__body-wrapper.is-scrolling-none,
+.el-table__body-wrapper.is-scrolling-left,
+.el-table__fixed-right-patch
+    background-color #f2f2f2
+
+.el-popper[x-placement^=bottom]
+    margin-top 6px
+
+.has-gutter,
+// 固定表头背景色
+.el-table__fixed,//左侧
+.el-table__fixed-right//右侧
+    th
+        background-color #4b5967
+        box-sizing border-box
+.el-input__inner
+    &:focus::-webkit-input-placeholder
+        opacity: 0
+
+// 面包屑导航栏样式
+.el-breadcrumb__inner.is-link,
+.el-breadcrumb__item:last-child .el-breadcrumb__inner
+    color #6a9df6
+.el-breadcrumb__item 
+    margin 0
+// 分页器样式
+.el-pagination
+    text-align center
+    margin-top 20px
+.el-pagination.is-background .el-pager li:not(.disabled).active
+    background-color #f2f2f2
+    color #437ff9
+.el-pagination.is-background .el-pager li
+    color #4d4d4d
+
+// 左侧导航栏
+.el-menu-item, 
+.el-submenu__title
+    height 46px
+    line-height 46px
+.el-menu-item[data-v-347bf1b9], 
+.el-submenu__title[data-v-347bf1b9]
+    height 40px !important
+    line-height 40px !important
+// //左侧导航栏选中样式
+.el-submenu.is-opened
+    color #fff !important
+    .el-submenu__title
+        background-color transparent !important
+        color #fff !important
+    .el-submenu,.el-menu
+        background-color rgba(86, 102, 118, 0.5) !important
+        color #fff !important
+        .el-menu-item
+            background-color rgba(86, 102, 118, 0.5) !important
+            color #fff !important
+            &:hover
+                color #6a9df6 !important
+.el-menu-item-group__title
+    background-color #2e3740 !important

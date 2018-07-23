@@ -1,0 +1,3 @@
+<!--pages/personCenter/page/amendUser/amendUser.wxml-->
+<import src="../../../components/amendUser/amendUser.wxml" />
+<template is="amendUser" data="{{newName,newTel,newIdCard}}"></template>

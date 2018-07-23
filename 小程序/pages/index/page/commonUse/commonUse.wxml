@@ -1,0 +1,5 @@
+<!--pages/index/page/commonUse/commonUse.wxml-->
+<import src="../../../components/commonUser/commonUser.wxml" />
+<template is="commonUser" data="{{userName,userTel,userIdCard,userLi,title,cansend}}"></template>
+<button class="confirm" bindtap='navigateBack'>完成</button>
+<view class="remind">每间房只用填一个入住人。实际入住时可以按该房间允许入住的人数办理</view>

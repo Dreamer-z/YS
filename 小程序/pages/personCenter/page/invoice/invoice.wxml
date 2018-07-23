@@ -1,0 +1,55 @@
+<!--pages/personCenter/page/invoice/invoice.wxml-->
+<form>
+  <view class="invoice">
+    <view class="title">发票类型</view>
+    <view class="columnOne">
+      <text class="title">电子发票</text>
+      <view class="content"></view>
+    </view>
+    <view class="title">发票详情</view>
+    <view class="columnOne">
+      <text class="title">抬头类型</text>
+      <view class="content">
+        <radio-group class='type' name="type">
+          <label>
+            <radio></radio>
+            <text>企业抬头</text>
+          </label>
+          <label>
+            <radio></radio>
+            <text>个人/非企业抬头</text>
+          </label>
+        </radio-group>
+      </view>
+    </view>
+    <view class="columnOne">
+      <text class="title">发票抬头</text>
+      <view class="content">
+        <input type='text' confirm-type='done' placeholder='填写发票抬头' placeholder-style='color:#b3b3b3;'></input>
+      </view>
+    </view>
+    <view class="columnOne">
+      <text class="title">税号</text>
+      <view class="content">
+        <input type='text' confirm-type='done' placeholder='填写纳税人识别号' placeholder-style='color:#b3b3b3;'></input>
+      </view>
+    </view>
+    <view class="columnOne">
+      <text class="title">发票内容</text>
+      <view class="content">酒店费用</view>
+    </view>
+    <view class="columnOne price">
+      <text class="title">发票金额</text>
+      <view class="content">
+        <text>200</text>元</view>
+    </view>
+    <view class="title">收件信息</view>
+    <view class="columnOne">
+      <text class="title">电子邮箱</text>
+      <view class="content">
+        <input type='text' confirm-type='done' placeholder='用于向您发送电子发票' placeholder-style='color:#b3b3b3;'></input>
+      </view>
+    </view>
+    <button class="push finish-big">提交</button>
+  </view>
+</form>

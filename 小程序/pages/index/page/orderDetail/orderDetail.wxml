@@ -1,0 +1,33 @@
+<!--pages/index/page/orderDetail/orderDetail.wxml-->
+<import src="/pages/components/order/order.wxml" />
+<view class="pageHead">
+  <view class="orderStatus">
+    <view class="orderType">
+      <image src='../../../../images/status_success.png'></image>
+      <text>{{orderDetails.order_status}}</text>
+    </view>
+  </view>
+  <view class="status">
+    <text>{{orderDetails.pay_status}}</text>
+  </view>
+  <view class="option">
+    <button class="backIndex" bindtap='backIndex'>返回首页</button>
+    <!-- <button class="buyAgain" bindtap='buyAgain/'>再来一单</button> -->
+  </view>
+</view>
+<template is="order" data="{{orderDetails}}"></template>
+<!-- 政策 -->
+<view class="policy">
+  <view class="checkInPolicy">
+    <view class="title">入住政策</view>
+    <view class="content">
+      <view class="li">{{orderDetails.hotel.check_notice}}</view>
+    </view>
+  </view>
+  <view class="cancelPolicy">
+    <view class="title">取消政策</view>
+    <view class="content">
+      <view class="li">{{orderDetails.hotel.cancel_rule}}</view>
+    </view>
+  </view>
+</view>

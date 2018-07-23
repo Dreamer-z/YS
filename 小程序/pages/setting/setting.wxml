@@ -1,0 +1,8 @@
+<!--pages/setting/setting.wxml-->
+<view class='box'>
+  <image src='/images/login_bg.png'></image>
+  <view class='remind'>为确保您能更好的操作与使用我们需要获取您的头像与昵称</view>
+  <view>
+    <button class='getUserInfo' size="default" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getUserInfoFn">同意获取</button>
+  </view>
+</view>

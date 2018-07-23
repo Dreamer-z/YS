@@ -1,0 +1,31 @@
+<!--pages/hotelService/page/share/share.wxml-->
+<view class='shareBox'>
+  <view class='box'>
+    <view class='title'>您的密码</view>
+    <view class='passWord'>{{password}}</view>
+    <view class='options'>
+      <button class='copy' data-password="{{password}}" bindtap='copy'>点击复制</button>
+      <view class='remind'>复制之后可直接粘贴到对话框</view>
+    </view>
+  </view>
+  <view class='remind'>
+    <view class='title'>温馨提示</view>
+    <view class='content'>
+      <view class='item' wx:for="{{remind}}" wx:key="{{item.key}}">{{item}}</view>
+    </view>
+  </view>
+  <view class='statement'>
+    <checkbox-group bindchange="checkboxChange">
+      <label class="checkbox">
+        <checkbox checked="{{checked}}" value='read'/>
+      </label>
+    </checkbox-group>
+    <view class='statementCentent'>
+      我已仔细阅读并同意
+      <navigator url='/pages/hotelService/page/statement/statement'><text>《用户协议及免责声明》</text></navigator>
+    </view>
+  </view>
+  <view class='share'>
+    <button open-type="share" class='shareBtn {{checked?"":"disabled"}}' disabled='{{!checked}}'>马上分享</button>
+  </view>
+</view>

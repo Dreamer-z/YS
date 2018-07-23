@@ -1,0 +1,40 @@
+<!--pages/personCenter/page/myOrders/myOrders.wxml-->
+<view class="orderBox">
+  <view class="orderType bg-white">
+    <view id="1" class="type {{orderType1?'choose':''}}" data-index="1" bindtap='changeType'>未支付</view>
+    <view id="2" class="type {{orderType2?'choose':''}}" data-index="2" bindtap='changeType'>待入住</view>
+    <view id="3" class="type {{orderType3?'choose':''}}" data-index="3" bindtap='changeType'>已完成</view>
+  </view>
+  <view class="orderList" wx:if="{{order != ''}}">
+    <view class="li bg-white" wx:for="{{order}}" wx:key='{{key}}' id="{{item.id}}" bindtap='orderDetails'>
+      <view class="partOne">
+        <view class="nameStatus">
+          <view class="name">{{item.hotel_name}}</view>
+          <view class="status">{{orderType1?'待支付':''}}{{orderType2?item.pay_status:''}}{{orderType3?'已完成':''}}</view>
+        </view>
+        <view class="timeType">
+          <view class='time' wx:if="{{item.come_time != null && item.leave_time != null}}">{{item.come_time}} 至 {{item.leave_time}}</view>
+          <view class="type">{{item.room_type_name}}</view>
+        </view>
+      </view>
+      <view class="partTwo">
+        <view class="totalPrice">订单总价:
+          <view class='number'>￥
+            <text>{{item.total_price}}</text>
+          </view>
+        </view>
+        <view class='option'>
+          <button class="cancel1" hidden='{{orderType1?false:true}}' id="{{item.id}}" catchtap='cancelOrder'>取消订单</button>
+          <button class="payNow" hidden='{{orderType1?false:true}}' id="{{item.id}}" catchtap='payNow'>立即支付</button>
+          <button class="cancel2" hidden='{{orderType2?false:true}}' id="{{item.id}}" catchtap='orderDetails'>订单详情</button>
+          <!-- <button class="refund" hidden='{{orderType2?false:true}}' id="{{item.id}}" catchtap='refund'>申請退款</button> -->
+          <button class="delet" hidden='{{orderType3?false:true}}' id="{{item.id}}" catchtap='delet'>删除</button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="empty" wx:else>
+    <image src='/images/order.png'></image>
+    <text>无任何订单</text>
+  </view>
+</view>

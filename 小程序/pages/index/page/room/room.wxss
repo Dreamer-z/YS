@@ -1,0 +1,129 @@
+/* pages/index/page/room/room.wxss */
+
+.roomPhotoList {
+  position: relative;
+}
+
+.roomPhoto {
+  height: 415rpx;
+  width: 100%;
+}
+
+.roomPhoto swiper-item image {
+  height: 100%;
+  width: 100%;
+}
+
+.roomPhotoList .roomPhotoIndex {
+  position: absolute;
+  right: 30rpx;
+  bottom: 30rpx;
+  color: #fff;
+}
+
+.roomDetails {
+  padding: 30rpx;
+}
+
+.roomDetails .roomType {
+  font-size: 36rpx;
+  color: #333;
+}
+
+.roomDetails .address {
+  color: #333;
+}
+
+.roomDetails .item .itemTitle {
+  color: #1a1a1a;
+  margin-top: 20rpx;
+}
+
+.roomDetails .item .content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.roomDetails .item.facility .content .facilityLi {
+  box-sizing: border-box;
+  padding:20rpx 0;
+  height: 80rpx;
+  line-height: 40rpx;
+  width: 190rpx;
+  margin: 0 20rpx;
+  color: #4d4d4d;
+  display: none;
+  overflow: hidden;
+}
+
+.roomDetails .item.facility .content .facilityLi.block {
+  display: block;
+}
+
+.roomDetails .item.facility .content .facilityLi text{
+  float: left;
+}
+
+.roomDetails .item .content .facilityLi .img {
+  float: left;
+  box-sizing: border-box;
+  padding: 4rpx;
+  margin-right: 10rpx;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background-color: #83b7f3;
+}
+
+.roomDetails .item .content .facilityLi .img image {
+  width: 100%;
+  height: 100%;
+}
+
+.roomDetails .item.roomMsg .content .facilityLi {
+  color: #808080;
+  width: 50%;
+  margin-top: 30rpx;
+}
+
+.roomDetails .item.roomMsg .content .facilityLi text {
+  color: #4d4d4d;
+  font-size: 22rpx;
+  margin-left: 20rpx;
+}
+
+.rules {
+  padding: 30rpx;
+  margin-top: 20rpx;
+}
+
+.rules .title {
+  margin-top: 30rpx;
+  margin-bottom: 10rpx;
+}
+
+.rules .title text {
+  padding: 4rpx 8rpx;
+  font-size: 20rpx;
+  color: #fff;
+  background-color: #fc8c2c;
+}
+
+.rules .content {
+  color: #4d4d4d;
+}
+
+.goOrder{
+  position: fixed;
+  bottom: 0;
+  border-radius: 0 !important;
+  width: 100%;
+  height: 90rpx;
+  background-color: #437ff8;
+  color: #fff;
+}
+
+.empty{
+  height: 100rpx;
+}

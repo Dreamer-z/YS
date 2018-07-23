@@ -1,0 +1,177 @@
+/* pages/personCenter/page/myInvoice/myInvoice.wxss */
+
+.myInvoice>.type {
+  width: 100%;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  color: #4d4d4d;
+  position: fixed;
+  top: 0;
+  z-index: 8;
+}
+
+.myInvoice>.type .li {
+  flex: 1;
+  text-align: center;
+}
+
+.myInvoice>.type .li view {
+  box-sizing: border-box;
+  line-height: 85rpx;
+  border-bottom: 5rpx solid transparent;
+}
+
+.myInvoice>.type .li.choose {
+  color: #437ff8;
+}
+
+.myInvoice>.type .li.choose view {
+  box-sizing: border-box;
+  border-bottom: 5rpx solid #437ff8;
+}
+
+.myInvoice .order {
+  padding-top: 94rpx;
+  padding-bottom: 120rpx;
+  font-size: 26rpx;
+  color: #808080;
+}
+
+.myInvoice .order .month {
+  padding: 20rpx 30rpx;
+}
+
+.myInvoice .order .li {
+  box-sizing: border-box;
+  background-color: #fff;
+  padding: 20rpx 30rpx;
+  margin-bottom: 2rpx;
+  display: flex;
+  align-items: center;
+}
+
+.myInvoice .order .li .msg {
+  margin-left: 30rpx;
+}
+
+.msg{
+  font-size: 26rpx;
+	color: #808080;
+  margin-bottom: 10rpx;
+}
+
+.msg:last-of-type{
+  margin-bottom: 0;
+}
+
+.msg text{
+  color: #333333;
+}
+
+.msg {
+  width: 100%;
+}
+
+.msg .msgLi {
+  margin-bottom: 10rpx;
+}
+
+.msg .msgLi:last-of-type {
+  margin-bottom: 0;
+}
+
+.msg .msgLi text {
+  color: #333;
+}
+
+.myInvoice .order .options{
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  width: 100%;
+  height: 120rpx;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  z-index: 8;
+}
+
+.myInvoice .order .options .selectAll{
+  color: #333;
+  width: 100%;
+}
+
+.myInvoice .order .options .selectAll .all text{
+  font-size: 26rpx;
+}
+
+.myInvoice .order .options .selectAll .record{
+  margin-top: 10rpx;
+}
+
+.myInvoice .order .options .selectAll .record text{
+  color: #f86f41;
+}
+
+.myInvoice .order .options .next{
+	width: 200rpx;
+	height: 80rpx;
+  line-height: 80rpx;
+	background-color: #ccc;
+  color: #fff;
+}
+
+.myInvoice .order .options .next.choose{
+	background-color: #437ff8;
+}
+
+.myInvoice .history {
+  padding-top: 90rpx;
+}
+
+.myInvoice .history .li {
+  box-sizing: border-box;
+  background-color: #fff;
+  border-top: 10rpx solid #e6e6e6;
+  padding: 20rpx 30rpx;
+  margin-bottom: 2rpx;
+  display: flex;
+}
+
+.myInvoice .history .li .msg {
+  width: 75%;
+}
+
+.myInvoice .history .li .other {
+  color: #808080;
+}
+
+.myInvoice .history .li .other .price {
+  color: #f86f41;
+  margin-right: 15rpx;
+}
+
+.myInvoice .history .li .other .type {
+  margin-right: 40rpx;
+}
+
+.myInvoice .history .li .status {
+  color: #6b9ef7;
+  width: 25%;
+  text-align: right;
+}
+
+.myInvoice .history .li .status image {
+  width: 8rpx;
+  height: 17rpx;
+  margin-left: 10rpx;
+}
+
+.boxEmpty{
+  text-align: center;
+  padding-top: 30rpx;
+  font-size: 26rpx;
+  color: #808080;
+}

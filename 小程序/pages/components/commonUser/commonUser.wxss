@@ -1,0 +1,110 @@
+/* pages/components/commonUser/commonUser.wxss */
+.commonUse .title {
+  padding: 0 30rpx;
+  font-size: 26rpx;
+  color: #333;
+  line-height: 84rpx;
+  display: flex;
+  align-items: center;
+}
+
+.commonUse .title text {
+  font-size: 20rpx;
+  color: #b3b3b3;
+  width: 100%;
+  flex:1;
+}
+
+.commonUse .title button{
+  width: 150rpx;
+	height: 60rpx;
+  line-height: 60rpx;
+  padding: 0;
+  font-size: 24rpx;
+  color: #fff;
+	background-color: #6a9df6;
+}
+
+.addTo .fillMsg {
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  border: 1rpx solid #e6e6e6, 0, 1rpx solid #e6e6e6, 0;
+}
+
+.addTo .fillMsg .fillMsgLi {
+  box-sizing: border-box;
+  height: 90rpx;
+  line-height: 90rpx;
+  padding-left: 30rpx;
+  border-bottom: 1rpx solid #e6e6e6;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.addTo .fillMsg .fillMsgLi:last-of-type {
+  border-bottom: 0;
+}
+
+.addTo .fillMsg .fillMsgLi input {
+  height: 100%;
+  width: 100%;
+  flex: 1;
+  font-size: 26rpx;
+}
+
+.addTo .fillMsg .fillMsgLi text {
+  font-size: 20rpx;
+  color: #b3b3b3;
+}
+
+.addTo .putIn {
+  margin-top: 20rpx;
+  width: 100%;
+  height: 90rpx;
+  font-size: 34rpx;
+  border-radius: 0;
+  background-color: #6a9df6;
+  color: #fff;
+}
+
+.commonUseList {
+  height: 540rpx;
+  border: 1rpx solid #e6e6e6, 0, 1rpx solid #e6e6e6, 0;
+}
+
+.commonUseList .commonUseLi {
+  box-sizing: border-box;
+  width: 100%;
+  height: 90rpx;
+  padding: 0 30rpx;
+  color: #4d4d4d;
+}
+
+.commonUseList .commonUseLi .box{
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-bottom: 1rpx solid #e6e6e6;
+  display: flex;
+  align-items: center;
+}
+
+.commonUseList .commonUseLi:last-of-type .box {
+  border-bottom: 0;
+}
+
+.commonUseList .commonUseLi .box .chooseIcon {
+  width: 54rpx;
+  display: flex;
+  align-items: center;
+}
+
+.commonUseList .commonUseLi .box text {
+  flex: 1;
+  font-size: 30rpx;
+}
+
+.commonUseList .commonUseLi.choose {
+  color: #6a9df6;
+}

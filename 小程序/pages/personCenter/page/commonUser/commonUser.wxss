@@ -1,0 +1,2 @@
+/* pages/personCenter/page/commonUser/commonUser.wxss */
+@import "../../../components/commonUser/commonUser.wxss";

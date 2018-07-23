@@ -1,0 +1,5 @@
+<!--pages/personCenter/page/complaint/complaint.wxml-->
+<view class="complaintBox">
+  <textarea placeholder="请输入您的宝贵建议，200字以内" maxlength="{{length}}" auto-focus show-confirm-bar bindinput="val" value='{{value}}'></textarea>
+</view>
+<button class="push" bindtap='push'>提交</button>

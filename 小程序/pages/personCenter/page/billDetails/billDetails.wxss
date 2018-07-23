@@ -1,0 +1,81 @@
+/* pages/personCenter/page/billDetails/billDetails.wxss */
+.billDetails{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.billDetails>.title{
+  font-size: 26rpx;
+	color: #808080;
+  padding: 20rpx 30rpx;
+}
+
+.billDetails .title text{
+	color: #6b9ef7;
+}
+
+.billDetails .content{
+  padding: 30rpx;
+  font-size: 26rpx;
+  color: #808080;
+}
+
+.billDetails .content .title{
+  padding-bottom: 30rpx;
+}
+
+.billDetails .content .list{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.billDetails .content .list .li{
+  width: 50%;
+  margin-bottom: 10rpx;
+}
+
+.billDetails .content .list .li text{
+color: #333333;
+}
+
+.billDetails .content .line{
+  margin: 30rpx 0;
+  width: 100%;
+  height: 2rpx;
+  background-color: #e6e6e6;
+}
+
+.billDetails .content .statistics{
+  padding-top: 30rpx;
+  text-align: right;
+}
+
+.billDetails .content .statistics .li{
+  color: #333;
+  margin-top: 10rpx;
+}
+
+.billDetails .content .statistics .li text{
+  padding-left: 20rpx;
+}
+
+.billDetails .content .statistics .li.refund text{
+  color: #f86f41;
+}
+
+.billDetails .content .statistics .way{
+  font-size: 22rpx;
+  color: #f86f41;
+}
+
+.billDetails .invoice{
+  width: 100%;
+	height: 98rpx;
+  font-size: 34rpx;
+	background-color: #437ff9;
+  color: #fff;
+  border-radius: 0;
+  position: fixed;
+  bottom: 0;
+}

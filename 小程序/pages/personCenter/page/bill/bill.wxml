@@ -1,0 +1,16 @@
+<!--pages/personCenter/page/bill/bill.wxml-->
+<view class='bill'>
+  <view class="title">所有账单</view>
+  <view class="billListEmpty" wx:if="{{billDetails}}">暂无账单</view>
+  <view class="billList" wx:else>
+     <view class="li" bindtap='billDetails'>
+      <view class="billMsg">
+        <view class="msg">房型：<text>高级大床房</text></view>
+        <view class="msg">入住：<text>2018-9-14 12：00</text></view>
+        <view class="msg">离店：<text>2018-9-15 13：00</text></view>
+        <view class="msg">订单号：<text>2222222</text></view>
+      </view>
+      <view class="status">已完成<image src='/images/more_on.png'></image></view>
+    </view> 
+  </view>
+</view>

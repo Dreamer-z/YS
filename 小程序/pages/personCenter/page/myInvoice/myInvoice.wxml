@@ -1,0 +1,112 @@
+<!--pages/personCenter/page/myInvoice/myInvoice.wxml-->
+<view class="myInvoice">
+  <view class="type bg-white">
+    <view class='li {{invoice?"choose":""}}' id="type1" bindtap='changeType'>
+      <view>开具发票</view>
+    </view>
+    <view class='li {{history?"choose":""}}' id="type2" bindtap='changeType'>
+      <view>开票历史</view>
+    </view>
+  </view>
+  <view class="order" hidden='{{invoice?false:true}}'>
+    <view class="boxEmpty" wx:if="{{invoiceEmpty}}">暂无订单</view>
+    <view class="box" wx:else>
+      <view class="month">05月</view>
+      <checkbox-group name="item" bindchange="invoice">
+        <label class="li">
+          <checkbox checked='{{checked?true:false}}'></checkbox>
+          <view class="msg">
+            <view class="msgLi">房型：
+              <text>高级大床房</text>
+            </view>
+            <view class="msgLi">入住：
+              <text>2018-5-14 12：00</text>
+            </view>
+            <view class="msgLi">离店：
+              <text>2018-5-15 13：00</text>
+            </view>
+          </view>
+          <view class="basePrice">
+            <view class="symbol">¥</view>
+            <view class="num">155.00</view>
+          </view>
+        </label>
+      </checkbox-group>
+    </view>
+    <view class="options bg-white">
+      <view class="selectAll">
+        <checkbox-group bindchange="selectAll" class="all"><label><checkbox value='all'></checkbox><text>全选</text></label></checkbox-group>
+        <view class="record"><text>0</text>个行程，共<text>0</text>元</view>
+      </view>
+      <button class="next {{checked?'choose':''}} {{next?'choose':''}}" bindtap='start'>下一步</button>
+    </view>
+  </view>
+  <view class="history" hidden='{{history?false:true}}'>
+    <view class="boxEmpty" wx:if="{{historyEmpty}}">暂无历史订单</view>
+    <view class="list" wx:else>
+      <view class="li">
+      <view class="msg">
+        <view class="msgLi">房型：
+          <text>高级大床房</text>
+        </view>
+        <view class="msgLi">入住：
+          <text>2018-5-14 12：00</text>
+        </view>
+        <view class="msgLi">离店：
+          <text>2018-5-15 13：00</text>
+        </view>
+        <view class="other">
+          <text class="price">155元</text>
+          <text class="type">电子发票</text>
+          <text class="hotel">怀化博威酒店</text>
+        </view>
+      </view>
+      <view class="status">已开票
+        <image src='/images/more_on.png'></image>
+      </view>
+    </view>
+    <view class="li">
+      <view class="msg">
+        <view class="msgLi">房型：
+          <text>高级大床房</text>
+        </view>
+        <view class="msgLi">入住：
+          <text>2018-5-14 12：00</text>
+        </view>
+        <view class="msgLi">离店：
+          <text>2018-5-15 13：00</text>
+        </view>
+        <view class="other">
+          <text class="price">155元</text>
+          <text class="type">电子发票</text>
+          <text class="hotel">怀化博威酒店</text>
+        </view>
+      </view>
+      <view class="status">已开票
+        <image src='/images/more_on.png'></image>
+      </view>
+    </view>
+    <view class="li">
+      <view class="msg">
+        <view class="msgLi">房型：
+          <text>高级大床房</text>
+        </view>
+        <view class="msgLi">入住：
+          <text>2018-5-14 12：00</text>
+        </view>
+        <view class="msgLi">离店：
+          <text>2018-5-15 13：00</text>
+        </view>
+        <view class="other">
+          <text class="price">155元</text>
+          <text class="type">电子发票</text>
+          <text class="hotel">怀化博威酒店</text>
+        </view>
+      </view>
+      <view class="status">已开票
+        <image src='/images/more_on.png'></image>
+      </view>
+    </view>
+    </view>
+  </view>
+</view>

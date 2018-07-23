@@ -1,0 +1,141 @@
+/* pages/personCenter/page/myOrders/myOrders.wxss */
+
+.orderBox {
+  height: 100%;
+}
+
+.orderType {
+  width: 100%;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  color: #4d4d4d;
+  text-align: center;
+  border-bottom: 1rpx solid #e6e6e6;
+  position: fixed;
+  z-index: 10;
+  top: 0;
+}
+
+.orderType .type {
+  box-sizing: border-box;
+  flex: 1;
+  height: 100%;
+  line-height: 86rpx;
+  border-bottom: 4rpx solid #fff;
+}
+
+.orderType .type.choose {
+  color: #437ff8;
+  border-bottom: 4rpx solid #437ff8;
+}
+
+.orderList {
+  padding-top: 100rpx;
+}
+
+.orderList .li {
+  margin-bottom: 10rpx;
+}
+
+.orderList .li .partOne {
+  border-bottom: 1rpx solid #e6e6e6;
+}
+
+.orderList .li .partOne, .orderList .li .partTwo {
+  padding: 20rpx 30rpx;
+}
+
+.orderList .li .partOne .nameStatus {
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.orderList .li .partOne .nameStatus .name {
+  font-size: 30rpx;
+  color: #1a1a1a;
+  flex: 4;
+}
+
+.orderList .li .partOne .nameStatus .status {
+  color: #6a9df6;
+  flex: 1;
+  text-align: right;
+}
+
+.orderList .li .partOne .timeType {
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  color: #999;
+}
+
+.orderList .li .partOne .timeType .time {
+  margin-right: 30rpx;
+}
+
+.orderList .li .partTwo {
+  display: flex;
+  align-items: center;
+}
+
+.orderList .li .partTwo .totalPrice {
+  width: 320rpx;
+  display: flex;
+  align-items: center;
+  color: #808080;
+}
+
+.orderList .li .partTwo .totalPrice .number {
+  color: #f4703c;
+}
+
+.orderList .li .partTwo .totalPrice .number text {
+  font-size: 30rpx;
+}
+
+.orderList .li .partTwo .option {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.orderList .li .partTwo .option button {
+  display: inline-block;
+  padding: 0 11rpx;
+  margin: 0 10rpx;
+  font-size: 24rpx;
+  color: #808080;
+  background-color: #fff;
+  border: 1rpx solid #b3b3b3;
+}
+
+.orderList .li .partTwo .option .payNow,
+.orderList .li .partTwo .option .comment,
+.orderList .li .partTwo .option .refund ,
+.orderList .li .partTwo .option .cancel2{
+  color: #fff;
+  border: 1rpx solid #437ff8;
+  background-color: #437ff8;
+}
+
+.empty {
+  box-sizing: border-box;
+  padding-top: 300rpx;
+  font-size: 28rpx;
+  color: #b3b3b3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.empty image {
+  width: 100rpx;
+  height: 100rpx;
+  margin-bottom: 20rpx;
+}

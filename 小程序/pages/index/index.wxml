@@ -1,0 +1,147 @@
+<!--index.wxml-->
+<view class="pages {{addTap||starTap||sortTap||filterTap?'height100':''}}">
+  <view class="nav-head">
+    <view class="nav-head-item">
+      <view class="title" id="addTap" catchtap='change'>
+        <text>位置</text>
+        <image src='../../images/down.png' class='transform05 {{addTap?"rotateZ180":""}}'></image>
+      </view>
+      <view class="nav-tap {{addTap?'transform05':'transform02'}} {{addTap?'addTap':''}}">
+        <view class="nav-tap-box transform05 ">
+          <scroll-view class="nav-tap1" scroll-y style='height:100%;'>
+            <view class="nav-tap1-item {{chooseCity==index?'choose':''}}" wx:for="{{address}}" data-check="{{chooseCity==index?true:false}}" data-id="{{index}}" wx:key="key" catchtap='addr'>{{item.city}}</view>
+          </scroll-view>
+          <scroll-view class="nav-tap2" scroll-y style='height:100%;'>
+            <view class="nav-tap2-item {{chooseDistrict==index?'choose':''}}" wx:for="{{curreentDistrict}}" data-check="{{chooseDistrict==index?true:false}}" wx:key="key" data-id="{{index}}" catchtap="addr2">
+              <view class="dian">·</view>
+              <text>{{item}}</text>
+            </view>
+          </scroll-view>
+        </view>
+        <view class="navOption">
+          <button class="empty" catchtap="empty">清空</button>
+          <button class="confirm" catchtap="confirm1">确定</button>
+        </view>
+      </view>
+    </view>
+    <view class="nav-head-item">
+      <view class="title" id="starTap" catchtap='change'>
+        <text>星级/价格</text>
+        <image src='../../images/down.png' class='transform05 {{starTap?"rotateZ180":""}}'></image>
+      </view>
+      <view class="nav-tap {{starTap?'transform05':'transform02'}} {{starTap?'starTap':''}}">
+        <view class="nav-tap-box transform05">
+          <view class="title">星级</view>
+          <view class="star chooseInp">
+            <radio-group class="radio-group" bindchange="radioChange">
+              <label class="starLevel type {{index===starInd?'choose':''}}" wx:for="{{star}}" data-index="{{index}}" wx:key="key" bindtap='radioChoose'>
+                <radio value="{{item}}" />{{item}}
+              </label>
+            </radio-group>
+          </view>
+          <view class="title">价格</view>
+          <view class="price chooseInp">
+            <radio-group class="radio-group">
+              <label class="starLevel type {{item.choose?'choose':''}}" wx:for="{{price}}" wx:key="key" data-index="{{index}}" bindtap='priceChoose'>
+                <radio value="{{item.label}}" />{{item.label}}
+              </label>
+            </radio-group>
+            <!-- <view class="sliderValue sliderMin">{{slider.min}}</view>
+            <view class="sliderValue sliderMax">{{slider.max}}</view> -->
+            <!-- <slider catchchange="sliderChange" value="{{slider.value}}" step="{{slider.step}}" min="{{slider.min}}" max="{{slider.max}}" block-size="{{slider.size}}" selected-color="#437ff8" show-value/> -->
+          </view>
+        </view>
+        <view class="navOption">
+          <button class="empty" catchtap="empty">清空</button>
+          <button class="confirm" catchtap="confirm2">确定</button>
+        </view>
+      </view>
+    </view>
+    <view class="nav-head-item">
+      <view class="title" id="sortTap" catchtap='change'>
+        <text>智能排序</text>
+        <image src='../../images/down.png' class='transform05 {{sortTap?"rotateZ180":""}}'></image>
+      </view>
+      <view class="nav-tap {{sortTap?'transform05':'transform02'}} {{sortTap?'sortTap':''}}">
+        <view class="nav-tap-box transform05 ">
+          <scroll-view class="sort" scroll-y style='height:100%;'>
+            <view class="sortItem {{index===sortInd?'choose':''}}" wx:for="{{sort}}" wx:key="{{key}}" data-index="{{index}}" data-value="{{item}}" bindtap='sortType'>
+              <image src='../../images/finish.png'></image>
+              <view>{{item}}</view>
+            </view>
+          </scroll-view>
+        </view>
+        <view class="navOption">
+          <button class="empty" catchtap="empty">清空</button>
+          <button class="confirm" catchtap="confirm3">确定</button>
+        </view>
+      </view>
+    </view>
+    <view class="nav-head-item">
+      <view class="title" id="filterTap" catchtap='change'>
+        <text>筛选</text>
+        <image src='../../images/down.png' class='transform05 {{filterTap?"rotateZ180":""}}'></image>
+      </view>
+      <view class="nav-tap {{filterTap?'transform05':'transform02'}} {{filterTap?'filterTap':''}}">
+        <view class="nav-tap-box transform05 ">
+          <view class="title">房型</view>
+          <view class="house chooseInp">
+            <radio-group class="radio-group" bindchange="houseTap">
+              <label class="houseType type {{index===houseInd?'choose':''}}" wx:for="{{house}}" data-index="{{index}}" wx:key="key" bindtap='houseChoose'>
+                <radio value="{{item}}" />{{item}}
+              </label>
+            </radio-group>
+          </view>
+          <view class="title">支付方式</view>
+          <view class="payWay chooseInp">
+            <radio-group class="radio-group" bindchange="payTap">
+              <label class="payType type {{index===payInd?'choose':''}}" wx:for="{{payWay}}" data-index="{{index}}" wx:key="key" bindtap='payChoose'>
+                <radio value="{{item.id}}" />{{item.name}}
+              </label>
+            </radio-group>
+          </view>
+          <view class="title">服务设施</view>
+          <view class="facility chooseInp">
+            <radio-group class="radio-group" bindchange="facilityTap">
+              <label class="facilityType type {{index===facilityInd?'choose':''}}" wx:for="{{facility}}" data-index="{{index}}" wx:key="key" bindtap='facilityChoose'>
+                <radio value="{{item}}" />{{item}}
+              </label>
+            </radio-group>
+          </view>
+        </view>
+        <view class="navOption">
+          <button class="empty" catchtap="empty">清空</button>
+          <button class="confirm" catchtap="confirm4">确定</button>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="hotel">
+    <view class="noData" wx:if="{{hotelList.length <= 0}}">暂无数据</view>
+    <view style='height:100%;' wx:else>
+      <navigator open-type='navigate' wx:for="{{hotelList}}" wx:key='{{key}}' url='/pages/index/page/hotel/hotel?id={{item.id}}&photo={{item.logo}}'>
+        <view class="li">
+          <image class="photo" src='{{item.logo?item.logo:"../../images/ls.png"}}'></image>
+          <view class="message">
+            <view class="name">{{item.hotel_name}}</view>
+            <view class="starLevel">
+              <image class="level" src='../../images/star.png' wx:for="{{item.star}}" wx:key='{{key}}'></image>
+              <view class="type">{{item.hotel_type}}</view>
+            </view>
+            <!-- <view class="addr">{{item.address}} · 距离约{{item.distance}}KM</view> -->
+            <view class="addr elli">{{item.address}}</view>
+            <view class="tag">
+              <view class="tagLi" wx:for="{{item.tags}}" wx:key='{{key}}'>{{item.name}}</view>
+            </view>
+            <view class="basePrice" wx:if="{{item.min_price}}">
+              <view class="symbol">¥</view>
+              <view class="num">{{item.min_price}}</view>起
+            </view>
+            <view class="basePrice" wx:else>暂无信息</view>
+          </view>
+        </view>
+      </navigator>
+    </view>
+  </view>
+</view>
+<view class="mask {{mask?'maskBlock':''}}" catchtap='hidden'></view>

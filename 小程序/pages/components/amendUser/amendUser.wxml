@@ -1,0 +1,13 @@
+<!--pages/components/amendUser/amendUser.wxml-->
+<template name="amendUser">
+  <view class="amendUser">
+    <view class="title">中文姓名</view>
+    <input type='text' placeholder-style="color:#b3b3b3" placeholder='请输入姓名' value='{{newName}}' confirm-type='done' bindinput="newName"></input>
+    <view class="title">手机号</view>
+    <input type='number' placeholder-style="color:#b3b3b3" placeholder='请输入电话号码' value='{{newTel}}' confirm-type='done' bindinput="newTel"></input>
+    <view class="title">身份证</view>
+    <input type='idcard' placeholder-style="color:#b3b3b3" placeholder='请输入身份证' value='{{newIdCard}}' confirm-type='done' bindinput="newIdCard"></input>
+    <button class="finish-big" bindtap='finish'>完成</button>
+    <!-- <button class="cancel-big" bindtap='delete'>删除</button> -->
+  </view>
+</template>

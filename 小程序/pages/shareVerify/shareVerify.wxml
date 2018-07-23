@@ -1,0 +1,16 @@
+<!--pages/shareVerify/shareVerify.wxml-->
+<view class='shareVerifyLayer'>
+  <view class='rd'>根据公安部门规定，同住人需要填写身份信息。</view>
+  <view class='shareVerifyBox'>
+    <image src='/images/share_verify_bg.png'></image>
+    <view class='content'>
+      <input placeholder='请输入姓名' bindinput='inpName'></input>
+      <input type='idcard' placeholder='请输入身份证号' bindinput='inpIdcard'></input>
+      <input type='number' placeholder='请输入分享码' bindinput='inpPassword'></input>
+    </view>
+  </view>
+  <view class='send'>
+    <view class='remind'>温馨提示：入住权限密钥请向分享给您朋友的获取，验证成功后您可进入小程序——酒店服务，查看授权房间及相关权限。</view>
+    <button class='colorButton' bindtap='authSetting'>确认</button>
+  </view>
+</view>

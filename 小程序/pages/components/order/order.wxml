@@ -1,0 +1,63 @@
+<!--pages/components/order/order.wxml-->
+<template name="order">
+  <view class="orderAddr bg-white">
+    <view class="hotelName">{{orderDetails.hotel.hotel_name}}</view>
+    <view class="address">
+      <image src='../../../../images/address.png'></image>
+      <text>{{orderDetails.hotel.address}}</text>
+    </view>
+  </view>
+  <view class="orderDetails bg-white">
+    <view class="list first">
+      <view class="li">
+        <view class="type">订单编号</view>
+        <view class="msg">{{orderDetails.order_no}}</view>
+      </view>
+      <view class="li">
+        <view class="type">订单状态</view>
+        <view class="msg">{{orderDetails.order_status}}</view>
+      </view>
+      <view class="li payStatus">
+        <view class="type">支付状态</view>
+        <view class="msg">{{orderDetails.pay_status}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="orderDetails bg-white">
+    <view class="list">
+      <view class="li">
+        <view class="type name">住客姓名</view>
+        <view class="msg">
+          <text class="msgLi" wx:for="{{orderDetails.member}}" wx:key="{{key}}">{{item.name}}</text>
+        </view>
+      </view>
+      <view class="li">
+        <view class="type">住客手机</view>
+        <view class="msg">{{orderDetails.mobile}}</view>
+      </view>
+      <view class="li">
+        <view class="type">房型</view>
+        <view class="msg">{{orderDetails.room_type_name}}</view>
+      </view>
+      <view class="li">
+        <view class="type">预计到店</view>
+        <view class="msg">{{orderDetails.arrive_time}}</view>
+      </view>
+      <view class="li">
+        <view class="type">入离时间</view>
+        <view class="msg">{{orderDetails.come_time}} 至 {{orderDetails.leave_time}}（{{orderDetails.days}}晚）</view>
+      </view>
+      <view class="li">
+        <view class="type">备注</view>
+        <view class="msg">{{orderDetails.remark?orderDetails.remark:'无'}}</view>
+      </view>
+      <view class="li">
+        <view class="type">单间均价</view>
+        <view class="msg">¥{{orderDetails.price}}</view>
+      </view>
+    </view>
+    <view class="total">总价：
+      <text>¥{{orderDetails.total_price}}</text>
+    </view>
+  </view>
+</template>

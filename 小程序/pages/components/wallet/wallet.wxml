@@ -1,0 +1,49 @@
+<!--pages/components/wallet/wallet.wxml-->
+<!-- 支付窗口 -->
+<template name='wallet'>
+  <view class="popup payBox" hidden='{{pay?false:true}}'>
+    <view class="place" bindtap='pay'></view>
+    <form report-submit bindsubmit='payForIt'>
+      <view class="content bg-white">
+        <image class="close" src='../../../../images/close_1.png' bindtap='pay'></image>
+        <view class="wallet">云宿钱包</view>
+        <view class="title">支付金额</view>
+        <view class="price">
+          ￥
+          <text class="number">{{price*roomNumber*day}}</text>
+        </view>
+        <scroll-view class="payWay" scroll-y>
+          <radio-group class="radio-group" name="payWay">
+            <!-- <label class="way" wx:else='{{remainPrice}}'>
+            <text>余额</text>
+            <view>余额不足</view>
+            <image class="more" src='../../../../images/more.png'></image>
+          </label>
+          <label class="way" wx:else='{{integral}}'>
+            <text>积分</text>
+            <view>积分不足</view>
+            <image class="more" src='../../../../images/more.png'></image>
+          </label> -->
+            <!-- <label class="way" wx:if='{{integral}}'>
+            <text>积分</text>
+            <radio class="wayRadio" color="#437ff8" value="integral" checked="" />
+          </label>
+          <label class="way" wx:if='{{remainPrice}}'>
+            <text>余额</text>
+            <radio class="wayRadio" color="#437ff8" value="remainPrice" checked="" />
+          </label> -->
+            <!-- <label class="way">
+            <text>微信支付</text>
+            <radio class="wayRadio" color="#437ff8" value="weixin" checked="" />
+          </label> -->
+            <label class="way" wx:for="{{payWayList}}" wx:key="{{key}}">
+              <text>{{item.name}}</text><image hidden='{{item.name=="微信支付"?false:true}}' src='/images/wechat.png'></image>
+              <radio class="wayRadio" color="#437ff8" value="{{item.id}}" checked="{{item.id==1?true:false}}" />
+            </label>
+          </radio-group>
+        </scroll-view>
+        <button class="payForIt" form-type='submit'>立即预定</button>
+      </view>
+    </form>
+  </view>
+</template>

@@ -1,0 +1,416 @@
+/* pages/index/page/reservations/reservations.wxss */
+@import "../../../components/wallet/wallet.wxss";
+
+/* 快速入住 */
+
+.popup .quickCheckIn {
+  width: 630rpx;
+  height: 780rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: calc(50% - 315rpx);
+  top: calc(50% - 500rpx);
+}
+
+.popup .quickCheckIn .content {
+  box-sizing: border-box;
+  width: 100%;
+  height: 700rpx;
+  padding-top: 200rpx;
+  border-radius: 6rpx;
+  position: relative;
+  overflow: hidden;
+}
+
+.popup .quickCheckIn .content .title {
+  width: 700rpx;
+  height: 170rpx;
+  line-height: 170rpx;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  left: calc(50% - 350rpx);
+  font-size: 40rpx;
+  color: #fff;
+  background: linear-gradient(#4380f9, #5ea2f0);
+  border-radius: 0 0 50% 50%;
+}
+
+.popup .quickCheckIn .content .msg {
+  height: 286rpx;
+}
+
+.popup .quickCheckIn .content .msg .li {
+  box-sizing: border-box;
+  padding: 0 40rpx 0 70rpx;
+  font-size: 26rpx;
+  line-height: 34rpx;
+  margin-bottom: 20rpx;
+  position: relative;
+}
+
+.popup .quickCheckIn .content .msg .li::after {
+  content: "·";
+  width: 40rpx;
+  height: 34rpx;
+  font-weight: bold;
+  color: #e6e6e6;
+  text-align: center;
+  position: absolute;
+  left: 30rpx;
+  top: 0;
+}
+
+.popup .quickCheckIn .content .writeNow, .popup .quickCheckIn .content .doNot {
+  box-sizing: border-box;
+  width: 550rpx;
+  height: 80rpx;
+  margin-top: 15rpx;
+  font-size: 28rpx;
+  border: 1rpx solid #437ff9;
+  color: #fff;
+  background-color: #437ff9;
+}
+
+.popup .quickCheckIn .content .doNot {
+  color: #437ff9;
+  background-color: #fff;
+}
+
+.popup .quickCheckIn .close {
+  width: 60rpx;
+  height: 60rpx;
+  margin-top: 20rpx;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup .quickCheckIn .close image {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.head {
+  position: relative;
+  height: 350rpx;
+  width: 100%;
+}
+
+.head .roomPhoto {
+  height: 350rpx;
+  width: 100%;
+}
+
+.head .roomMsg {
+  box-sizing: border-box;
+  height: 120rpx;
+  width: 100%;
+  padding: 20rpx 30rpx;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.head .roomMsg .name {
+  font-size: 40rpx;
+}
+
+.head .roomMsg .address {
+  font-size: 20rpx;
+}
+
+.date {
+  padding: 20rpx 30rpx;
+}
+
+.date .dateBox {
+  box-sizing: border-box;
+  height: 160rpx;
+  width: 690rpx;
+  border: 1rpx solid #e6e6e6;
+  border-radius: 10rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.date .dateBox .type {
+  height: 49rpx;
+  line-height: 49rpx;
+  display: flex;
+  border-bottom: 1rpx solid #e6e6e6;
+  color: #b3b3b3;
+}
+
+.date .dateBox .dateMsg {
+  height: 108rpx;
+  color: #333;
+  display: flex;
+  position: relative;
+}
+
+.date .dateBox .type .checkIn, .date .dateBox .type .checkOut,
+.date .dateBox .dateMsg .checkInDay, .date .dateBox .dateMsg .checkOutDay {
+  box-sizing: border-box;
+  width: 50%;
+}
+
+.date .dateBox .dateMsg .line {
+  width: 1rpx;
+  height: 100%;
+  background-color: #e6e6e6;
+}
+
+.date .dateBox .type .checkIn, .date .dateBox .dateMsg .checkInDay {
+  padding-left: 36rpx;
+}
+
+.date .dateBox .type .checkOut, .date .dateBox .dateMsg .checkOutDay {
+  padding-left: 69rpx;
+}
+
+.date .dateBox .dateMsg .checkInDay, .date .dateBox .dateMsg .checkOutDay {
+  line-height: 108rpx;
+}
+
+.date .dateBox .dateMsg .checkInDay .day,
+.date .dateBox .dateMsg .checkOutDay .day {
+  font-size: 40rpx;
+}
+
+.date .dateBox .dateMsg .checkInDay .weekday,
+.date .dateBox .dateMsg .checkOutDay .weekday {
+  color: #666;
+  margin-left: 20rpx;
+}
+
+.date .dateBox .dateMsg .duration {
+  box-sizing: border-box;
+  width: 88rpx;
+  height: 40rpx;
+  line-height: 38rpx;
+  border: 1rpx solid #e6e6e6;
+  border-radius: 6rpx;
+  font-size: 20rpx;
+  text-align: center;
+  position: absolute;
+  left: calc(50% - 44rpx);
+  top: calc(50% - 20rpx);
+  z-index: 8;
+}
+
+.checkInInformation .roomNumber text {
+  display: block;
+  width: 100%;
+}
+
+.checkInInformation .checkInPerson, .checkInInformation .checkInIdCard {
+  flex-wrap: wrap;
+}
+
+.checkInInformation .roomNumber {
+  width: 450rpx;
+}
+
+.checkInInformation .roomNumber .count input{
+  width:49rpx;
+  height: 49rpx;
+}
+
+.cancelPolicy {
+  padding: 20rpx 30rpx 118rpx 30rpx;
+  color: #b3b3b3;
+  line-height: 32rpx;
+}
+
+.cancelPolicy .title {
+  margin-bottom: 15rpx;
+}
+
+.payFor {
+  box-sizing: border-box;
+  height: 98rpx;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
+}
+
+.payFor .priceDetail {
+  box-sizing: border-box;
+  height: 98rpx;
+  width: 100%;
+  padding: 0 30rpx;
+  display: flex;
+  align-items: center;
+  border-top: 1rpx solid #e6e6e6;
+  border-bottom: 1rpx solid #e6e6e6;
+  color: #b3b3b3;
+}
+
+.payFor .priceDetail>.txt {
+  width: 100rpx;
+  margin-right: 20rpx;
+}
+
+.payFor .priceDetail .detail {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.payFor .priceDetail .detail .txt {
+  width: 60rpx;
+  margin-right: 10rpx;
+}
+
+.payFor .pay {
+  width: 240rpx;
+  height: 100%;
+  font-size: 34rpx;
+  background-color: #437ff8;
+  color: #fff;
+  border-radius: 0;
+  padding: 0;
+}
+
+.mask {
+  box-sizing: border-box;
+  padding-bottom: 98rpx;
+}
+
+.maskBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.mask .detailMsg {
+  height: 400rpx;
+  padding: 30rpx 0;
+}
+
+.mask .detailMsg .head {
+  box-sizing: border-box;
+  font-size: 30rpx;
+  color: #333;
+  padding: 0 30rpx;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+}
+
+.mask .detailMsg .head .payType, .mask .detailMsg .head .basePrice {
+  width: 50%;
+}
+
+.mask .detailMsg .detailList {
+  color: #b3b3b3;
+  height: 350rpx;
+  width: 100%;
+  padding: 20rpx 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.mask .detailMsg .detailList .li {
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  display: flex;
+  align-items: center;
+  margin-top: 15rpx;
+}
+
+.mask .detailMsg .detailList .li .line {
+  flex: 1;
+  height: 1rpx;
+  margin: 0 30rpx;
+  border-top: 1rpx dashed #b3b3b3;
+}
+
+.columnOne .icon image {
+  height: 32rpx;
+  width: 32rpx;
+}
+
+.columnOne .icon image.more {
+  width: 8rpx;
+  height: 18rpx;
+}
+
+.storeTime {
+  box-sizing: border-box;
+  padding: 29rpx;
+  height: 0;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.storeTime.show {
+  height: auto;
+}
+
+.storeTime .title {
+  font-size: 26rpx;
+  color: #333;
+  margin-bottom: 28rpx;
+}
+
+.storeTime .remind {
+  color: #999;
+  margin-bottom: 28rpx;
+}
+
+.storeTime .timeList {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.storeTime .timeList .time {
+  width: 220rpx;
+  height: 70rpx;
+  border-radius: 4rpx;
+  border: 2rpx solid #e6e6e6;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14rpx;
+  color: #333;
+}
+
+.storeTime .timeList .time.choose{
+  border: 2rpx solid #6a9df6;
+}
+
+.storeTime .timeList .time .timeNum{
+  width: 100%;
+  text-align: center;
+}
+
+.storeTime .timeList .time .guarantee{
+  font-size: 20rpx;
+	color: #979797;
+}
+
+.arriveTime{
+  z-index: 199;
+}

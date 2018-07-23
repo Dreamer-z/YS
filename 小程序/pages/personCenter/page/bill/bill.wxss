@@ -1,0 +1,53 @@
+/* pages/personCenter/page/bill/bill.wxss */
+.bill .title{
+  padding: 20rpx 30rpx;
+  font-size: 26rpx;
+	color: #808080;
+}
+
+.billListEmpty{
+  text-align: center;
+}
+
+.billList{
+  font-size: 26rpx;
+}
+
+.billList .li{
+  box-sizing: border-box;
+  display: flex;
+  padding: 30rpx;
+  margin-bottom: 10rpx;
+  background-color: #fff;
+}
+
+.billList .li .billMsg{
+  width: 75%;
+}
+
+.billList .li .status{
+  width: 25%;
+  color: #6b9ef7;
+  text-align: right;
+  vertical-align: middle;
+}
+
+.billList .li .status image{
+  width: 8rpx;
+	height: 17rpx;
+  margin-left: 20rpx;
+}
+
+.msg{
+  font-size: 26rpx;
+	color: #808080;
+  margin-bottom: 10rpx;
+}
+
+.msg:last-of-type{
+  margin-bottom: 0;
+}
+
+.msg text{
+  color: #333333;
+}

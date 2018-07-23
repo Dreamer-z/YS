@@ -1,0 +1,80 @@
+<!--pages/hotelService/page/checkOut/checkOut.wxml-->
+<view class="checkInMsg bg-white">
+  <view class="title">入住信息：</view>
+  <view class="list">
+    <view class="li">房型：
+      <text>{{hotelData.room_type_name}}</text>
+    </view>
+    <view class="li">房号：
+      <text>{{hotelData.room_name}}</text>
+    </view>
+    <view class="li checkInPerson">入住人：
+      <text wx:for="{{hotelData.member}}" wx:key="{{item.key}}">{{item.name}}</text>
+    </view>
+    <view class="li">订单号：
+      <text>{{hotelData.order_no}}</text>
+    </view>
+    <view class="li">入住：
+      <text>{{hotelData.come_time}}</text>
+    </view>
+    <view class="li">离店：
+      <text>{{hotelData.leave_time}}</text>
+    </view>
+  </view>
+</view>
+<view class="checkInMsg bg-white bill">
+  <view class="title">基本账单：</view>
+  <view class="list">
+    <view class="li">房费：
+      <text>{{hotelData.price}}</text>
+    </view>
+    <view class="li">押金：
+      <text>{{hotelData.deposit}}</text>
+    </view>
+    <view class="li">支付方式：
+      <text>{{hotelData.pay_way}}</text>
+    </view>
+    <view class="li">退还方式：
+      <text>微信</text>
+    </view>
+  </view>
+</view>
+<view class="checkInMsg bg-white" hidden='{{!doing}}'>
+  <view class="list">
+    <view class="li endStatus">退房状态：
+      <text wx:if="{{hotelData.end_status == '0'}}">等待工作人员处理</text>
+      <text wx:else>{{hotelData.end_status_name}}</text>
+    </view>
+  </view>
+</view>
+<!-- <view class="rules bg-white">
+  <view class="content">
+    自助退房规则
+  </view>
+  <view class="agree">
+    <checkbox-group bindchange="rules">
+      <label for="rules">
+        <checkbox id="rules" class="checkbox" checked='true'></checkbox>
+        <text>我已仔细阅读并同意以上规则</text>
+      </label>
+    </checkbox-group>
+  </view>
+</view> -->
+<button class="checkOut" bindtap='checkOut' hidden='{{doing}}'>退房</button>
+<view class="checkOut ing"  hidden='{{!doing}}'>退房中</view>
+<view class="popup" hidden='{{out}}'>
+  <view class="verification bg-white">
+    <view class="title">验证码</view>
+    <view class="content">
+      <input type='text' bindblur='getCode' value='{{codeNum}}' placeholder='请输入验证码'></input>
+      <view class="code" bindtap='code'>
+        <image hidden='{{codeImg==""?true:false}}' src='{{codeImg}}'></image>
+        <view hidden='{{codeImg==""?false:true}}'>获取图片失败</view>
+      </view>
+    </view>
+    <view class="option">
+      <view class="cancel" bindtap='closeCheckOut'>取消</view>
+      <view class="confirm" bindtap='verifyCode'>确定</view>
+    </view>
+  </view>
+</view>

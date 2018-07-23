@@ -1,0 +1,148 @@
+<!--pages/index/page/room/room.wxml-->
+<!-- 房间简介 -->
+<view class="roomPhotoList">
+  <swiper class="roomPhoto" autoplay interval="5000" circular bindchange="roomPhoto">
+    <swiper-item wx:for="{{roomImg}}" wx:key="{{key}}">
+      <image src='{{roomImg?item:"../../../../images/ls.png"}}'></image>
+    </swiper-item>
+  </swiper>
+  <view class="roomPhotoIndex">
+    <text>{{roomImgIndex}}</text> /
+    <text>{{roomImgLength}}</text>
+  </view>
+</view>
+<!-- 房间信息 -->
+<view class="roomDetails bg-white">
+  <view class="roomType">{{roomData.name}}({{roomData.window}}）</view>
+  <view class="address">{{roomData.hotel.address}}</view>
+  <view class="item facility">
+    <view class="itemTitle">房间设施</view>
+    <view class="content">
+      <view class="facilityLi {{roomData.facility['24小时热水']?'block':''}}">
+        <view class="img">
+          <image src='../../../../images/room/bathtub.png'></image>
+        </view>
+        <text>24小时热水</text>
+      </view>
+      <view class="facilityLi {{roomData.facility['保险柜']?'block':''}}">
+        <view class="img">
+          <image src='../../../../images/room/safe.png'></image>
+        </view>
+        <text>保险柜</text>
+      </view>
+      <view class="facilityLi {{roomData.facility['吹风机']?'block':''}}">
+        <view class="img">
+          <image src='../../../../images/room/drier.png'></image>
+        </view>
+        <text>吹风机</text>
+      </view>
+      <view class="facilityLi {{roomData.facility['地秤']?'block':''}}">
+        <view class="img">
+          <image src='../../../../images/room/scale.png'></image>
+        </view>
+        <text>地秤</text>
+      </view>
+      <view class="facilityLi {{roomData.facility['电视']?'block':''}}">
+        <view class="img">
+          <image src='../../../../images/room/tv.png'></image>
+        </view>
+        <text>电视</text>
+      </view>
+      <view class="facilityLi {{roomData.facility['空调']?'block':''}}">
+        <view class="img">
+          <image src='../../../../images/room/conditioner.png'></image>
+        </view>
+        <text>空调</text>
+      </view>
+      <view class="facilityLi {{roomData.facility['毛巾']?'block':''}}">
+        <view class="img">
+          <image src='../../../../images/room/towel.png'></image>
+        </view>
+        <text>毛巾</text>
+      </view>
+      <view class="facilityLi {{roomData.facility['热水壶']?'block':''}}">
+        <view class="img">
+          <image src='../../../../images/room/kettle.png'></image>
+        </view>
+        <text>热水壶</text>
+      </view>
+      <view class="facilityLi {{roomData.facility['拖鞋']?'block':''}}">
+        <view class="img">
+          <image src='../../../../images/room/slipper.png'></image>
+        </view>
+        <text>拖鞋</text>
+      </view>
+      <view class="facilityLi {{roomData.facility['洗漱套装']?'block':''}}">
+        <view class="img">
+          <image src='../../../../images/room/washBag.png'></image>
+        </view>
+        <text>洗漱套装</text>
+      </view>
+      <view class="facilityLi {{roomData.facility['衣柜']?'block':''}}">
+        <view class="img">
+          <image src='../../../../images/room/wardrobe.png'></image>
+        </view>
+        <text>衣柜</text>
+      </view>
+      <view class="facilityLi {{roomData.facility['衣架']?'block':''}}">
+        <view class="img">
+          <image src='../../../../images/room/hanger.png'></image>
+        </view>
+        <text>衣架</text>
+      </view>
+      <view class="facilityLi {{roomData.facility['雨伞']?'block':''}}">
+        <view class="img">
+          <image src='../../../../images/room/umbrella.png'></image>
+        </view>
+        <text>雨伞</text>
+      </view>
+      <view class="facilityLi {{roomData.facility['浴缸']?'block':''}}">
+        <view class="img">
+          <image src='../../../../images/room/bathtub.png'></image>
+        </view>
+        <text>浴缸</text>
+      </view>
+      <view class="facilityLi {{roomData.facility['电脑']?'block':''}}">
+        <view class="img">
+          <image src='../../../../images/room/online.png'></image>
+        </view>
+        <text>电脑</text>
+      </view>
+    </view>
+  </view>
+  <view class="item roomMsg">
+    <view class="itemTitle">房间信息</view>
+    <view class="content">
+      <view class="facilityLi">面积
+        <text>{{roomData.area}}m²</text>
+      </view>
+      <!-- <view class="facilityLi">可住<text>{{roomData.bed_type}}人</text></view>  -->
+      <view class="facilityLi">窗户
+        <text>{{roomData.window}}</text>
+      </view>
+      <!-- <view class="facilityLi">早餐<text>无早餐</text></view> -->
+      <view class="facilityLi">床型
+        <text>{{roomData.bed_length}}米/张</text>
+      </view>
+      <view class="facilityLi">卫浴
+        <text>{{roomData.bathroom}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- 规则 -->
+<view class="rules bg-white">
+  <view class="title">
+    <text>取消规则</text>
+  </view>
+  <view class="content">{{roomData.hotel.cancel_rule}}</view>
+  <view class="title">
+    <text>使用规则</text>
+  </view>
+  <view class="content">{{roomData.hotel.use_rule}}</view>
+</view>
+<view class='empty'></view>
+<button class="goOrder colorButton {{orderData.is_preorder=='true'?'':'disabled'}}" disabled='{{orderData.is_preorder=="true"?false:true}}' bindtap='authSetting'>去预定</button>
+<!-- <navigator open-type="redirect" class="partthree" url='../reservations/reservations?hotel_name={{orderData.hotel_name}}&address={{orderData.address}}&photo={{orderData.photo}}&room_type={{orderData.room_type}}&hotel_id={{orderData.hotel_id}}&id={{orderData.id}}&price={{orderData.price}}&checkIn={{orderData.checkIn}}&checkOut={{orderData.checkOut}}&checkIn1={{orderData.checkIn1}}&checkOut1={{orderData.checkOut1}}&week={{orderData.week}}'>
+  <button class="goOrder colorButton {{orderData.is_preorder=='true'?'':'disabled'}}" disabled='{{orderData.is_preorder=="true"?false:true}}'>去预定</button>
+</navigator> -->

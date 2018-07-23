@@ -1,0 +1,73 @@
+body
+  color #333
+.bg-fff
+    background-color #fff
+#app 
+  height 100%
+  .containtext 
+    height 100%
+// 必填星号
+.required::after
+  content '*'
+  color red
+
+// 文字溢出隐藏
+// //单行
+.elli
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+// //两行
+.elli2
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+// //三行
+.elli3
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+
+// 过渡，时间0.5秒
+.transiton05
+  transition all ease .5s
+
+// 过渡，时间0.5秒
+.transiton05-delay1
+  transition all ease .5s 1s;
+
+// Z轴旋转90°
+.rotateZ-90
+  transform rotateZ(90deg)
+
+// Z轴旋转180°
+.rotateZ-180
+  transform rotateZ(180deg)
+
+// 滚动条样式：Google内核
+::-webkit-scrollbar 
+    width 12px
+    height 12px
+
+::-webkit-scrollbar-thumb 
+    background-color #c2c2c2
+    background-clip padding-box
+    min-height 28px
+    border-radius 6px
+
+::-webkit-scrollbar-track-piece 
+    background-color #FFF
+
+// IE
+::scrollbar-track-color,
+::scrollbar-dark-shadow-color
+  background-color #FFF
+
+::scrollbar-base-color
+  background-color #c2c2c2

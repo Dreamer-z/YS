@@ -1,0 +1,63 @@
+<!--pages/hotelService/page/roomControl/roomControl.wxml-->
+<view class="control">
+  <image src='/images/control_bg.jpg'></image>
+  <view class="content">
+    <view class="lampContainer">
+      <view class="switch">
+        <view class="lamp">
+          <view class="box {{allLamp?'choose':''}}" bindtap='allLamp'>
+            <image src=' {{allLamp?"/images/roomControl/allLamp_on.png":"/images/roomControl/allLamp.png"}}'></image>
+          </view>
+        </view>
+        <view class="lamp">
+          <view class="box {{tableLamp?'choose':''}}" bindtap='tableLamp'>
+            <image src=' {{tableLamp?"/images/roomControl/tableLamp_on.png":"/images/roomControl/tableLamp.png"}}'></image>
+          </view>
+        </view>
+        <view class="lamp">
+          <view class="box {{otherLamp?'choose':''}}" bindtap='otherLamp'>
+            <image src=' {{otherLamp?"/images/roomControl/otherLamp_on.png":"/images/roomControl/otherLamp.png"}}'></image>
+          </view>
+        </view>
+        <view class="lamp">
+          <view class="box {{ceilingLamp?'choose':''}}" bindtap='ceilingLamp'>
+            <image src=' {{ceilingLamp?"/images/roomControl/ceilingLamp_on.png":"/images/roomControl/ceilingLamp.png"}}'></image>
+          </view>
+        </view>
+      </view>
+      <view class="luminance" bindtouchstart='luminanceInit' bindtouchmove='luminanceEnd' bindtap='luminanceClick'>
+        <image src='/images/roomControl/luminance.png'></image>
+        <view class="slider" style='height:{{luminance}}rpx;'></view>
+      </view>
+    </view>
+    <view class="conditioner">
+      <view class="iconTemp">
+        <image class="icon" src='/images/roomControl/conditioner.png'></image>
+        <view class="control">
+          <view class="sub {{tempType == 'sub'?'choose':''}}" data-type="sub" bindtap='temperature'>
+            <image src="{{tempType == 'sub'?'/images/roomControl/sub_on.png':'/images/roomControl/sub.png'}}"></image>
+          </view>
+          <view class="temperature">
+            <text>{{tempNum}}</text>°</view>
+          <view class="add {{tempType == 'add'?'choose':''}}" data-type="add" bindtap='temperature'>
+            <image src="{{tempType == 'add'?'/images/roomControl/add_on.png':'/images/roomControl/add.png'}}"></image>
+          </view>
+        </view>
+      </view>
+      <view class="controlBtn">
+        <button class="{{controlBtnChoose === index?'choose':''}}" wx:for="{{controlBtnList}}" data-index='{{index}}' wx:key="{{key}}" bindtap='controlBtn'>{{item}}</button>
+      </view>
+    </view>
+    <view class="curtain">
+      <image class="icon" src="{{curtain?'/images/roomControl/curtain.png':'/images/roomControl/curtain_on.png'}}"></image>
+      <view class="curtaincontrol">
+        <view class="box">
+          <view class="slide" style="width:{{curtainNum}}rpx;">
+          <image class="" src="/images/roomControl/slide.png" bindtouchstart='curtainInit' bindtouchmove='curtainEnd' style="left:{{curtainNum}}rpx;"></image></view>
+        </view>
+        <view class="controlOp controlOff">off</view>
+        <view class="controlOp controlOn">on</view>
+      </view>
+    </view>
+  </view>
+</view>

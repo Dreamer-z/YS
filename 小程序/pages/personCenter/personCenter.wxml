@@ -1,0 +1,70 @@
+<!--pages/personCenter/personCenter.wxml-->
+<view class="personCenter">
+  <view class="personMsg bg-white">
+    <view class="personPhoto">
+       <open-data type="userAvatarUrl"></open-data> 
+       <!-- <image src='{{userMsg.avatarUrl}}'></image>  -->
+    </view>
+    <view class="levelName">
+        <open-data type="userNickName"></open-data> 
+       <!-- {{userMsg.nickName}} -->
+    </view>
+    <!-- <view class="edit" bindtap='edit'>
+      <text>编辑</text>
+      <image class='more' src='/images/more.png'></image>
+    </view> -->
+  </view>
+  <view class="functional bg-white">
+    <view class="mod" bindtap='allOrder'>
+      <view class="modImg">
+        <image src='/images/personcenter/allOrder.png'></image>
+      </view>
+      <view class="modName">我的订单</view>
+      <view class="modMsg">查看所有</view>
+    </view>
+    <view class="mod" bindtap='bill'>
+      <view class="modImg">
+        <image src='/images/personcenter/bill.png'></image>
+      </view>
+      <view class="modName">退房账单</view>
+      <view class="modMsg">在线退房</view>
+    </view>
+    <view class="mod" bindtap='invoice'>
+      <view class="modImg">
+        <image src='/images/personcenter/invoice.png'></image>
+      </view>
+      <view class="modName">我的发票</view>
+      <view class="modMsg">电子发票</view>
+    </view>
+  </view>
+  <view class="functionalMore bg-white">
+    <view class="title">更多功能
+      <image src=''></image>
+    </view>
+    <view class="list">
+      <view class="li" bindtap='user'>
+        <view class="icon">
+          <image src='/images/personcenter/traveller.png'></image>
+        </view>
+        <text class="content">常用旅客</text>
+        <text class="remind">编辑常用联系人信息</text>
+        <image class="more" src='/images/more.png'></image>
+      </view>
+      <view class="li" bindtap='complaint'>
+        <view class="icon">
+          <image src='/images/personcenter/complain.png'></image>
+        </view>
+        <text class="content">投诉建议</text>
+        <text class="remind"></text>
+        <image class="more" src='/images/more.png'></image>
+      </view>
+      <view class="li">
+        <view class="icon">
+          <image src='/images/personcenter/about.png'></image>
+        </view>
+        <text class="content">关于</text>
+        <text class="remind">版本号：{{version}}</text>
+      </view>
+    </view>
+  </view>
+</view>

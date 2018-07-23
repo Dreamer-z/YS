@@ -1,0 +1,36 @@
+<!--pages/components/commonUser/commonUser.wxml-->
+<template name="commonUser">
+  <view class="commonUse">
+    <view class="title">{{title[0]}}
+      <text>（带*为必填项）</text>
+      <button class="putIn" disabled='{{!cansend}}' bindtap='addToUser'>完成添加</button>
+    </view>
+    <view class="addTo">
+      <view class="fillMsg bg-white">
+        <view class="fillMsgLi required">
+          <input type='text' placeholder-style="color:#b3b3b3" placeholder='输入姓名' confirm-type="done" bindinput="name" value='{{userName}}'></input>
+        </view>
+        <view class="fillMsgLi required">
+          <input type='number' placeholder-style="color:#b3b3b3" placeholder='输入手机号' confirm-type="done" bindinput="tel" value='{{userTel}}'></input>
+          <text>下次入住免输入</text>
+        </view>
+        <view class="fillMsgLi required">
+          <input type='idcard' placeholder-style="color:#b3b3b3" placeholder='输入身份证号' confirm-type="done" bindinput="idCart" value='{{userIdCard}}'></input>
+          <text>有利于办理快速入住</text>
+        </view>
+      </view>
+    </view>
+    <view class="title">{{title[1]}}</view>
+    <scroll-view class="commonUseList bg-white" scroll-y>
+      <view class="commonUseLi {{item.choose?'choose':''}}" wx:for="{{userLi}}" wx:key="{{key}}" bindtap='chooseUser' data-index="{{index}}">
+        <view class="box">
+          <view class="chooseIcon">
+            <image class="finish" hidden='{{item.choose?false:true}}' src='../../../../images/finish.png'></image>
+          </view>
+          <text>{{item.name}}</text>
+          <image id="{{item.id}}" class="edit" src='{{item.choose?"../../../../images/edit_on.png":"../../../../images/edit.png"}}' data-index="{{index}}" catchtap='editUser'></image>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</template>

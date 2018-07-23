@@ -1,0 +1,341 @@
+/* pages/index/page/hotel/hotel.wxss */
+@import "../../../components/calendar/calendar.wxss";
+
+.hotel {
+  height: 100%;
+  width: 100%;
+}
+
+.photoShow {
+  height: 180rpx;
+  width: 100%;
+  background: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.photoShow .showLi {
+  width: 180rpx;
+  height: 100%;
+  margin-right: 3rpx;
+}
+
+.zoomBox {
+  width: 100%;
+  min-height: 500rpx;
+  position: absolute;
+  top: 20%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.zoomBox .zoom {
+  height: auto;
+}
+
+.zoomLi {
+  width: 100%;
+}
+
+.operation {
+  height: 90rpx;
+  font-size: 24rpx;
+  color: #4d4d4d;
+  padding: 0 30rpx;
+}
+
+.operation text {
+  margin-right: 10rpx;
+}
+
+.starLevel {
+  height: 100%;
+}
+
+.addrMap {
+  height: 150rpx;
+  border-top: 1rpx solid #e5e5e5;
+  border-bottom: 1rpx solid #e5e5e5;
+  position: relative;
+}
+
+.addrMap>image{
+  width: 100%;
+  height: 150rpx;
+}
+
+.addr {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  width: 508rpx;
+  height: 100%;
+  padding: 10rpx 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.addr .addrcont{
+  margin-bottom: 10rpx;
+}
+
+/* .addr {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100rpx;
+  padding: 10rpx 30rpx;
+  font-size: 24rpx;
+  color: #4d4d4d;
+}
+
+.addr .box {
+  width: 660rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.addr .more {
+  margin: 31rpx 0;
+}
+
+.addr .box view {
+  margin: 5rpx 0;
+} */
+
+.facility {
+  height: 100rpx;
+  padding: 0 30rpx;
+}
+
+.facility .title {
+  width: 120rpx;
+  height: 100%;
+  line-height: 100rpx;
+  font-size: 24rpx;
+  color: #b3b3b3;
+}
+
+.facility .facilityCont {
+  width: 530rpx;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.facility .facilityCont .facilityLi {
+  width: 100rpx;
+  font-size: 20rpx;
+  color: #b3b3b3;
+  text-align: center;
+  display: none;
+}
+
+.facility .facilityCont .facilityLi.block{
+  display: block;
+}
+
+.facility .facilityCont .facilityLi image {
+  width: 36rpx;
+  height: 36rpx;
+  margin: 0 32rpx;
+}
+
+.facility .more {
+  margin: 41rpx 0;
+}
+
+.calendarValue {
+  margin-top: 5px;
+  height: 85rpx;
+  display: flex;
+  align-items: center;
+  align-content: space-around;
+  border-bottom: 1rpx solid #e6e6e6;
+}
+
+.calendarValue .time {
+  flex: 1;
+  height: 100%;
+  padding: 0 30rpx;
+  display: flex;
+  align-items: center;
+}
+
+.calendarValue .time .date {
+  width: 140rpx;
+  font-size: 34rpx;
+  color: #333;
+  text-align: center;
+}
+
+.calendarValue .time .week {
+  font-size: 20rpx;
+  color: #666;
+  margin-left: 10rpx;
+}
+
+.calendarValue .time .type {
+  font-size: 22rpx;
+  color: #b3b3b3;
+  margin-left: 40rpx;
+}
+
+.calendarValue .time .more {
+  margin-left: 10rpx;
+}
+
+.calendarValue .line {
+  padding: 20rpx 0;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.calendarValue .line view {
+  width: 1px;
+  height: 100%;
+  background-color: #e6e6e6;
+}
+
+.roomList {
+  background-color: #fff;
+}
+
+.roomList .list {
+  /* height: 585rpx; */
+  margin-bottom: 30rpx;
+  overflow: hidden;
+}
+
+.roomList .list.choose {
+  height: auto;
+}
+
+.roomList .showmore {
+  height: 97rpx;
+  line-height: 97rpx;
+  text-align: center;
+  border-top: 1rpx solid #e6e6e6;
+  border-bottom: 1rpx solid #e6e6e6;
+  color: #808080;
+}
+
+.roomList .room {
+  border-bottom: 1rpx solid #e6e6e6;
+  overflow: hidden;
+}
+
+.roomList .room .intro {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 30rpx;
+  height: 194rpx;
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+.roomList .room .intro .navigate{
+  flex: 1;
+  height: 100%;
+  width: 435rpx;
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+.roomList .room .intro .photo {
+  width: 155rpx;
+  height: 155rpx;
+  border-radius: 8rpx;
+}
+
+.roomList .room .intro .msg {
+  box-sizing: border-box;
+  flex:1;
+  display: flex;
+  flex-direction: column;
+  width: 290rpx;
+  padding-left: 15rpx;
+}
+
+.roomList .room .intro .msg view {
+  margin-top: 10rpx;
+}
+
+.roomList .room .intro .msg .type {
+  font-size: 30rpx;
+  color: #080f1a;
+}
+
+.roomList .room .intro .msg .include, .roomList .room .intro .msg .remind {
+  font-size: 22rpx;
+  color: #808080;
+}
+
+.roomList .room .intro .down{
+  height: 100%;
+  width: 275rpx;
+  padding-left: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.roomList .room .intro .basePrice {
+  margin-right: 15rpx;
+  flex:1;
+  width:110rpx;
+}
+
+.roomList .room .roomDetails {
+  height: 0;
+  width: 100%;
+}
+
+.roomList .room .roomDetails.true {
+  height: 444rpx;
+}
+
+.roomList .room .roomDetails .li {
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  height: 148rpx;
+  border-top: 1rpx solid #e6e6e6;
+  display: flex;
+  align-items: center;
+}
+
+.roomList .room .roomDetails .li .partone {
+  flex: 4;
+}
+
+.roomList .room .roomDetails .li .partone .pricetype {
+  font-size: 26rpx;
+  color: #080f1a;
+}
+
+.roomList .room .roomDetails .li .partone .breakfast {
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  color: #b3b3b3;
+}
+
+.roomList .room .roomDetails .li .parttwo {
+  flex: 2;
+  margin-right: 20rpx;
+}
+
+.roomList .room .roomDetails .li .parttwo .basePrice {
+  justify-content: center;
+}
+
+.roomList .room .roomDetails .li .parttwo .reduced {
+  text-align: center;
+  font-size: 20rpx;
+  color: #b3b3b3;
+}
+
+.roomList .room .roomDetails .li .partthree {
+  flex: 1;
+}

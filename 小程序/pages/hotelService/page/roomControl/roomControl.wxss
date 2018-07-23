@@ -1,0 +1,272 @@
+/* pages/hotelService/page/roomControl/roomControl.wxss */
+
+.control {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.control image {
+  height: 100%;
+  width: 100%;
+}
+
+.control .content {
+  box-sizing: border-box;
+  padding: 30rpx;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.control .content .lampContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.control .content .lampContainer .switch {
+  width: 500rpx;
+  height: 450rpx;
+  background-color: #333;
+  border-radius: 60rpx;
+  margin-right: 40rpx;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.control .content .lampContainer .switch .lamp {
+  width: 153rpx;
+  height: 153rpx;
+  padding: 36rpx 48.5rpx;
+}
+
+.control .content .lampContainer .switch .lamp .box {
+  width: 153rpx;
+  height: 153rpx;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control .content .lampContainer .switch .lamp .box.choose {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.control .content .lampContainer .switch .lamp:nth-of-type(1) .box image {
+  width: 67rpx;
+  height: 78rpx;
+}
+
+.control .content .lampContainer .switch .lamp:nth-of-type(2) .box image {
+  width: 56rpx;
+  height: 72rpx;
+}
+
+.control .content .lampContainer .switch .lamp:nth-of-type(3) .box image {
+  width: 66rpx;
+  height: 77rpx;
+}
+
+.control .content .lampContainer .switch .lamp:nth-of-type(4) .box image {
+  width: 68rpx;
+  height: 65rpx;
+}
+
+.control .content .lampContainer .luminance {
+  box-sizing: border-box;
+  width: 150rpx;
+  height: 450rpx;
+  border-radius: 40rpx;
+  background-color: #333;
+  position: relative;
+  overflow: hidden;
+}
+
+.control .content .lampContainer .luminance image {
+  width: 75rpx;
+  height: 75rpx;
+  position: absolute;
+  left: 50%;
+  bottom: 30rpx;
+  transform: translateX(-50%);
+  z-index: 11;
+}
+
+.control .content .lampContainer .luminance .slider {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+  width: 150rpx;
+  height: 0;
+  background-color: #fff;
+  overflow: hidden;  
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+}
+
+.control .content .conditioner {
+  box-sizing: border-box;
+  padding: 53rpx;
+  width: 690rpx;
+  height: 418rpx;
+  background-color: #333;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  margin: 20rpx 0;
+  overflow: hidden;
+}
+
+.control .content .conditioner .iconTemp {
+  width: 100%;
+  height: 90rpx;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding-bottom: 40rpx;
+}
+
+.control .content .conditioner .iconTemp .icon {
+  width: 113rpx;
+  height: 80rpx;
+  margin-right: 71rpx;
+}
+
+.control .content .conditioner .iconTemp .control {
+  width: 100%;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+}
+
+.control .content .conditioner .iconTemp .control .sub,
+.control .content .conditioner .iconTemp .control .add {
+  width: 64rpx;
+  height: 64rpx;
+  background-color: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.control .content .conditioner .iconTemp .control .sub.choose,
+.control .content .conditioner .iconTemp .control .add.choose {
+  background-color: #4cda64;
+}
+
+.control .content .conditioner .iconTemp .control .sub image {
+  width: 29rpx;
+  height: 4rpx;
+}
+
+.control .content .conditioner .iconTemp .control .add image {
+  width: 29rpx;
+  height: 29rpx;
+}
+
+.control .content .conditioner .iconTemp .control .temperature {
+  padding: 0 20rpx;
+  color: #fff;
+}
+
+.control .content .conditioner .controlBtn {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.control .content .conditioner .controlBtn button {
+  width: 120rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  padding: 0;
+  margin: 20rpx 10rpx 0 10rpx;
+  text-align: center;
+}
+
+.control .content .conditioner .controlBtn button.choose {
+  background-color: #4cda64;
+  color: #fff;
+}
+
+.control .content .curtain {
+  box-sizing: border-box;
+  padding: 0 40rpx;
+  width: 690rpx;
+  height: 220rpx;
+  background-color: #333;
+  border-radius: 50rpx;
+  display: flex;
+  align-items: center;
+}
+
+.control .content .curtain .icon {
+  width: 102rpx;
+  height: 102rpx;
+  margin-right: 44rpx;
+}
+
+.control .content .curtain .curtaincontrol{width: 464rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.control .content .curtain .curtaincontrol .box{
+  box-sizing: border-box;
+  width: 464rpx;
+  height: 52rpx;
+  background-color: #fff;
+  border-radius: 25rpx;
+  overflow: hidden;
+}
+
+.control .content .curtain .curtaincontrol .controlOp{
+  position: absolute;
+  top: 50%;
+  transform: translateY(30rpx);
+}
+
+.control .content .curtain .curtaincontrol .controlOff{
+  left: 0;
+  color: #fff;
+}
+
+.control .content .curtain .curtaincontrol .controlOn{
+  right: 20rpx;
+  color: #007aff;
+}
+
+.control .content .curtain .curtaincontrol .slide{
+  height: 100%;
+  background-color: #007aff;
+  position: relative;
+  border-radius: 25rpx;
+}
+
+.control .content .curtain .curtaincontrol .slide image{
+  width: 52rpx;
+  height: 52rpx;
+  transform:translateX(-50rpx);
+  position: absolute;
+  top: 0;
+}

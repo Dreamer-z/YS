@@ -1,0 +1,67 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/index/page/hotel/hotel",
+    "pages/index/page/facility/facility",
+    "pages/index/page/room/room",
+    "pages/index/page/reservations/reservations",
+    "pages/index/page/commonUse/commonUse",
+    "pages/index/page/amendUser/amendUser",
+    "pages/index/page/orderDetail/orderDetail",
+    "pages/personCenter/personCenter",
+    "pages/personCenter/page/myOrders/myOrders",
+    "pages/personCenter/page/payForIt/payForIt",
+    "pages/personCenter/page/bill/bill",
+    "pages/personCenter/page/billDetails/billDetails",
+    "pages/personCenter/page/invoice/invoice",
+    "pages/personCenter/page/myInvoice/myInvoice",
+    "pages/personCenter/page/commonUser/commonUser",
+    "pages/personCenter/page/complaint/complaint",
+    "pages/personCenter/page/amendUser/amendUser",
+    "pages/personCenter/page/orderDetails/orderDetails",
+    "pages/hotelService/hotelService",
+    "pages/hotelService/page/renewalsOf/renewalsOf",
+    "pages/hotelService/page/orderDetails/orderDetails",
+    "pages/hotelService/page/checkOut/checkOut",
+    "pages/hotelService/page/roomControl/roomControl",
+    "pages/hotelService/page/share/share",
+    "pages/hotelService/page/statement/statement",
+    "pages/components/calendar/calendar",
+    "pages/components/wallet/wallet",
+    "pages/components/order/order",
+    "pages/components/commonUser/commonUser",
+    "pages/components/amendUser/amendUser",
+    "pages/setting/setting",
+    "pages/shareVerify/shareVerify"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarTextStyle": "white",
+    "navigationBarBackgroundColor": "#333"
+  },
+  "tabBar": {
+    "color": "#b2b2b2",
+    "selectedColor": "#437ff8",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "/images/index.png",
+        "selectedIconPath": "/images/index_on.png"
+      },
+      {
+        "pagePath": "pages/hotelService/hotelService",
+        "text": "酒店服务",
+        "iconPath": "/images/hotel.png",
+        "selectedIconPath": "/images/hotel_on.png"
+      },
+      {
+        "pagePath": "pages/personCenter/personCenter",
+        "text": "个人中心",
+        "iconPath": "/images/person.png",
+        "selectedIconPath": "/images/person_on.png"
+      }
+    ]
+  }
+}

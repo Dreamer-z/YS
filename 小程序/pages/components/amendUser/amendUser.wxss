@@ -1,0 +1,25 @@
+/* pages/components/amendUser/amendUser.wxss */
+.amendUser .title {
+  padding: 0 30rpx;
+  font-size: 26rpx;
+  color: #333;
+  line-height: 84rpx;
+}
+
+.amendUser input{
+  box-sizing: border-box;
+  height: 90rpx;
+  width: 100%;
+  padding: 0 30rpx;
+  color: #b3b3b3;
+  background-color: #fff;
+  border: 1rpx solid #e6e6e6, 0, 1rpx solid #e6e6e6, 0;
+}
+
+.amendUser button.finish-big{
+  margin-top: 60rpx;
+}
+
+.amendUser button.cancel-big{
+  margin-top: 20rpx;
+}

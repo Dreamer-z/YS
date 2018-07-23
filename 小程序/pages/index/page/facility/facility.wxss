@@ -1,0 +1,92 @@
+/* pages/index/page/facility/facility.wxss */
+
+.partOne {
+  padding: 30rpx;
+}
+
+.partOne .facilityServer .title, .partOne .hotelPolicy .title {
+  color: #333;
+}
+
+.partOne .facilityServer .cont {
+  padding: 20rpx 0;
+}
+
+.partOne .facilityServer .cont {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.partOne .facilityServer .cont .facilityLi {
+  box-sizing: border-box;
+  width: 25%;
+  padding: 10rpx;
+  color: #808080;
+  text-align: center;
+  display: none;
+}
+
+.partOne .facilityServer .cont .facilityLi.block{
+  display: block;
+}
+
+.partOne .facilityServer .cont .facilityLi image {
+  display: inline-block;
+  width: 36rpx;
+  height: 36rpx;
+}
+
+.partOne .hotelPolicy .cont .policyLi .title {
+  margin-top: 20rpx;
+  font-size: 26rpx;
+  color: #b3b3b3;
+}
+
+.partOne .hotelPolicy .cont .policyLi .introduce {
+  margin-top: 10rpx;
+  color: #333;
+  line-height: 32rpx;
+  display: flex;
+  align-items: center;
+}
+
+.partOne .hotelPolicy .cont .policyLi .introduce .payWayList::after{
+  content: "、";
+}
+
+.partOne .hotelPolicy .cont .policyLi .introduce .payWayList:nth-last-of-type(1)::after{
+  content: "";
+}
+
+.partOne .hotelPolicy .cont .policyLi .introduce text:nth-of-type(1) {
+  margin-right: 30rpx;
+}
+
+.photoDetails .title {
+  height: 90rpx;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #b3b3b3;
+}
+
+.photoDetails .title .horizontalLine {
+  width: 100rpx;
+  height: 1px;
+  background-color: #b3b3b3;
+  margin: 0 40rpx;
+}
+
+.photoDetails .content {
+  box-sizing: border-box;
+  padding: 0 40rpx 40rpx 40rpx;
+}
+
+.photoDetails .content image {
+  width: 100%;
+  line-height: 36rpx;
+  color: #333;
+  margin:10rpx 0; 
+}

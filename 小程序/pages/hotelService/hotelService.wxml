@@ -1,0 +1,87 @@
+<!--pages/hotelService/hotelService.wxml-->
+<view class="hotelService">
+  <view class="head clear">
+    <view class="msg left">
+      <view class="addr">
+        <image src='/images/hotelServer/addr.png'></image>
+        <text class="elli2">{{hotelMsg.hotel_name?hotelMsg.hotel_name:"暂无信息"}}</text>
+        <picker class='changeRoom' catchchange="bindPickerChange" value="{{arrIndex}}" range="{{hotelMsgArr}}" range-key="{{'room_name'}}">
+          <text>[切换房间]</text>
+        </picker>
+      </view>
+      <view class="roomNum">房间：{{hotelMsg.room_name?hotelMsg.room_name:"暂无信息"}}</view>
+      <view class="checkIn">入住时间：{{hotelMsg.come_time?hotelMsg.come_time:"暂无信息"}}</view>
+      <view class="checkOut">离店时间：{{hotelMsg.leave_time?hotelMsg.leave_time:"暂无信息"}}</view>
+    </view>
+    <view class="openDoor right" bindtap='openDoor'>
+      <image src='{{door == 1?"/images/hotelServer/closeDoor.png":"/images/hotelServer/openDoor.png"}}'></image>
+      <view>手机开门</view>
+    </view>
+  </view>
+  <view class="option bg-white">
+    <navigator class="renew" url='/pages/hotelService/page/renewalsOf/renewalsOf?hotel={{hotel}}'>
+      <image class="icon" src='/images/hotelServer/room.png'></image>
+      <text>自助续房</text>
+      <image class="next" src='/images/hotelServer/right.png'></image>
+    </navigator>
+    <view class="line"></view>
+    <navigator class="checkOut" url='/pages/hotelService/page/checkOut/checkOut?hotel={{hotel}}'>
+      <image class="icon" src='/images/hotelServer/leaveRoom.png'></image>
+      <text>自助退房</text>
+      <image class="next" src='/images/hotelServer/right.png'></image>
+    </navigator>
+  </view>
+  <view class="control bg-white">    
+    <view class="li" bindtap='share'>
+      <view class="icon">
+        <image src='/images/hotelServer/share.png'></image>
+      </view>
+      <view class='content'>房间分享</view>
+      <text class="remind">分享房间预定信息及共享房间客控服务</text>
+      <image class="more" src='/images/more.png'></image>
+    </view>
+    <view class="li" bindtap='mode'>
+      <view class="icon">
+        <image src='/images/hotelServer/mode.png'></image>
+      </view>
+      <text class="content">情景模式</text>
+      <text class="remind">当前模式：海边模式</text>
+      <image class="more" src='/images/more.png'></image>
+    </view>
+    <view class="li" bindtap='clear'>
+      <view class="icon">
+        <image src='/images/hotelServer/clean.png'></image>
+      </view>
+      <text class="content">客房打扫</text>
+      <text class="remind">每日限一次免费打扫</text>
+      <image class="more" src='/images/more.png'></image>
+    </view>
+    <view class="li" bindtap='roomControl'>
+      <view class="icon">
+        <image src='/images/hotelServer/remoteControl.png'></image>
+      </view>
+      <text class="content">客房控制</text>
+      <text class="remind">调节灯光，空调，窗帘等</text>
+      <image class="more" src='/images/more.png'></image>
+    </view>
+    <view class="li" bindtap='wifi'>
+      <view class="icon">
+        <image class="icon" src='/images/hotelServer/wifi.png'></image>
+      </view>
+      <text class="content">WiFi密码</text>
+      <text class="remind"></text>
+      <image class="more" src='/images/more.png'></image>
+    </view>
+    <view class="li" bindtap='tel'>
+      <view class="icon">
+        <image src='/images/hotelServer/tel.png'></image>
+      </view>
+      <text class="content">酒店电话</text>
+      <text class="remind"></text>
+      <image class="more" src='/images/more.png'></image>
+    </view>
+  </view>
+  <view class='popup' wx:if='{{noCheckIn == false?true:false}}'>
+    <view class='msg' wx:if='{{noCheckIn == false?true:false}}'>{{noCheckInMsg}}</view>
+  </view>
+</view>

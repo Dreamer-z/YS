@@ -1,27 +1,55 @@
 <template>
   <div class="ys-container">
-    <clum-bread :redStar="true" :data="['当前位置','基本资料','酒店信息']"></clum-bread>
-    <div class="hotelname">
-      <p>酒店名称<span>*</span></p>
-      <input v-model="hotel_name" placeholder="请输入酒店的名称" type="text">
-    </div>
-    <div class="hotelname">
-      <p>开业时间<span>*</span></p>
-      <input v-model="open_year" placeholder="装修时间" type="text">
-    </div>
-    <div class="helpPhone">
-      <div class="helpNum helpNum-r">
-        <p style="color: #6a9df6;">前台电话<span>*</span></p>
-        <input @focus="isPhoneTrue1 = false" @blur="checkPhone(reception_phone)" v-model="reception_phone" placeholder="前台电话" type="text">
-        <span v-show="isPhoneTrue1" style="color: red;font-size: 12px;">请输入正确的电话格式</span>
-      </div>
-      <div class="helpNum">
-        <p>客户中心电话<span>*</span></p>
-        <input @focus="isPhoneTrue2 = false" @blur="checkPhone2(dervice_phone)" v-model="dervice_phone" placeholder="客户中心电话" type="text">
-        <span v-show="isPhoneTrue2" style="color: red;font-size: 12px;">请输入正确的电话格式</span>
-      </div>
-    </div>
-    <div class="hotelname">
+    <p style="marginTop:25px; marginBottom:20px;">基本信息</p>
+    <el-form size="mini" label-position="left" :model="ruleForm" status-icon :rules="rules2" ref="ruleForm" label-width="110px" class="demo-ruleForm">
+      <el-form-item label="酒店名称：" prop="hotelName">
+        <el-input size="mini" type="text" v-model="ruleForm.hotelName" autocomplete="off"></el-input>
+      </el-form-item>
+      <el-form-item label="开业时间：" prop="open_year">
+        <el-date-picker
+          v-model="ruleForm.open_year"
+          type="date"
+          size="mini"
+          value-format="yyyy-MM-dd"
+          placeholder="选择日期">
+        </el-date-picker>
+      </el-form-item>
+      <template>
+        <el-form-item style="marginRight:360px;" class="middle" label="前台电话：" prop="reception_phone">
+          <el-input  style="width:180px;" size="mini" type="number" v-model.lazy="ruleForm.reception_phone" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item class="middle" label="客户中心电话：" prop="dervice_phone">
+          <el-input style="width:180px;" size="mini" type="number" v-model.lazy="ruleForm.dervice_phone" autocomplete="off"></el-input>
+        </el-form-item>
+      </template>
+      <el-form-item label="酒店地址：" prop="province">
+        <div>
+          <el-select @change="getcity" size="mini" v-model="ruleForm.province">
+            <el-option v-for="item in provinces" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          </el-select>
+          <el-select @change="getconty" size="mini" v-model="ruleForm.city">
+            <el-option v-for="item in citys" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          </el-select>
+          <el-select @change="getconty" size="mini" v-model="ruleForm.region">
+            <el-option v-for="item in citys" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          </el-select>
+        </div>
+      </el-form-item>
+      <template>
+        <el-form-item class="middle" style="width:360px;margin-right:190px;" label="" prop="address">
+          <div id="change" style="width:360px;margin-right:190px;">
+            <el-input v-model="ruleForm.address" class="w360" placeholder="请输入酒店的详细地址" size="mini" type="text"></el-input>
+          </div>
+        </el-form-item>
+        <el-form-item class="middle" style="width:600px;">
+          <el-input style="width:180px;" v-model="ruleForm.lat" placeholder="地理经度" size="mini" type="text"></el-input>
+          <el-input style="width:180px;" v-model="ruleForm.lng" placeholder="地理纬度" size="mini" type="text"></el-input>
+          <el-button @click="map = true" type="primary" size="mini">获取坐标</el-button>
+        </el-form-item>
+      </template>
+    </el-form>
+    <div class="line"></div>
+    <!-- <div class="hotelname">
       <p>酒店地址<span>*</span></p>
       <ul class="hote-address">
         <li>
@@ -43,8 +71,8 @@
           </el-select>
         </li>
       </ul>
-    </div>
-    <ul class="hotel-add">
+    </div> -->
+    <!-- <ul class="hotel-add">
       <li>
         <div class="hotel-add-time">
           <span class="sp">*</span>
@@ -57,13 +85,16 @@
         <input v-model="lng" placeholder="地理纬度" type="text">
         <button @click="map = true">获取坐标</button>
       </li>
-    </ul>
+    </ul> -->
     <qq-map @givelng="getlng" @nomap="mapNone" :addressname="newAddress" @messageFromQqmap="lngMessage" v-if="map"></qq-map>
+    <p style="marginTop:25px;marginBottom:20px;">
+      <span>个性化信息</span>
+    </p>
     <div class="hotelstar">
       <p style="color: #6a9df6;">酒店星级</p>
       <ul>
         <li @click="starNum = element" :key="index" v-for="(element, index) in 5">
-          <i :class="{'iconstar': (element) <= starNum}" class="iconfont icon-star iconstarfz"/></i>
+          <i :class="{'iconstar': (element) <= starNum}" class="iconfont icon-star iconstarfz"/>
         </li>
       </ul>
       <p>{{starNum}}星</p>
@@ -81,18 +112,47 @@
       <p style="color: #6a9df6;" class="policy-head">酒店政策<span class="red">*</span><span class="gray">（此选项之显示在酒详情里）</span></p>
       <nav>
         <p>入住时间</p>
-        <el-select v-model="come_time" @change="textComeTime" size="medium" placeholder="请选择时间">
-            <el-option v-for="(item,index) in options" :key="item.label" :label="item.label" :value="item.value">
+        <el-select v-model="come_time" @change="textComeTime" size="mini" placeholder="请选择时间">
+            <el-option v-for="(item,index) in options" :key="index" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
       </nav>
       <nav>
         <p>离店时间</p>
-        <el-select v-model="leave_time" @change="textLeaveTime" size="medium" placeholder="请选择时间">
+        <el-select v-model="leave_time" @change="textLeaveTime" size="mini" placeholder="请选择时间">
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
       </nav>
+      <div class="reject">
+        <div>
+          <p class="middle">取消订单规则</p>
+          <p @click="canReject = true" style="marginLeft: 48px;marginRight: 30px;" class="middle">
+            <span :class="{'can-reject-border':canReject}" class="middle circular">
+              <span :class="{'can-reject':canReject}" class="middle in-circular"></span>
+            </span>
+            <span class="middle">允许取消</span>
+          </p>
+          <p @click="canReject = false" class="middle">
+            <span :class="{'can-reject-border': !canReject}" class="middle circular">
+              <span :class="{'can-reject': !canReject}" class="middle in-circular"></span>
+            </span>
+            <span class="middle">不允许取消</span>
+          </p>
+        </div>
+        <div v-show="canReject" class="rule-time">
+          <span>小程序用户在入住前</span>
+          <!-- <input v-model="rejectDays" style="width:136px;height:38px;border:1px solid #ccc;borderRadius:4px;" type="text"> -->
+          <el-input-number :min="0" class="inputNum" v-model="rejectDays" size="mini"></el-input-number>
+          <span>天</span>
+          <!-- <el-time-picker style="width:136px;" v-model="rejectTime" value-format="HH:mm:ss" placeholder="请选择时间"></el-time-picker> -->
+          <el-select v-model="rejectTime" @change="textLeaveTime" size="mini" placeholder="请选择">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.label">
+            </el-option>
+          </el-select>
+          <span>时可自行取消预订单且全额退款，否则不允许取消订单</span>
+        </div>
+      </div>
       <div class="switch">
         <span>是否可以携带宠物</span>
         <el-switch @change="activeSwitch(is_pet)"
@@ -109,27 +169,32 @@
       </section>
       <ul class="three-policy">
         <li>
-          <p style="display: inline-block;color: #6a9df6;">入住政策<span>*</span></p><p style="font-size: 9px; color:red; display: inline-block;">少于50字</p>
-          <textarea style="font-size: 14px;" ref="textareaone" v-model="textareaone" placeholder="提醒用户酒店几点办理当天入住" name="" id="" cols="30" rows="10"></textarea>
+          <p style="display: inline-block;color: #6a9df6;">入住政策<span>*</span></p><p style="font-size: 9px; color:red; display: inline-block;">请填写4-200字</p>
+          <!-- <textarea style="font-size: 14px;" ref="textareaone" v-model="textareaone" placeholder="提醒用户酒店几点办理当天入住" name="" id="" cols="30" rows="10"></textarea> -->
+          <el-input ref="textareaone" v-model="textareaone" placeholder="提醒用户酒店几点办理当天入住" type="textarea"></el-input>
         </li>
         <li>
-          <p style="display: inline-block;color: #6a9df6;">取消规则<span>*</span></p><p style="font-size: 9px; color:red; display: inline-block;">少于50字</p>
-          <textarea v-model="cancel_rule" ref="cancel_rule" style="font-size: 14px;" placeholder="根据酒店自定的政策规定可否取消" name="" id="" cols="30" rows="10"></textarea>
+          <p style="display: inline-block;color: #6a9df6;">取消规则<span>*</span></p><p style="font-size: 9px; color:red; display: inline-block;">请填写4-200字</p>
+          <!-- <textarea v-model="cancel_rule" ref="cancel_rule" style="font-size: 14px;" placeholder="根据酒店自定的政策规定可否取消" name="" id="" cols="30" rows="10"></textarea> -->
+          <el-input ref="cancel_rule" v-model="cancel_rule" placeholder="根据酒店自定的政策规定可否取消" type="textarea"></el-input>
         </li>
         <li>
-          <p style="display: inline-block;color: #6a9df6;">使用规则<span>*</span></p><p style="font-size: 9px; color:red; display: inline-block;">少于50字</p>
-          <textarea v-model="use_rule" ref="use_rule" style="font-size: 14px;" placeholder="用户以什么凭证办理入住，如身份证，预定号，预定短信等" name="" id="" cols="30" rows="10"></textarea>
+          <p style="display: inline-block;color: #6a9df6;">使用规则<span>*</span></p><p style="font-size: 9px; color:red; display: inline-block;">请填写4-200字</p>
+          <!-- <textarea v-model="use_rule" ref="use_rule" style="font-size: 14px;" placeholder="用户以什么凭证办理入住，如身份证，预定号，预定短信等" name="" id="" cols="30" rows="10"></textarea> -->
+          <el-input ref="use_rule" v-model="use_rule" placeholder="用户以什么凭证办理入住，如身份证，预定号，预定短信等" type="textarea"></el-input>
         </li>
       </ul>
     </div>
     <footer>
       <div style="width: 330px; margin: 0 auto;">
-        <div @click="goBack" style="margin-right: 16px;" class="button middle">
+        <!-- <div @click="goBack" style="margin-right: 12px;" class="button middle">
           <span>返回</span>
-        </div>
-        <div @click="testPost" class="button middle">
+        </div> -->
+        <el-button style="width:100px;" @click="goBack">返回</el-button>
+        <!-- <div @click="testPost" class="button middle">
           <span>确定</span>
-        </div>
+        </div> -->
+        <el-button style="width:100px;" @click="testPost" type="primary">确定</el-button>
       </div>
     </footer>
   </div>
@@ -142,8 +207,68 @@ import clumBread from '@/components/public/clumbread'
 import API from '@/store/API'
 export default{
   name: 'addHotel',
-  data(){
-    return{
+  data() {
+      var validateHotelName = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入酒店名称'));
+        } else {
+          callback();
+        }
+      };
+      var validateOpenYear = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请输入酒店开业时间'));
+        } else {
+          callback();
+        }
+      };
+      var checkPhone = (rule, value, callback) => {
+        value = Number(value)
+        if (value.length==0) {
+          return callback(new Error('号码不能为空'));
+        }
+        if (Number.isInteger(value)) {
+          if (value.toString().length < 8 ||value.toString().length > 11) {
+            return callback(new Error('长度在 8 到 11 个数字'));
+          } else {
+            callback()
+          }
+        } else {
+          return callback(new Error('号码不能是小数'));
+        }
+      };
+    return {
+      ruleForm: {
+        hotelName:'',
+        open_year:'',
+        dervice_phone:'',
+        reception_phone:'',
+        province:'',
+        city:'',
+        region:'',
+        address:'',
+        lat:'',
+        lng:''
+      },
+      rules2: {
+        province:[{required: true}],
+        address: [{required: true, message: '请输入区/县之后的详细地址'}],
+        reception_phone:[
+          {required: true, validator: checkPhone, trigger: 'blur' }
+        ],
+        dervice_phone:[
+          {required: true, validator: checkPhone, trigger: 'blur' }
+        ],
+        hotelName: [
+          {required: true, validator: validateHotelName, trigger: 'blur' }
+        ],
+        open_year: [
+          {required: true, validator: validateOpenYear, trigger: 'blur' }
+        ],
+      },
+      rejectDays: '',
+      canReject: true,
+      rejectTime: '',
       isPhoneTrue1: false,
       isPhoneTrue2: false,
       starNum: 0,
@@ -268,8 +393,9 @@ export default{
       textareaone: '',
       cancel_rule: '',
       use_rule: '',
-      selectedFacs:[]
-    }
+      selectedFacs:[],
+      onece: true
+    };
   },
   components:{
     selfAdd,
@@ -281,12 +407,15 @@ export default{
       this.$router.back()
     },
     checkPhone2(e) {
-      let reg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$|^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$|^0\d{2,3}-?\d{7,8}$/;
-      reg.test(e)? this.isPhoneTrue2 = false : this.isPhoneTrue2 = true
+     // let reg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$|^0\d{2,3}-?\d{7,8}$/;
+      //reg.test(e)? this.isPhoneTrue2 = false : this.isPhoneTrue2 = true
+      // /^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/
+      this.isPhoneTrue2 =  !(e.length >0)
     },
     checkPhone(e) {
-      let reg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$|^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$|^0\d{2,3}-?\d{7,8}$/;
-      reg.test(e)? this.isPhoneTrue1 = false : this.isPhoneTrue1 = true
+     // let reg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$|^0\d{2,3}-?\d{7,8}$/;
+      //reg.test(e)? this.isPhoneTrue1 = false : this.isPhoneTrue1 = true
+      this.isPhoneTrue1 = !(e.length >0)
     },
     textComeTime() {
       // console.log(this.come_time)
@@ -307,9 +436,9 @@ export default{
       });
     },
     getlng(e){
-      this.lat = e.lng.lat;
-      this.lng = e.lng.lng;
-      this.address = e.newaddress;
+      this.ruleForm.lat = e.lng.lat;
+      this.ruleForm.lng = e.lng.lng;
+      this.ruleForm.address = e.newaddress;
     },
     mapNone() {
       this.map = false;
@@ -318,21 +447,36 @@ export default{
 
     },
     testPost() {
+      if (this.textareaone.length < 4 || this.textareaone.length > 200) {
+        this.$message.error('请填写4-200字的入住政策')
+        return
+      }
+      if (this.cancel_rule.length < 4 || this.cancel_rule.length > 200) {
+        this.$message.error('请填写4-200字的取消规则')
+        return
+      }
+      if (this.use_rule.length < 4 || this.use_rule.length > 200) {
+        this.$message.error('请填写4-200字的使用规则')
+        return
+      }
+      if (!this.onece) {
+        return
+      }
       let obj = {
         // token:'',
-        hotel_name: this.hotel_name,
-        open_year: this.open_year,
-        reception_phone: this.reception_phone,  
-        dervice_phone: this.dervice_phone,    
+        hotel_name: this.ruleForm.hotel_name,
+        open_year: this.ruleForm.open_year,
+        reception_phone: this.ruleForm.reception_phone,  
+        service_phone: this.ruleForm.dervice_phone,    
         province: this.province,
-        city: this.city,
-        region: this.region,
-        address: this.address,
-        lng: this.lng,            
-        lat: this.lat,            
+        city: this.ruleForm.city,
+        region: this.ruleForm.region,
+        address: this.ruleForm.address,
+        lng: this.ruleForm.lng,            
+        lat: this.ruleForm.lat,            
         star: this.starNum,
         hotel_type: this.hotel_type,   
-        intro: this.hotel_name,       
+        intro: this.ruleForm.hotel_name,       
         facility: this.selectedFacs,   
         // custom_facility: this.custom_facility,   
         come_time: this.come_time,
@@ -341,7 +485,10 @@ export default{
         pay_way: this.pay_way,
         check_notice: this.textareaone,   
         use_rule: this.use_rule,       
-        cancel_rule: this.cancel_rule 
+        cancel_rule: this.cancel_rule,
+        is_cancel: this.canReject?1:0,
+        // cancel_day: this.rejectDays,
+        // cancel_hour: this.rejectTime
       }
       // console.log(obj)
       for(let name in obj) {
@@ -352,6 +499,9 @@ export default{
           return
         }
       }
+      obj.cancel_day = this.rejectDays
+      obj.cancel_hour = this.rejectTime
+      this.onece = false
       API.addHotel(obj).then(res => {
         if (res.error_code == 0) {
           this.$alert(`创建酒店成功`, '操作提示', {
@@ -364,6 +514,7 @@ export default{
           this.$alert(`${res.msg}`, '操作提示', {
             confirmButtonText: '确定'
           })
+          this.onece = true
         }
       })
     },
@@ -413,7 +564,9 @@ export default{
     },
     getpayway(){
       API.getPayway().then(res => {
-        this.payway = res
+        if (res.error_code == 0) {
+          this.payway = res.data
+        }
       })
     },
     getFacility() {
@@ -422,13 +575,15 @@ export default{
       // })
       API.getFacility().then(res => {
         // this.forchild = res.data
-        var arr = res.data;
-        this.iconname.forEach(function (element, index) {
-          arr[index].iconname = element.name
-        })
-        // console.log('aaaaaaaaaaa',arr)
-        this.forchild = arr;
-        arr = []
+        if (res.error_code == 0) {
+          var arr = res.data;
+          // this.iconname.forEach(function (element, index) {
+          //   arr[index].iconname = element.name
+          // })
+          // console.log('aaaaaaaaaaa',arr)
+          this.forchild = arr;
+          arr = []
+        }
       })
     },
     changePayway(index){
@@ -445,50 +600,52 @@ export default{
     newAddress() {
       let str;
       this.provinces.forEach((e,i) =>{
-        if(e.id == this.province) {
+        if(e.id == this.ruleForm.province) {
           str = e.name
         }
       })
       this.citys.forEach((e,i)=>{
-        if(e.id == this.city) {
+        if(e.id == this.ruleForm.city) {
           str += e.name
         }
       })
       this.contys.forEach((e,i)=>{
-        if(e.id == this.region) {
+        if(e.id == this.ruleForm.region) {
           str += e.name
         }
       })
-      return str + this.address
+      return str + this.ruleForm.address
     }
   },
   created(){
     this.getprov(),
     this.getpayway(),
     this.getFacility()
-    // this.testpost()
   },
   watch: {
     textareaone(){
-      if(this.textareaone.length > 50){
+      if(this.textareaone.length > 150){
         this.$refs.textareaone.blur();
       }
     },
     use_rule(){
-      if(this.use_rule.length > 50){
+      if(this.use_rule.length > 150){
         this.$refs.use_rule.blur()
       }
     },
     cancel_rule(){
-      if(this.cancel_rule.length > 50){
+      if(this.cancel_rule.length > 150){
         this.$refs.cancel_rule.blur()
       }
     }
+  },
+  mounted() {
+    // window.scroll(0, 500)
   }
 }  
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
     ::-webkit-input-placeholder { /* WebKit browsers */
     color:    #ccc;
     }
@@ -502,6 +659,12 @@ export default{
         color:    #ccc;
     }
   .ys-container{
+    .el-form-item__label{
+      font-size: 12px;
+    }
+    .el-input--mini{
+      width: 180px;
+    }
     .sp{
       color: red;
       margin: 0px 4px;
@@ -514,8 +677,9 @@ export default{
     }
     box-sizing: border-box;
     min-width: 1024px;
-    padding-bottom: 230px;
-    font-size: 16px;
+    // padding-bottom: 230px;
+    padding-right:35px;
+    font-size: 12px;
     .hotelname{
       overflow: hidden;
       margin: 20px 0;
@@ -531,7 +695,7 @@ export default{
       }
       input{
         float: left;
-        font-size: 16px;
+        font-size: 12px;
         margin-left: 24px;
         height: 36px;
         width: 40%;
@@ -562,6 +726,49 @@ export default{
         }
       }
     }
+    #change{
+      .el-input--mini {
+        width: 360px;
+        .el-input__inner{
+          width: 360px;
+        }
+      }
+    }
+    .reject{
+      margin-top:26px;
+      .circular{
+        width: 18px;height: 18px;
+        line-height: 14px;
+        text-align: center;
+        border: 1px solid #d3d3d3;
+        border-radius: 50%;
+      }
+      .in-circular{
+        width: 10px;height: 10px;
+        border-radius: 50%;
+        background: #d3d3d3;
+      }
+      .rule-time{
+        .inputNum{
+          .el-input__inner{
+             width: 130px;
+          }
+        }
+        .el-select, .el-select--mini{
+          .el-input, .el-input--mini, .el-input--suffix,.el-input__inner{
+            width: 100px;
+          }
+        }
+        margin-left: 150px;
+        margin-top:12px;
+      }
+      .can-reject{
+        background: #437ff9;
+      }
+      .can-reject-border{
+        border-color: #437ff9;
+      }
+    }
     .hote-address{
       width: 710px;
       overflow: hidden;
@@ -575,6 +782,10 @@ export default{
         line-height: 36px;
         width: 212px;
       }
+    }
+    .line{
+      width: 100%;
+      border-bottom:1px solid #e5e5e5;
     }
     .hotel-add{
       overflow: hidden;
@@ -619,7 +830,7 @@ export default{
     }
     .hotelstar{
       .iconstarfz{
-        font-size: 30px;
+        font-size: 20px;
         color: #d9d9d9;
       }
       .iconstar{
@@ -652,16 +863,16 @@ export default{
         margin: 20px 0;
         margin-left: 24px;
         .setindex{
-          background: #6a9df6;
-          color: #fff;
+          background: #ffdd7c;
+          border-color: #ffdd7c;
         }
         li{
           display: inline-block;
-          width: 120px;
-          height: 50px;
-          line-height: 50px;
+          padding: 0 25px;
+          height: 28px;
+          line-height: 28px;
           text-align: center;
-          border: 1px solid #e6e6e6;
+          border: 1px solid #d9d9d9;
           border-radius: 3px;
           background: #fff;
           margin-right: 20px;
@@ -677,7 +888,7 @@ export default{
         .red{
           color: red;
           margin-left: 4px;
-          margin-right: 16px;
+          margin-right: 12px;
         }
         .gray{
           color: #b8b8b8;
@@ -696,9 +907,9 @@ export default{
       }
       .switch{
         margin: 20px 0;
-        span{
-          margin-right: 44px;
-        }
+        // span{
+        //   margin-right: 44px;
+        // }
       }
       section{
         margin-bottom: 10px;
@@ -708,20 +919,20 @@ export default{
         ul{
           display: inline-block;
           .pay{
-            background: #6a9df6;
-            color: #fff;
-            border-color: #6a9df6;
+            background: #ffdd7c;
+            border-color: #ffdd7c;
           }
           li{
             margin-right: 20px;
             display: inline-block;
-            width: 150px;
-            height: 50px;
-            line-height: 50px;
+            padding: 0 25px;
+            height: 28px;
+            line-height: 28px;
             text-align: center;
             border: 1px solid #e6e6e6;
             background: #fff;
             border-radius: 3px;
+            cursor: pointer;
             // &:hover{
             //   background: #6a9df6;
             //   color: #fff;

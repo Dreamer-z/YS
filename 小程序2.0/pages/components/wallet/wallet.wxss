@@ -1,0 +1,103 @@
+/* pages/components/wallet/wallet.wxss */
+/* 支付 */
+.payBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 999;
+}
+
+.payBox .content {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30rpx;
+  position: relative;
+}
+
+.payBox .content .close {
+  position: absolute;
+  left: 30rpx;
+  top: 30rpx;
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.payBox .content .wallet {
+  font-size: 36rpx;
+  color: #4d4d4d;
+}
+
+.payBox .content .title {
+  color: #808080;
+  margin-top: 50rpx;
+}
+
+.payBox .content .price {
+  font-size: 20rpx;
+  color: #f4703c;
+  margin-top: 15rpx;
+}
+
+.payBox .content .price .number {
+  font-size: 50rpx;
+}
+
+.payBox .content .payWay {
+  margin-top: 60rpx;
+  height: 380rpx;
+}
+
+.payBox .content .payWay .way {
+  box-sizing: border-box;
+  height: 89rpx;
+  width: 100%;
+  font-size: 26rpx;
+  color: #333;
+  border-bottom: 1rpx solid #e6e6e6;
+  display: flex;
+  align-items: center;
+  align-content: space-around;
+}
+
+.payBox .content .payWay .name {
+  flex:1;
+}
+
+.payBox .content .payWay .way .balance{
+  width: auto;
+  margin-right: 20rpx;
+}
+
+.payBox .content .payWay .way .no-balance{
+  width: auto;
+  margin-right: 20rpx;
+  color: #fc2828;
+}
+
+.payBox .content .payWay .way image{
+  width: 44rpx;
+  height: 38rpx;
+  margin-right: 20rpx;
+}
+
+.payBox .content .payWay .way view {
+  color: #808080;
+  width: 140rpx;
+  margin-right: 30rpx;
+}
+
+.payBox .content .payWay .way .more {
+  margin-right: 20rpx;
+}
+
+.payBox .content .payForIt {
+  width: 690rpx;
+  height: 90rpx;
+  font-size: 34rpx;
+  color: #fff;
+  background-color: #437ff9;
+  margin-top: 50rpx;
+}

@@ -1,0 +1,283 @@
+/* pages/index/page/chooseRoom/chooseRoom.wxss */
+
+.box {
+  height: 100%;
+}
+
+.head {
+  box-sizing: border-box;
+  padding: 38rpx 30rpx 28rpx 30rpx;
+}
+
+.head .title-refresh {
+  margin-bottom: 28rpx;
+  font-size: 32rpx;
+}
+
+.head .title-refresh .refresh {
+  width: 90rpx;
+  font-size: 24rpx;
+  color: #4aba2f;
+}
+
+.head .title-refresh .refresh image {
+  width: 35rpx;
+  height: 29rpx;
+}
+
+.head .tabs-title {
+  color: #437ff8;
+}
+
+.head .tabs {
+  margin-top: 24rpx;
+  height: 60rpx;
+}
+
+.head .tabs .tabs-container {
+  height: 60rpx;
+  overflow: hidden;
+}
+
+.head .tabs .tabs-container .item {
+  width: 160rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  background-color: #ebf1fc;
+  border-radius: 30rpx;
+  margin-right: 30rpx;
+  /* margin-bottom: 23rpx; */
+}
+
+.head .tabs .tabs-container .item.choose {
+  color: #fff;
+  background-color: #437ff8;
+}
+
+.head .tabs .more {
+  width: 90rpx;
+  font-size: 26rpx;
+  color: #437ff8;
+}
+
+.head .tabs .more image {
+  width: 26rpx;
+  height: 15rpx;
+}
+
+.hide {
+  display: none;
+}
+
+.popup .content {
+  width: 100%;
+  height: 484rpx;
+}
+
+.popup .content .tabs-box {
+  box-sizing: border-box;
+  padding: 25rpx 15rpx;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.popup .content .tabs-box .item {
+  width: 160rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  text-align: center;
+  background-color: #ebf1fc;
+  border-radius: 30rpx;
+  margin: 0 10rpx 23rpx 10rpx;
+  float: left;
+}
+
+.popup .content .tabs-box .item.choose {
+  color: #fff;
+  background-color: #437ff8;
+}
+
+.popup .content .option {
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.popup .content .option .close {
+  color: #333;
+  border-top: solid 1rpx #e6e6e6;
+}
+
+.popup .content .option .confirm {
+  background-color: #437ff8;
+  color: #fff;
+  border-top: solid 1rpx #437ff8;
+}
+
+.main {
+  margin-top: 10rpx;
+}
+
+.main .main-left {
+  box-sizing: border-box;
+  padding: 45rpx 0;
+  padding-right: 10rpx;
+  width: 140rpx;
+  height: 100%;
+  overflow: hidden;
+}
+
+.main .main-left .main-left-container {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 0 30rpx rgba(0, 0, 0, 0.2);
+}
+
+.main .main-left .main-left-container .floor {
+  height: 80rpx;
+  border-bottom: solid 1rpx #e6e6e6;
+}
+
+.main .main-left .main-left-container .floor.choose {
+  background-color: #437ff8;
+}
+
+.main .main-left .main-left-container .floor.choose .floor-name {
+  color: #fff;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.main .main-left .main-left-container .floor:nth-last-of-type(1) {
+  border-bottom: 0;
+}
+
+.main .main-left .main-left-container .floor .floor-name {
+  font-size: 28rpx;
+  text-align: right;
+  margin-right: 6rpx;
+}
+
+.main .main-left .main-left-container .floor .floor-num {
+  font-size: 20rpx;
+  color: #437ff9;
+  width: 40%;
+}
+
+.main .main-left .main-left-container .floor .floor-num.less {
+  color: #f75656;
+}
+
+.main .main-right {
+  box-sizing: border-box;
+  padding: 0 50rpx;
+}
+
+.main .main-right .room-num {
+  font-size: 28rpx;
+  color: #1a1a1a;
+  margin-top: 32rpx;
+}
+
+.main .main-right .type {
+  margin-top: 24rpx;
+  padding-bottom: 10rpx;
+}
+
+.main .main-right .type .type-item {
+  margin-right: 25rpx;
+}
+
+.main .main-right .type .type-item .icon {
+  box-sizing: border-box;
+  width: 26rpx;
+  height: 26rpx;
+  border: solid 2rpx #fd8c2c;
+  margin-right: 4rpx;
+}
+
+.main .main-right .type .type-item:nth-of-type(2) .icon {
+  background-color: #fd8c2c;
+}
+
+.main .main-right .room-box{
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-top: 48rpx;
+}
+
+.room{
+  box-sizing: border-box;
+  width: 150rpx;
+	height: 70rpx;
+  line-height: 68rpx;
+  text-align: center;
+  border: solid 1rpx #fd8c2c;
+  color: #fd8c2c;
+  font-size: 30rpx;
+  border-radius: 6rpx;
+  float: left;
+  margin-right: 30rpx;
+  margin-bottom: 20rpx;
+  
+}
+
+.room:nth-of-type(3n){
+  margin-right: 0;
+}
+
+.room .cancel{
+  padding: 5rpx;
+  margin-left: 15rpx;
+}
+
+.room .cancel image{
+  width: 18rpx;
+	height: 18rpx;
+}
+
+.room.accord{
+  background-color: rgba(253, 140, 44, .1);
+  border: solid 1rpx rgba(253, 140, 44, .1);
+  color: #b3b3b3;
+}
+
+.room.accord.choose,.room.choose{
+  background-color: #fd8c2c;
+  color: #fff;
+}
+
+.foot {
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  width: 100%;
+  height: 317rpx;
+  background-color: #fff;
+  margin-top: 10rpx;
+}
+
+.foot .choose-num{
+  font-size: 26rpx;
+  margin-top: 52rpx;
+}
+
+.foot .choose-item{
+  margin-top: 30rpx;
+  height: 70rpx;
+}
+
+.foot .send{
+  width: 100%;
+	height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  font-size: 34rpx;
+  border-radius: 4rpx;
+  background-color: #437ff8;
+  color: #fff;
+  margin-top: 27rpx;
+}

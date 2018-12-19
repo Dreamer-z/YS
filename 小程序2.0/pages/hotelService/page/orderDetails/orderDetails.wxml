@@ -1,0 +1,19 @@
+<!--pages/hotelService/page/orderDetails/orderDetails.wxml-->
+<import src="/pages/components/order/order.wxml" />
+<view class="pageHead">
+  <view class="orderStatus">
+    <view class="orderType">
+      <image src='../../../../images/status_success.png'></image>
+      <text>续房成功</text>
+    </view>
+  </view>
+  <view class="status">
+    <text>已支付</text>
+  </view>
+  <view class="option">
+    <button class="back" bindtap='back'>返回客房服务</button>
+    <!-- <button class="checkOrder" bindtap='checkOrder'>查看订单</button> -->
+  </view>
+</view>
+<template is="order" data=""></template>
+<view class="remind">注：请携带房卡至酒店一楼自助机前进行续卡操作</view>

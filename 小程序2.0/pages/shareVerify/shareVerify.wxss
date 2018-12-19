@@ -1,0 +1,83 @@
+/* pages/shareVerify/shareVerify.wxss */
+.shareVerifyLayer{
+  box-sizing: border-box;
+  height: 100%;
+  padding-top: 133rpx;
+  background-color: #fff;
+  position: relative;
+}
+
+.shareVerifyLayer .rd{
+  width: 100%;
+  text-align:center;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  position: absolute;
+  top: 30rpx;
+  font-size: 28rpx;
+  color: #333;
+}
+
+.shareVerifyLayer .rd::before{
+  content: "*";
+  color:red;
+}
+
+.shareVerifyBox{
+  width: 630rpx;
+	height: 572rpx;
+	background-color: #fff;
+  margin: 0 auto;
+  position: relative;
+}
+
+.shareVerifyBox image{
+  width: 630rpx;
+	height: 572rpx;
+}
+
+.shareVerifyBox .content{
+  box-sizing: border-box;
+  height: 316rpx;
+  width: 100%;
+  padding: 0 28rpx; 
+  position: absolute;
+  bottom: 104rpx;
+}
+
+.shareVerifyBox .content input{
+  height: 60rpx;
+  line-height: 60rpx;
+  border:0;
+  border-bottom: 1rpx solid #ccc;
+  margin-bottom: 68rpx;
+  font-size: 26rpx;
+}
+
+.shareVerifyBox .content input:nth-last-of-type(1){
+  margin-bottom: 0;
+}
+
+.shareVerifyBox .content input::-moz-placeholder,
+.shareVerifyBox .content input::-webkit-input-placeholder{
+  color: #b3b3b3;
+  font-size: 26rpx;
+}
+
+.shareVerifyLayer .send{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.shareVerifyLayer .send button{
+  width: 100%;
+  border-radius: 0 !important;
+}
+
+.shareVerifyLayer .send .remind{
+  padding: 0 41rpx;
+  margin-bottom: 46rpx;
+  font-size: 24rpx;
+	color: #4d4d4d;
+}

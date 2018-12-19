@@ -14,13 +14,17 @@ module.exports = {
         proxyTable: {
             '/pms/img': {
                 target: "https://demo.phpst.cn",
+            //    target: "https://test.yunsuit.com",
+                //  target: "https://pms.yunsuit.com",
                 changeOrigin: true, //允许跨域
                 pathRewrite: {
                     '/pms/img': '/pms/img'
                 }
             },
             '/pms': {
-                target: "https://demo.phpst.cn",
+               target: "https://demo.phpst.cn",
+            // target: "https://test.yunsuit.com",
+                // target: "https://pms.yunsuit.com",
                 changeOrigin: true, //允许跨域
                 pathRewrite: {
                     '/pms': '/pms'

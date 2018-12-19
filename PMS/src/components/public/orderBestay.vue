@@ -271,7 +271,7 @@
           <textarea v-model="total.remark" class="middle"></textarea>
         </div>
         <p class="mesforpay">收款信息</p>
-        <div class="howmuchtopay">
+        <div class="howmuchtopay middle">
           <nav class="middle">
             <div class="width85 middle">
               <p class="middle">应收金额</p>
@@ -294,10 +294,21 @@
               <span class="middle">：<span style="color: red;">*</span></span>
               <span style="margin-left: 12px;" class="middle">￥</span>
             </div>
-            <input @blur="checkAmountCollected(amountCollected)" v-model="amountCollected" class="middle" type="text">
+            <input style="text-indent: 6px;position: relative;" @blur="checkAmountCollected(amountCollected)" v-model="amountCollected" class="middle" type="text"/>
             <span style="color: red;">{{amountCollectedErrorText}}</span>
           </section>
         </div>
+        <!-- <section class="middle">
+          <div class="width85 middle">
+            <p class="middle">实收金额</p>
+            <span class="middle">：<span style="color: red;">*</span></span>
+            <span style="margin-left: 12px;" class="middle">￥</span>
+          </div>
+          <input style="text-indent: 6px;border: 1px solid #f7f7f7;border-radius: 4px;height: 28px;width: 176px;" @blur="checkAmountCollected(amountCollected)" v-model="amountCollected" class="middle" type="text">
+          <span style="color: red;">{{amountCollectedErrorText}}</span>
+        </section> -->
+          <!--section  开始是上个div 里面的-->
+
         <div class="howmuchtopay">
           <nav class="middle">
             <div class="width85 middle">
@@ -315,7 +326,7 @@
               <p class="middle">单号</p>
               <span style="margin-right: 65px;" class="middle">：</span>
             </div>
-            <input class="middle" type="text">          
+            <input style="text-indent: 6px;" class="middle" type="text">          
           </section>
         </div>
         <div v-show="isLeakage" style="width: 200px;margin: 0 auto;color: red;">有必填项没有填写</div>
@@ -589,54 +600,23 @@ import API from "@/store/API"
           "preorder_id": this.total.id,
           "hotel_id": this.total.hotel_id,
           "room_id": this.total.room_id,
-          // "customer": customer,
           "remark": this.total.remark,
           "pay_way": this.priceWay,
           "sum": this.amountCollected,
           "snap_id": this.snap_id
         }
-
-        // from  是 int 预定来源 1:小程序，2：门店,3:会员，4：协议
-        // console.log('>>>',this.total)
-        // return
-        //  this.price == '' || 
         if(this.priceWay == '' || this.amountCollected == '') {return this.isLeakage = true}
         this.isLeakage = false
         let arr = []
         let lock = false
-        // this.total.member.forEach((e,i)=>{
-        //   if (e.name == '' || e.mobile == '' || e.idcard == '' || e.certificate_type == '') {
-        //     this.$alert('住客信息不完整', '', {
-        //       confirmButtonText: '确定'
-        //     })
-        //     return
-        //   } else {
-        //     arr.push({
-        //       "member_id": e.id,
-        //       "name": e.name,
-        //       "mobile": e.mobile,
-        //       "idcard": e.idcard,
-        //       "certificate_type": 1,
-        //       "sex": e.sex          
-        //     })
-        //   }
-        // })
-        // if (lock) {return}
-        // if (arr.length == 0) {
-        //   this.$alert('住客信息不完整', '', {
-        //     confirmButtonText: '确定'
-        //   })
-        //   return
-        // }
-
-
         if (this.howManyMan.length) {
           obj.customer = this.howManyMan
         } else {
           if(this.peopleJson.name == '' || this.peopleJson.certificate_type == '' || this.peopleJson.mobile == '' || this.peopleJson.idcard == '') {
-            this.$alert('请填写入住人', '', {
-              confirmButtonText: '确定'
-            });
+            this.$message({
+              message: '请填写入住人',
+              type: 'warning'
+            })
             return
           }
         }
@@ -658,23 +638,19 @@ import API from "@/store/API"
           this.peopleJson.mobile = ''
           this.peopleJson.idcard = ''
         } 
-
-
         let strArr = []
         obj.customer.forEach((e,i)=>{
           strArr.push(e.name)
         })
         if (obj.customer.length > this.total.member.length) {
           this.total.member.forEach((e,i)=>{
-            obj.customer[i].member_id = e.id
+            obj.customer[i].id = e.id
           })
         } else {
           obj.customer.forEach((e,i)=>{
-            e.member_id = this.total.member[i].id
+            e.id = this.total.member[i].id
           })
         }
-
-        
         API.post("/pms/order/preorder", obj).then(res=>{
           if (res.error_code == 0) {
             this.$alert('操作成功', '', {
@@ -687,6 +663,10 @@ import API from "@/store/API"
                 this.$emit('getStayBeNone',this.total)
               }
             })
+          } else {
+            if (res.msg) {
+              this.$message.error(`${res.msg}`)
+            }
           }
         })
       },
@@ -701,7 +681,7 @@ import API from "@/store/API"
           let newdate;
           if((Math.floor(date) + Math.floor(this.stayHowManyDay)) > Math.floor(days)) {
             month = (month + 2) < 10 ? '0' + (month + 2) :(month + 2)
-            if(Math.floor(month) < 12) {
+            if(Math.floor(month) <= 12) {
               newdate = Math.floor(this.stayHowManyDay) - (Math.floor(days) - Math.floor(date))
               newdate = newdate < 10? '0' + newdate : newdate
               this.dateValue = `${year}-${month}-${newdate}${' ' + this.nowTime}`
@@ -729,7 +709,7 @@ import API from "@/store/API"
           let newdate;
           if((Math.floor(date) + Math.floor(this.stayHowManyDay)) > Math.floor(days)) {
             month = (Math.floor(month) + 2) < 10 ? '0' + (Math.floor(month) + 2) :(Math.floor(month) + 2)
-            if(Math.floor(month)<12) {
+            if(Math.floor(month)<=12) {
               newdate = Math.floor(this.stayHowManyDay) - (Math.floor(days) - Math.floor(date))
               newdate = newdate < 10? '0' + newdate : newdate
               this.dateValue = `${year}-${month}-${newdate}${' ' + this.nowTime}`
@@ -764,7 +744,7 @@ import API from "@/store/API"
         this.$emit('getStayBeNone')
       }
     },
-    created() {
+    created() { 
       bus.ev.$on('willBeOrderBestay', (e)=>{
         console.log('willBeOrderBestay',e)
         this.snap_id = e.id
@@ -788,21 +768,13 @@ import API from "@/store/API"
                 this.peopleJson.member_num = this.total.member[0].member_num?this.total.member[0].member_num:''
                 this.peopleJson.idcard = this.total.member[0].idcard
                 this.peopleJson.mobile = this.total.member[0].mobile
-
                 this.howManyMan = this.total.member.splice(1,this.total.member.length-1)
-                // let arr = this.total.member.splice(1,this.total.member.length-1)
-                // arr.forEach((e,i)=>{
-                //   if (e.idcard) {
-                //     this.howManyMan.push(e)
-                //   }
-                // })
               }
-              // this.peopleJson.name = this.total.member[0].name
-              // this.peopleJson.sex = this.total.member[0].sex
-            } 
-            // else {
-
-            // }
+            }
+          } else {
+            if (res.msg) {
+              this.$message.error(`${res.msg}`)
+            }
           }
         })
         this.getDateNow()

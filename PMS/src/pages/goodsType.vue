@@ -1,13 +1,12 @@
 <template>
   <div class="gT-container">
-    <bread-crumb :child-msg='router'></bread-crumb>
     <el-row class="optionsBtn">
-      <el-button class="btn" type="primary" size="small" @click="add">新增</el-button>
+      <el-button class="btn" type="primary" size="mini" @click="add">新增</el-button>
       <!-- <el-button class="btn" size="small">停用</el-button> -->
       <!-- <el-button class="btn" size="small" @click="del">删除</el-button> -->
-      <el-button class="btn" size="small" :disabled="disableClick" @click="goodsTypeAdd">保存</el-button>
+      <el-button class="btn" size="mini" :disabled="disableClick" @click="goodsTypeAdd">保存</el-button>
     </el-row>
-    <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" height='85%' style="width: 894px" border @selection-change="handleSelectionChange">
+    <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" height='85%' style="width: 894px"  @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="58"></el-table-column>
       <el-table-column label="编号" width="100">
         <template slot-scope="scope">
@@ -52,8 +51,6 @@
 </template>
 
 <script>
-import BreadCrumb from '@/components/public/breadcrumb' //面包屑导航栏
-import { routs } from '@/assets/js/routs'
 import { mapGetters } from 'vuex'
 import API from '@/store/API/index'
 export default {
@@ -62,13 +59,8 @@ export default {
       hotel: 'currHotel'
     })
   },
-  components: {
-    BreadCrumb
-  },
   data() {
     return {
-      // 面包屑导航路径及名称
-      router: [routs.index, routs.goodsType],
       // 表单数据
       tableData: [],
       newTableData: [],
@@ -85,7 +77,7 @@ export default {
           value: 1
         }
       ],
-      disableClick:false
+      disableClick: false
     }
   },
   methods: {
@@ -105,7 +97,11 @@ export default {
     judgeMsg(arr) {
       if (arr) {
         for (let i = 0; i < arr.length; i++) {
-          if (arr[i].num == '' || (/^[0-9]*$/).test(arr[i].num) == false || arr[i].num ==  undefined) {
+          if (
+            arr[i].num == '' ||
+            /^[0-9]*$/.test(arr[i].num) == false ||
+            arr[i].num == undefined
+          ) {
             this.$message({
               type: 'warning',
               message: '请检查，编号为必填项且必须是数字！'
@@ -121,26 +117,32 @@ export default {
           }
         }
       }
-    },   
+    },
     // 验证是否重复
     judgeRep(arr) {
       let tableData = this.tableData
-      let n = 0
+      let n = []
       if (arr) {
         for (let i = 0; i < arr.length; i++) {
+          n[i] = 0
           for (let j = 0; j < tableData.length; j++) {
-            if (arr[i].name == tableData[j].name || arr[i].num == tableData[j].num) {
-              n++;
+            if (
+              arr[i].name == tableData[j].name ||
+              arr[i].num == tableData[j].num
+            ) {
+              n[i]++;
             }
           }
         }
       }
-      if (n > 1) {
-        this.$message({
-          type: 'warning',
-          message: '该商品分类已存在或编号重复，请不要重复添加！'
-        })
-        return false
+      for (let i = 0; i < n.length; i++) {
+        if (n[i] > 1) {
+          this.$message({
+            type: 'warning',
+            message: '该商品分类已存在或编号重复，请不要重复添加！'
+          })
+          return false
+        }
       }
     },
     // 选中表单条目数据
@@ -177,7 +179,7 @@ export default {
           _this.disableClick = false
         })
         .catch(function(err) {
-          console.log(err);
+          console.log(err)
           _this.$message({
             type: 'warning',
             message: '请求商品分类列表失败'
@@ -186,21 +188,21 @@ export default {
         })
     },
     // 添加分类
-    goodsTypeAdd() {      
-      if(this.multipleSelection.length == 0){
+    goodsTypeAdd() {
+      if (this.multipleSelection.length == 0) {
         this.$message({
           type: 'warning',
           message: '请先新增条目'
         })
         return
-      };
+      }
       let sj = { data: this.multipleSelection }
       let ctb = this.multipleSelection
-      this.judgeColumn()      
+      this.judgeColumn()
       let b = this.judgeMsg(ctb)
-      if(b == false){
-        return;
-      };
+      if (b == false) {
+        return
+      }
       let p = this.judgeRep(ctb)
       if (p == false) {
         return
@@ -234,7 +236,7 @@ export default {
           }
         })
         .catch(function(err) {
-          console.log(err);
+          console.log(err)
           // _this.goodsTypeList()
           _this.$message({
             type: 'warning',
@@ -246,13 +248,13 @@ export default {
     // 修改分类
     save(row) {
       let _this = this
-      let arr = [];
-      arr.push(row);
+      let arr = []
+      arr.push(row)
       let b = this.judgeMsg(arr)
-      if(b == false){
+      if (b == false) {
         // this.goodsTypeList()
-        return;
-      };
+        return
+      }
       let p = this.judgeRep(arr)
       if (p == false) {
         return
@@ -285,7 +287,7 @@ export default {
               }
             })
             .catch(function(err) {
-              console.log(err);
+              console.log(err)
               // _this.goodsTypeList()
               _this.$message({
                 type: 'warning',
@@ -330,7 +332,7 @@ export default {
               }
             })
             .catch(function(err) {
-              console.log(err);
+              console.log(err)
               _this.goodsTypeList()
               _this.$message({
                 type: 'warning',
@@ -367,9 +369,8 @@ export default {
 <style lang="scss" scoped>
 .gT-container {
   box-sizing: border-box;
-  height: 100%;
-  font-size: 14px;
-  overflow: auto !important;
+  padding: 10px 35px;
+  overflow-y: auto;
   .el-table td .option {
     color: #e6e6e6;
   }

@@ -1,7 +1,7 @@
 // 按钮组下方默认margin
 .el-row
-    margin-bottom 10px
-    font-size 14px
+    margin-bottom 5px
+    font-size 12px
 // element按钮颜色
 .el-button--default 
     color #6a9df6
@@ -9,7 +9,6 @@
 // 调整element表单样式
 .el-table
     user-select none
-    margin-bottom 10px
 .el-table thead
     color #fff
 .el-table td,
@@ -22,21 +21,27 @@
     padding 8px 0
 .el-table td
     padding 2px 0
-    color #000
+    color #333
     //改变禁用时输入框
-.el-table td input:disabled
-    background-color: #fff;
-.el-input.is-disabled .el-input__inner
-    background-color #fff
-    border 0
-    color #777
+// input:disabled
+//     border 1px solid #ccc
+//     background #bfbfbf
+// .el-table td input:disabled
+//     background-color: #fff;
+.el-input.is-disabled .el-input__inner,
+.el-textarea textarea:disabled
+    background-color #e6e6e6
+    border 1px solid #ccc
+    color #bfbfbf
+.el-textarea textarea:disabled::placeholder,
 .el-input.is-disabled .el-input__inner::placeholder
-    color #999
+    color #bfbfbf
     //未禁用时输入框
+.el-textarea .el-textarea__inner::placeholder,
 .el-input .el-input__inner::placeholder
-    color #777
+    color #ccc
 .el-input .el-input__inner
-    color #000
+    color #333
 
 .el-table .success-row
     background #f0f9eb
@@ -54,7 +59,8 @@
 .el-table__fixed,//左侧
 .el-table__fixed-right//右侧
     th
-        background-color #4b5967
+        background-color #f2f2f2
+        color #626262
         box-sizing border-box
 .el-input__inner
     &:focus::-webkit-input-placeholder
@@ -62,8 +68,11 @@
 
 // 面包屑导航栏样式
 .el-breadcrumb__inner.is-link,
-.el-breadcrumb__item:last-child .el-breadcrumb__inner
-    color #6a9df6
+.el-breadcrumb__inner
+    color #b2b2b2
+.el-breadcrumb__item:last-child .el-breadcrumb__inner,
+.el-breadcrumb__item:last-child .el-breadcrumb__inner:hover
+    color #00a8ff
 .el-breadcrumb__item 
     margin 0
 // 分页器样式
@@ -100,4 +109,83 @@
             &:hover
                 color #6a9df6 !important
 .el-menu-item-group__title
-    background-color #2e3740 !important
+    // background-color #292f45 !important
+    display none
+.el-date-editor.el-input,
+.el-date-editor.el-input__inner
+.el-input--mini .el-input__inner
+    width 180px
+.el-input__inner
+    -webkit-appearance none
+    -moz-appearance textfield
+.el-input__inner:hover,
+.el-select:hover,
+.el-select>.el-input:hover
+.el-select:hover .el-input__inner:hover
+    border-color #409EFF 
+.el-table,
+.el-menu-item,
+.el-breadcrumb,
+.el-textarea__inner,
+.el-button,
+.el-checkbox__label
+    font-size 12px
+    font-family "Microsoft YaHei"
+.el-checkbox__label
+    line-height 12px
+.el-button--default
+.el-button--default:hover,
+.el-button--default:focus
+    background rgba(0, 168, 255, .06)
+    color rgba(0, 168, 255, 1)
+    border-color rgba(0, 168, 255, .3)
+.el-button--default
+    background #fff
+.el-button--default.is-disabled, 
+.el-button--default.is-disabled:hover, 
+.el-button--default.is-disabled:focus
+    color #b2b2b2
+    background-color #e6e6e6
+    border-color #ccc
+.el-button--text,
+.el-button--text:hover,
+.el-button--text:focus
+    color #1dceb1
+.el-button--text:disabled
+    color #bfbfbf
+.el-table__header-wrapper,
+.el-table__body-wrapper.is-scrolling-none,
+.el-table__body-wrapper.is-scrolling-left,
+.el-table__fixed-right-patch
+    background #fff
+.el-table
+    border 1px solid #e5e5e5
+    border-bottom none
+.el-table td, .el-table th.is-leaf
+    border-bottom 1px solid #e5e5e5
+.el-table th > .cell,
+    color #626262
+// .el-table td
+//     color #333
+// 分页
+.el-pagination
+    position relative
+    .el-pagination__total,
+    .el-pagination__sizes,
+    .el-pagination__jump
+        position absolute
+        right 0
+    .el-pagination__total
+        right 210px    
+    .el-pagination__sizes
+        right 90px
+
+
+
+ //待核实   
+// .el-table td:nth-last-of-type(1)
+//     padding 0 20px
+//     .cell
+//         padding 0
+//         width 100%
+//         text-align left 

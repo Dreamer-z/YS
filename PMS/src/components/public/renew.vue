@@ -52,15 +52,17 @@
 					</nav>
 				</div>
 				<footer class="clearfix">
-					<nav style="cursor: pointer;" @click="givePost" class="fl">确定(Enter)</nav>
-					<section style="cursor: pointer;" @click="renewBeNone" class="fl">取消(Esc)</section>
+					<nav style="cursor: pointer;" @click="givePost" class="fl">确定</nav>
+					<section style="cursor: pointer;" @click="renewBeNone" class="fl">取消</section>
 				</footer>
 			</div>
 		</div>
+		<continue-stay @continueBeNone="letContinueBeNone" :obj="childObj" :val="childMsg" v-if="isContinueStayShow"></continue-stay>
 	</div>
 </template>
 
 <script>
+import continueStay from "@/components/public/continuestay"
 import bus from "@/store/bus"
 import API from "@/store/API"
 import { mapGetters } from 'vuex'
@@ -68,6 +70,9 @@ import { mapGetters } from 'vuex'
 		name: 'reNew',
 		data() {
 			return {
+				childMsg: {},
+				childObj: {},
+				isContinueStayShow: false,
 				// hotelId: 1,
 				orderId: '',
 				roomId: '',
@@ -88,6 +93,9 @@ import { mapGetters } from 'vuex'
 				}
 			}
 		},
+		components: {
+			continueStay
+		},
 		computed:{
 			...mapGetters({
 				// 映射 `this.doneCount` 为 `store.getters.doneTodosCount`
@@ -101,20 +109,26 @@ import { mapGetters } from 'vuex'
       		hotel_id: this.hotel.id,
       		order_id: this.orderId,
       		leave_time: this.dateValue
-      	}
-      	API.post("/pms/roomstatus/keep", obj).then(res=>{
+				}
+				this.childObj = obj
+      	// API.post("/pms/roomstatus/keep", obj).then(res=>{
+				API.post("/pms/keep/order", obj).then(res =>{
       		if(res.error_code == 0) {
-      			this.$alert('操作成功', '', {
-		          confirmButtonText: '确定',
-		          callback: ()=>{
-		          	this.stayHowManyDay = 0
-		          	this.dateValue = ''
-		          	bus.ev.$emit('renewBeNone')
-		          }
-		        })
+						this.childMsg = res.data
+						this.isContinueStayShow = true
+						this.stayHowManyDay = 0
+						this.dateValue = ''
+      		} else {
+      			if (res.msg) {
+      				this.$message.error(`${res.msg}`)
+      			}
       		}
       	})
-      },
+			},
+			letContinueBeNone() {
+				this.isContinueStayShow = false
+				bus.ev.$emit('renewBeNone')
+			},
 			renewBeNone() {
 				Object.assign(this.$data, this.$options.data())
 				bus.ev.$emit('renewBeNone')
@@ -135,7 +149,7 @@ import { mapGetters } from 'vuex'
 					let oldTime = this.dateValue.split(' ')[1]
 					if((Math.floor(date) + Math.floor(this.stayHowManyDay)) > Math.floor(days)) {
 						month = (month + 2) < 10 ? '0' + (month + 2) :(month + 2)
-						if(Math.floor(month) < 12) {
+						if(Math.floor(month) <= 12) {
 							newdate = Math.floor(this.stayHowManyDay) - (Math.floor(days) - Math.floor(date))
 							newdate = newdate < 10? '0' + newdate : newdate
 							this.dateValue = `${year}-${month}-${newdate}${' '+oldTime}`
@@ -153,7 +167,7 @@ import { mapGetters } from 'vuex'
 				}
 			},
 			deleOneDay() {
-				if (this.stayHowManyDay > 0) {
+				if (this.stayHowManyDay > 1) {
 					this.stayHowManyDay--
 					let mydate = new Date(this.leavedate)
 					let year = mydate.getFullYear()
@@ -201,7 +215,7 @@ import { mapGetters } from 'vuex'
 			// this.getDateNow()
 			bus.ev.$on('willBeRenew', (e)=>{
 				console.log('15151515151', e)
-				API.get("/pms/roomstatus/keep?id=" + e.id).then(res=>{
+				API.get(`/pms/roomstatus/keep?order_id=${e.order_id}&room_id=${e.id}`).then(res=>{
 					if(res.error_code == 0) {
 						// this.getDateNow()
 						let data = res.data
@@ -212,6 +226,7 @@ import { mapGetters } from 'vuex'
 						this.leavedate = data.last_leave_time.split(' ')[0]
 						this.leavetime = data.last_leave_time.split(' ')[1]
 						this.dateValue = data.last_leave_time
+						this.addOneDay()
 					}
 				})
 			})
@@ -225,6 +240,9 @@ import { mapGetters } from 'vuex'
 		position: fixed;
 		top: 0;left: 0; right: 0; bottom: 0;
 		background: rgba(0,0,0,.4);
+		display: flex;
+		align-items:center;
+    justify-content: center;
 		.middle{
 			display: inline-block;
 			vertical-align: middle;
@@ -238,8 +256,6 @@ import { mapGetters } from 'vuex'
 			width: 700px;
 			max-height: 500px;
 			overflow-y: auto;
-			top: 15%;
-			left: 28%;
 		}
 		header{
 			width: 100%;

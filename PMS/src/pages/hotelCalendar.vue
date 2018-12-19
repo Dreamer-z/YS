@@ -147,7 +147,7 @@
           <el-input type="textarea" autosize resize="none" placeholder="请输入内容" v-model="sendData.remind"></el-input>
         </div>
       </div>
-      <el-table ref="multipleTable" :data="choose" tooltip-effect="dark" style="width: 100%" border>
+      <el-table ref="multipleTable" :data="choose" tooltip-effect="dark" style="width: 100%">
         <el-table-column label="序号" width="56">
           <template slot-scope="scope">{{scope.row.num}}</template>
         </el-table-column>

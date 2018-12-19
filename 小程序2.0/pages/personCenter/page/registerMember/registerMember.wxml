@@ -1,0 +1,69 @@
+<!--pages/personCenter/page/registerMember/registerMember.wxml-->
+<view class='register-member flex flex-vertical'>
+  <view class='member-type-container'>
+    <view class='no-have' wx:if="{{noHave}}">暂无会员卡信息</view>
+    <view class='box flex flex-align-center {{transform?"transform02":""}}' style="width:{{boxWidth}}px;transform: translateX(-{{moveX==0?(cardInd*660)+'rpx':(cardInd*660-45-moveX*3)+'rpx'}})" bindtouchstart='moveStart' bindtouchmove='move' bindtouchend='moveEnd' wx:else>
+      <view class='item {{transform?"transform02":""}} {{cardInd==index?"now":""}}' wx:for="{{newData}}" wx:for-index="index" wx:key="{{index}}">
+        <view class='member-card gold'>
+          <image src='/images/member/member_card.png'></image>
+          <view class='card-msg flex flex-vertical flex-align-center'>
+            <view class='card-type flex flex-align-center flex-pack-justify'>
+              <view class='type elli'>{{item.name}}</view>
+              <view class='level flex flex-align-center'>
+                <image class='icon' src='/images/member/member_level_1.png'></image>VIP{{item.level}}</view>
+            </view>
+            <view class='member-msg flex-1 flex flex-vertical'>
+              <view class='msg flex-1 flex flex-vertical flex-align-center flex-pack-center'>
+                <view class='person flex flex-align-center flex-pack-center'>
+                  <view class='elli2'>{{item.condition_type == 0?"办理本卡无最低门槛":"办理本卡最低需充值"+ item.min_recharge_amount +"元"}}</view>
+                </view>
+              </view>
+              <view class='option flex flex-align-center flex-pack-justify'>
+                <view class='to-be-member'>办理会员获取优惠</view>
+                <view class='card-price'>卡费：{{item.card_fee}}元</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- <view class='indicator flex flex-align-center flex-pack-center'>
+      <view class='item {{indicatorInd==index?"now":""}}' wx:for="{{memberCard}}" wx:for-index="index" wx:key="{{index}}"></view>
+    </view> -->
+  </view>
+  <view class='member-privilege bg-white flex-1 flex flex-vertical'>
+    <view class='privilege-item flex flex-wrap'>
+      <view class='item flex flex-align-center flex-pack-center'>
+        <image class='icon' src='/images/member/privilege_1.png'></image>
+        <view>生日礼遇</view>
+      </view>
+      <view class='item flex flex-align-center flex-pack-center'>
+        <image class='icon' src='/images/member/privilege_2.png'></image>
+        <view>积分返券</view>
+      </view>
+      <view class='item flex flex-align-center flex-pack-center'>
+        <image class='icon' src='/images/member/privilege_3.png'></image>
+        <view>入住优惠</view>
+      </view>
+      <view class='item flex flex-align-center flex-pack-center'>
+        <image class='icon' src='/images/member/privilege_4.png'></image>
+        <view>会员特权</view>
+      </view>
+    </view>
+    <view class='privilege-details'>
+      <image class='bg' src='/images/member/border.png'></image>
+      <view class='content flex flex-vertical'>
+        <view class='title flex flex-align-center flex-pack-center'><view class='icon'></view><text class='title-msg'>{{newData[cardInd].name}}特权</text><view class='icon rotateZ180'></view></view>
+        <view class='item-box flex-1'>
+          <view class='item' wx:for="{{newData[cardInd].rights}}" wx:for-index="index" wx:key="{{index}}">
+            <view class='item-title elli'>1.{{item.rights_name}}</view>
+            <view class='item-msg elli2'>{{item.rights_info}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='transact flex flex-align-center flex-pack-center' wx:if="{{!noHave}}">
+      <button open-type="getPhoneNumber" bindgetphonenumber="transact">办理会员卡</button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,113 @@
+/* pages/components/order/order.wxss */
+
+.ad {
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  height: 100rpx;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  color: #a0821a;
+  background-color: #fff;
+  margin-bottom: 10rpx;
+}
+
+.ad .icon {
+  width: 110rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  border-radius: 20rpx;
+  text-align: center;
+  color: #a0821a;
+  background-color: rgba(195, 159, 32, 0.2);
+  position: relative;
+}
+
+.ad .icon image {
+  width: 32rpx;
+  height: 28rpx;
+  position: absolute;
+  left: -6rpx;
+  top: -12rpx;
+  transform: rotateZ(-45deg);
+}
+
+.ad .content{
+  flex: 1;
+  margin: 0 22rpx;
+}
+
+.orderAddr {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.orderAddr .hotelName {
+  font-size: 34rpx;
+  color: #333;
+}
+
+.orderAddr .address {
+  color: #4d4d4d;
+  margin-top: 15rpx;
+  display: flex;
+  align-items: center;
+}
+
+.orderAddr .address image {
+  width: 19rpx;
+  height: 23rpx;
+  margin-right: 10rpx;
+}
+
+.orderDetails {
+  margin-top: 15rpx;
+  padding: 30rpx;
+  font-size: 26rpx;
+}
+
+.orderDetails .li {
+  width: 100%;
+  margin-bottom: 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.orderDetails .list.first .li:nth-last-child(1) {
+  margin-bottom: 0;
+}
+
+.orderDetails .type {
+  color: #b3b3b3;
+  width: 200rpx;
+}
+
+.orderDetails .msg {
+  padding-left: 20rpx;
+  color: #333;
+  white-space: wrap;
+  flex: 1;
+}
+
+.orderDetails .msg .msgLi {
+  margin-bottom: 10rpx;
+  width: 100%;
+  margin-right: 15rpx;
+}
+
+.orderDetails .total {
+  padding-top: 30rpx;
+  text-align: right;
+  font-size: 26rpx;
+  color: #333;
+  border-top: 1rpx solid #e6e6e6;
+}
+
+.orderDetails .total text {
+  color: #fc8c2c;
+}

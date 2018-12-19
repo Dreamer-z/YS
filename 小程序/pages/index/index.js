@@ -1,5 +1,6 @@
-import { hosts, api, request, payWay } from "../../utils/api.js";
+import { hosts, api, request, payWay, authHotel } from "../../utils/api.js";
 import token from '../../utils/token.js';
+import Host from "../../utils/hosts.js";
 let app = getApp()
 Page({
   data: {
@@ -126,6 +127,7 @@ Page({
       },
     ],
     hotelList: [],
+    loading:false,
   },
   onLoad: function () {
     let _this = this;
@@ -134,6 +136,12 @@ Page({
       if (res) {
         app.globalData.tokenData = true;
         _this.nowLocation();
+        // 查询支付方式
+        _this.payWayFn();
+      } else {
+        wx.showToast({
+          title: '身份验证失败',
+        })
       }
     });
     app.versionsDetection();
@@ -146,36 +154,34 @@ Page({
   },
   nowLocation: function () {
     let _this = this;
+    this.loadData();
     // 获取用户当前位置，并请求相应的酒店列表数据
-    wx.getLocation({
-      type: 'wgs84',
-      success: function (res) {
-        let latitude = res.latitude;
-        let longitude = res.longitude;
-        wx.setStorage({ key: "latitude", data: latitude });
-        wx.setStorage({ key: "longitude", data: longitude });
-        _this.loadData(latitude, longitude);
-      },
-      fail:function(err){
-        console.log(err);
-        wx.showToast({
-          title: '获取您的位置失败',
-          icon: "none",
-          duration: 800
-        });
-      }
-    });
+    // wx.getLocation({
+    //   type: 'wgs84',
+    //   success: function (res) {
+    //     let latitude = res.latitude;
+    //     let longitude = res.longitude;
+    //     wx.setStorage({ key: "latitude", data: latitude });
+    //     wx.setStorage({ key: "longitude", data: longitude });
+    //   },
+    //   fail:function(err){
+    //     console.log(err);
+    //     wx.showToast({
+    //       title: '获取您的位置失败',
+    //       icon: "none",
+    //       duration: 800
+    //     });
+    //   }
+    // });
   },
-  loadData: function (latitude, longitude) {
+  loadData: function () {
+    let latitude = wx.getStorageSync("latitude");
+    let longitude = wx.getStorageSync("longitude");
     let _this = this;
     let hotelList = [];
-    request({
-      url: api.hotelList,
-      data: {
-        lat: latitude,
-        lng: longitude
-      },
-      method: 'GET',
+    // 授权酒店列表
+    authHotel({
+      key: Host.hosts.key
     }).then(function (data) {
       for (let i = 0; i < data.data.length; i++) {
         hotelList[i] = data.data[i];
@@ -183,14 +189,52 @@ Page({
       }
       _this.setData({ hotelList: hotelList });
     }).catch(function (err) {
+      console.log(err)
       wx.showToast({
-        title: '拉取数据失败',
+        title: err.data.msg,
         icon: "none",
         duration: 800
       });
     });
-    // 查询支付方式
-    this.payWayFn();
+  },
+  requestData() {
+    let _this = this;
+    let hotelList = [];
+    wx.request({
+      url: hosts + api.newHotelList,
+      data: { key: Host.hosts.key},
+      header: {
+        'Content-Type': 'application/json',
+        'Token': wx.getStorageSync("token")
+      },
+      method: 'GET',
+      success: function (data) {
+        let res = data.data.data;
+        for (let i = 0; i < res.length; i++) {
+          hotelList[i] = res[i];
+          hotelList[i].distance = (hotelList[i].distance / 1000).toFixed(1);
+        }
+        _this.setData({ hotelList: hotelList, loading: false, });
+      },
+      fail: function(err) {
+        console.log(err)
+      },
+    })
+  },
+  // 下拉刷新
+  onPullDownRefresh() {
+    let _this = this;
+    token.verify(function (res) {
+      if (res) {
+        app.globalData.tokenData = true;
+        _this.requestData();
+      } else {
+        wx.showToast({
+          title: '身份验证失败',
+        })
+      }
+    });
+    wx.stopPullDownRefresh();
   },
   // 设置分享信息
   onShareAppMessage: function (res) {
@@ -199,7 +243,7 @@ Page({
       // console.log(res.target)
     }
     return {
-      title: app.data.ShareMessage,
+      title: Host.hosts.shareMessage,
       path: '/pages/index/index',
       success: function (res) {
         // 转发成功

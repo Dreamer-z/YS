@@ -19,7 +19,7 @@
 				<div class="three">
 					<nav>
 						<p>序号前缀</p>
-						<input v-model="namenum" type="number">
+						<input @focus="theSameName = false" v-model="namenum" type="number">
 					</nav>
 					<section>
 						<p>序号值</p>
@@ -63,10 +63,18 @@ import API from "@/store/API"
 				room_type: '',
 				value2: '',
 				theSameName: false,
-				checkNames: []
+				checkNames: [],
+				onece: true
 			}
 		},
 		props:['val'],
+		watch: {
+			namenum(newval) {
+				if (this.fornum !== '') {
+					this.howMany()
+				}
+			}
+		},
 		methods: {
 			getName() {
 				let _this = this;
@@ -112,6 +120,10 @@ import API from "@/store/API"
 	        })
 					return
 				}
+				if (!this.onece) {
+					return
+				}
+				this.onece = false
 				let _this =this
 				let arrname = []
 				this.options2.forEach( function(element, index) {
@@ -145,6 +157,11 @@ import API from "@/store/API"
 							arr = []
 							this.tobenone()
 							return
+						} else {
+							this.onece = true
+							if (res.msg) {
+								this.$message.error(`${res.msg}`)
+							}
 						}
 					})
 			  }

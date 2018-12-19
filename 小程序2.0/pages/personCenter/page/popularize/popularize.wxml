@@ -1,0 +1,101 @@
+<!--pages/personCenter/page/popularize/popularize.wxml-->
+<view class='popularize'>
+  <view class='tabs'>
+    <view class='item {{tabsInd == 1?"choose":""}}' data-index="1" bindtap='getTabs'>商品分享</view>
+    <view class='item {{tabsInd == 2?"choose":""}}' data-index="2" bindtap='getTabs'>酒店分享</view>
+  </view>
+  <view class='mian {{tabsInd == 2?"":"hide"}}'>
+    <view class='item' wx:for="{{hotel}}" wx:for-index="index" wx:key="{{index}}">
+      <view class='img' style='background:url({{item.logo}}) no-repeat center;background-size:cover;'></view>
+      <!-- <image class='img' src='/images/ls.png'></image> -->
+      <view class='content'>
+        <view class='name elli2'>{{item.hotel_name}}</view>
+        <view class='other'>
+          <view class='price'>
+            <text>{{item.min_price}}</text>起
+          </view>
+          <view class='share' data-index="{{index}}" data-type="2" bindtap='openShare'>去分享</view>
+        </view>
+        <view class='rate'>房费返佣：{{item.share_info.rate}}%</view>
+      </view>
+    </view>
+  </view>
+  <view class='main-other flex flex-vertical {{tabsInd == 1?"":"hide"}}'>
+    <view class="hotel flex flex-align-center flex-pack-justify">
+      <view>{{hotel[chooseInd].hotel_name}}</view>
+      <picker range="{{hotel}}" value="{{chooseInd}}" range-key="{{'hotel_name'}}" bindchange="cut">
+        <view class='cut'>切换
+          <image class='more' src='/images/more.png'></image>
+        </view>
+      </picker>
+    </view>
+    <view class='container flex-1 flex'>
+      <view class='type'>
+        <view class='item {{goodsType == 0?"choose":""}}'>房间</view>
+        <!-- <view class='item {{goodsType == 1?"choose":""}}'>商品</view>
+        <view class='item {{goodsType == 2?"choose":""}}'>餐饮</view> -->
+      </view>
+      <view class='section flex-1'>
+        <view class='item' wx:for="{{goods}}" wx:for-index="index" wx:key="{{index}}">
+          <view class='img' style='background:url({{item.logo}}) no-repeat center;background-size:cover;'></view>
+          <view class='item-msg'>
+            <view class='item-name elli2'>{{item.name}}</view>
+            <view class='other'>
+              <view class='price'>
+                <view class='price-num'>
+                  <text>{{item.price}}</text>/晚
+                </view>
+                <view>返佣：{{room.rate}}%</view>
+              </view>
+              <button data-index="{{index}}" data-type="1" bindtap='openShare'>去分享</button>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='share-rule transform02 {{open?"open":""}} {{tabsInd == 2?"":"hide"}}'>
+    <view class='content flex flex-vertical'>
+      <view class='content-head flex flex-align-center'>
+        <view class='title flex-1'>分享返利规则：</view>
+        <view class='option flex flex-align-center' bindtap='open'> {{open?"收起":"展开"}}
+          <image class='transform02 {{open?"rotateX180":""}}' src='/images/distribute/open.png'></image>
+        </view>
+      </view>
+      <text class='section flex-1'>{{msg.share_text}}</text>
+    </view>
+  </view>
+  <view class='share-rule transform02 {{open2?"open":""}} {{tabsInd == 1?"":"hide"}}'>
+    <view class='content flex flex-vertical'>
+      <view class='content-head flex flex-align-center'>
+        <view class='title flex-1'>分享返利规则：</view>
+        <view class='option flex flex-align-center' bindtap='open2'> {{open2?"收起":"展开"}}
+          <image class='transform02 {{open?"rotateX180":""}}' src='/images/distribute/open.png'></image>
+        </view>
+      </view>
+      <text class='section flex-1'>{{room.share_text}}</text>
+    </view>
+  </view>
+</view>
+<view class='popup flex flex-vertical {{sharePop?"":"hide"}}'>
+  <view class='place flex-1' bindtap='closeShare'></view>
+  <view class='container'>
+    <view class='title'>分享到微信：</view>
+    <view class='share-way'>
+      <view class='item' data-way='pyq' bindtap='share'>
+        <view class='section'>
+          <image src='/images/distribute/wx_py.png'></image>
+          <view>微信朋友圈</view>
+        </view>
+      </view>
+      <view class='item'>
+        <view class='section'>
+          <image src='/images/distribute/wx.png'></image>
+          <view>微信好友</view>
+        </view>
+        <button open-type="share"></button>
+      </view>
+    </view>
+    <view class='cancel' bindtap='closeShare'>取消</view>
+  </view>
+</view>

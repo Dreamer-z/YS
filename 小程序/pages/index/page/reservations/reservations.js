@@ -93,14 +93,14 @@ Page({
       success: function(res) {
         let checkIn = options.checkIn;
         let checkOut = options.checkOut;
-        let iY = checkIn.split("-")[0];
-        let iM = checkIn.split("-")[1];
-        let iD = checkIn.split("-")[2];
-        let oY = checkOut.split("-")[0];
-        let oM = checkOut.split("-")[1];
-        let oD = checkOut.split("-")[2];
-        let nTime = new Date(oY, oM, oD).getTime() - new Date(iY, iM, iD).getTime();
-        let day = Math.floor(nTime / 86400000);
+        let iY = checkIn.split("/")[0];
+        let iM = checkIn.split("/")[1];
+        let iD = checkIn.split("/")[2];
+        let oY = checkOut.split("/")[0];
+        let oM = checkOut.split("/")[1];
+        let oD = checkOut.split("/")[2]; 
+        let nTime = new Date(oY, (oM-1), oD).getTime() - new Date(iY, (iM-1), iD).getTime();
+        let day = parseInt(nTime / (60 * 60 * 24 * 1000));
         let order = [];
         let t = new Date(iY, iM, 0).getDate();
         for (let i = 0; i < day; i++) {
@@ -316,7 +316,7 @@ Page({
         });
         return;
       };
-      if (user[i].idcard == '') {
+      if (user[i].idcard == '' || reg.regIdCard(user[i].idcard) == false) {
         wx.showModal({
           title: '提示',
           content: '请核对您输入的身份证哦！',
@@ -325,7 +325,7 @@ Page({
         return;
       };
     };
-    if (!mobile) {
+    if (mobile == '' || reg.regTel(mobile) == false) {
       wx.showModal({
         title: '提示',
         content: '请核对您输入的手机号哦！',

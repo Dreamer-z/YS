@@ -1,0 +1,15 @@
+<!--pages/components/commonUser/commonUser.wxml-->
+<view class="common-user">
+  <view class='add-user' bindtap='addUser'><image src='/images/add_on.png'></image><text>添加入住人</text></view>
+  <view class="title">常用入住人</view>
+  <view class="common-user-list">
+    <view class="common-user-li {{item.choose?'choose':''}}" wx:for="{{list}}" wx:for-index="index" wx:key="{{key}}" bindtap='chooseUser' data-index="{{index}}">
+      <view class="box">
+        <image wx:if="{{choseMode}}" class="finish" src='{{item.choose?"/images/radio_on.png":"/images/radio.png"}}'></image>
+        <text>{{item.name}}</text>
+        <image id="{{item.id}}" class="edit" src='{{item.choose?"/images/edit_on.png":"/images/edit.png"}}' data-index="{{index}}" catchtap='editUser'></image>
+      </view>
+    </view>
+  </view>
+  <button wx:if="{{choseMode}}" class='confirm' bindtap='navigateBack'>确认</button>
+</view>

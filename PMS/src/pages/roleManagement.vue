@@ -1,45 +1,52 @@
 <template>
   <div class="rm-container">
-    <bread-crumb :child-msg='router'></bread-crumb>
     <el-row class="optionsBtn">
-      <el-button class="btn" type="primary" size="small" @click="add">新增</el-button>
-      <el-button class="btn" size="small" :disabled="disableClick" @click="addRool">保存</el-button>
+      <el-button class="btn" type="primary" size="mini" @click="add">新增</el-button>
+      <el-button class="btn" size="mini" :disabled="disableClick" @click="addRool">保存</el-button>
     </el-row>
-    <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" height='85%' style="width: 1185px" border @selection-change="handleSelectionChange">
+    <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" height='85%' style="width: 100%"  @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="58"></el-table-column>
-      <el-table-column label="角色名称" width="163">
+      <el-table-column label="角色名称">
         <template slot-scope="scope">
           <el-input type="text" v-model="scope.row.name" placeholder="请输入角色名称" :disabled="scope.row.disable" clearable size="small"></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="描述" width="327">
+      <el-table-column label="描述">
         <template slot-scope="scope">
           <el-input type="text" v-model="scope.row.description" placeholder="请输入描述" :disabled="scope.row.disable" clearable size="small"></el-input>
         </template>
       </el-table-column>
-      <el-table-column label="状态" width="140">
+      <el-table-column label="状态">
         <template slot-scope="scope">
           <el-select v-model="scope.row.status" placeholder="请选择" :disabled="scope.row.disable" default-first-option size="small">
             <el-option v-for="item in status" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column label="属性" width="169">
+      <el-table-column label="属性">
         <template slot-scope="scope">{{ scope.row.attribute_name}}</template>
       </el-table-column>
-      <el-table-column label="权限设置" width="163">
+      <el-table-column label="权限设置">
         <template slot-scope="scope">
-          <el-button v-if="scope.row.attribute != 0" type="primary" size="mini" @click="permission(scope.row.id)" v-show="scope.row.id?true:false">权限设置</el-button>
+          <el-button v-if="scope.row.attribute != 0" type="primary" size="mini" @click="permission(scope.row.id)" v-show="scope.row.accredit">权限设置</el-button>
         </template>
       </el-table-column>
-      <el-table-column label="操作" width="163" fixed="right">
+      <el-table-column label="授权系统">
+        <template slot-scope="scope">
+          <el-select v-if="scope.row.attribute != 0" v-model="scope.row.sys_right" multiple placeholder="请选择" :disabled='scope.row.disable' size="small">
+          <!-- <el-select v-if="scope.row.attribute != 0" v-model="scope.row.sys_right" @change="accredit(scope.row)" multiple placeholder="请选择" :disabled='scope.row.disable' size="small"> -->
+            <el-option v-for="item in service" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          </el-select>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作">
         <template slot-scope="scope">
           <div class="option" v-if="scope.row.id && scope.row.attribute != 0">
             <el-button type="text" @click="scope.row.disable = !scope.row.disable" v-if="scope.row.disable">编辑</el-button>
             <el-button type="text" @click="save(scope.row)" v-else>完成</el-button>
             <el-button type="text" @click="del(scope.row.id)">删除</el-button>
           </div>
-          <div class="option" v-else-if="!scope.row.id && !scope.row.attribute">
+          <div class="option" v-else-if="!scope.row.id">
             <el-button type="text" @click="localDel(scope.row.num)">删除</el-button>
           </div>
         </template>
@@ -52,8 +59,6 @@
 </template>
 
 <script>
-import BreadCrumb from '@/components/public/breadcrumb' //面包屑导航栏
-import { routs } from '@/assets/js/routs' //面包屑导航栏地址
 import Popup from '@/components/public/popup' //弹窗
 import { mapGetters } from 'vuex'
 import API from '@/store/API/index'
@@ -66,13 +71,10 @@ export default {
     })
   },
   components: {
-    BreadCrumb,
     Popup
   },
   data() {
     return {
-      // 面包屑导航路径及名称
-      router: [routs.index, routs.role],
       // 表单数据
       tableData: [],
       // 选中表单条目数据
@@ -97,7 +99,17 @@ export default {
         id: '',
         ids: ''
       },
-      disableClick:false
+      service: [
+        {
+          id: 1,
+          name: 'PMS系统'
+        },
+        {
+          id: 2,
+          name: '酒店管家APP'
+        }
+      ],
+      disableClick: false
     }
   },
   methods: {
@@ -124,28 +136,38 @@ export default {
             })
             return false
           }
+          if (arr[i].sys_right == '' || arr[i].sys_right == undefined) {
+            this.$message({
+              type: 'warning',
+              message: '请检查，授权系统为必填项！'
+            })
+            return false
+          }
         }
       }
     },
     // 验证是否重复
     judgeRep(arr) {
       let tableData = this.tableData
-      let n = 0
+      let n = []
       if (arr) {
         for (let i = 0; i < arr.length; i++) {
+          n[i] = 0
           for (let j = 0; j < tableData.length; j++) {
             if (arr[i].name == tableData[j].name) {
-              n++;
+              n[i]++;
             }
           }
         }
       }
-      if (n > 1) {
-        this.$message({
-          type: 'warning',
-          message: '该角色已存在，请不要重复添加！'
-        })
-        return false
+      for (let i = 0; i < n.length; i++) {
+        if (n[i] > 1) {
+          this.$message({
+            type: 'warning',
+            message: '该角色已存在，请不要重复添加！'
+          })
+          return false
+        }
       }
     },
     // 选中表单条目数据
@@ -161,6 +183,9 @@ export default {
         status: 1,
         hotel_id: this.hotel.id,
         attribute: 0,
+        sys_right: '',
+        attribute: 1,
+        accredit: false,
         disable: false
       })
       this.$refs.multipleTable.toggleRowSelection(this.tableData[0])
@@ -202,6 +227,15 @@ export default {
       recursion(data)
       return newData
     },
+    // accredit(row) {
+    //   let accredit = false;
+    //   for (let i = 0; i < row.sys_right.length; i++) {
+    //     if (row.sys_right[i] == 1) {
+    //       accredit = true;
+    //     }
+    //   }
+    //   row.accredit = accredit;
+    // },
     // 弹窗点击按钮状态
     popupOp: function(type) {
       let _this = this
@@ -249,7 +283,20 @@ export default {
       })
         .then(function(res) {
           if (res.error_code == 0) {
-            _this.tableData = res.data
+            let data = res.data
+            for (let i = 0; i < res.data.length; i++) {
+              if (res.data[i].attribute == 1) {
+                let arr = res.data[i].sys_right.split(',')
+                data[i].sys_right = []
+                for (let s = 0; s < arr.length; s++) {
+                  data[i].sys_right.push(Number(arr[s]))
+                  if(Number(arr[s]) == 1){
+                    data[i].accredit = true;
+                  };
+                }
+              }
+            }
+            _this.tableData = data
           } else {
             _this.$message({
               type: 'warning',
@@ -269,14 +316,15 @@ export default {
         })
     },
     // 添加角色
-    addRool() {      
-      if(this.multipleSelection.length == 0){
+    addRool() {
+      console.log(this.multipleSelection)
+      if (this.multipleSelection.length == 0) {
         this.$message({
           type: 'warning',
           message: '请先新增条目'
         })
         return
-      };
+      }
       let _this = this
       let sj = { data: this.multipleSelection }
       let ctb = this.multipleSelection
@@ -328,9 +376,10 @@ export default {
     },
     // 更改
     save(row) {
+      console.log(row)
       let _this = this
-      let arr = [];
-      arr.push(row);
+      let arr = []
+      arr.push(row)
       let b = this.judgeMsg(arr)
       if (b == false) {
         //  this.roleList()
@@ -349,6 +398,7 @@ export default {
           API.roleAmend(row.id, {
             name: row.name,
             description: row.description,
+            sys_right: row.sys_right,
             status: row.status
           })
             .then(function(res) {
@@ -357,7 +407,7 @@ export default {
                   type: 'success',
                   message: '修改成功!'
                 })
-                row.disable = !row.disable
+                _this.roleList()
               } else {
                 // _this.roleList()
                 _this.$message({
@@ -448,9 +498,8 @@ export default {
 <style lang="scss">
 .rm-container {
   box-sizing: border-box;
-  height: 100%;
-  font-size: 14px;
-  overflow: auto !important;
+  padding: 10px 35px;
+  overflow-y: auto;
 }
 .el-tree {
   height: 415px;

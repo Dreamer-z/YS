@@ -1,6 +1,6 @@
 <template>
-	<div class="ys-hotel-room" v-loading="loading2" element-loading-text="操作进行中" element-loadig-spinner="el-icon-loading" element-loading-background="rgba(0,0,0,.4)">
-    <clum-bread :redStar="false" :data="['当前位置','基本资料','房间']"></clum-bread>
+	<div class="ys-hotel-room">    <!-- v-loading="loading2" element-loading-text="操作进行中" element-loadig-spinner="el-icon-loading" element-loading-background="rgba(0,0,0,.4)" -->
+    <!-- <clum-bread :redStar="false" :data="['当前位置','基本资料','房间']"></clum-bread> -->
     <div style="width: 100%; overflow: hidden;">
     	<div class="room-sec">
       	<section class="sec">
@@ -177,6 +177,10 @@ import { mapGetters } from 'vuex'
           // console.log('dsfsd000',res)
           if(res.error_code == 0) {
             this.roomNumber.splice(i, 1)
+          } else {
+            if (res.msg) {
+              this.$message.error(`${res.msg}`)
+            }
           }
         })
       },
@@ -191,7 +195,6 @@ import { mapGetters } from 'vuex'
         }
       },
       addOneRoom(e){
-        console.log('???>><><><',e)
         if(e.msg) {
           this.roomNumber.push(e.msg)
           this.addone = false;
@@ -239,13 +242,11 @@ import { mapGetters } from 'vuex'
           floor_id: this.floor[_this.cgbjfloor].id,
           name: this.floor[_this.cgbjfloor].floor_num
         }
-        console.log('>>???',this.megforone)
       },
       getTrue() {
         this.loading2 = true;
         let id = this.floor[this.bedelefloornum].id
         this.isdelefloor = 0
-        // this.floor.splice(this.bedelefloornum, 1)
         API.dele('/pms/floor/' + id).then(res =>{
           if(res.error_code == 0){
             this.floor.splice(this.bedelefloornum, 1)
@@ -459,7 +460,7 @@ import { mapGetters } from 'vuex'
 
 <style lang="scss" scoped>
 ::-webkit-input-placeholder { /* WebKit browsers */
-    color:    #f2f2f2;
+    // color:    #f2f2f2;
     box-sizing: border-box;
     padding-left: 10px;
     }
@@ -681,9 +682,6 @@ import { mapGetters } from 'vuex'
     		background: #fff;
     		box-sizing: border-box;
     		padding: 0 34px 0 18px;
-    		&:hover{
-    			// background: #e7eef9;
-    		}
     		&:hover span{
     			color: #e07f79;
     		}

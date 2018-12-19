@@ -1,0 +1,90 @@
+<!--pages/personCenter/page/billDetails/billDetails.wxml-->
+<view class="billDetails">
+  <view class='title bg-white'>状态：
+    <text>已完成</text>
+  </view>
+  <view class="content bg-white">
+    <view class="title">入住信息：</view>
+    <view class="list person-msg">
+      <view class="li">
+        <view>入住人：</view>
+        <view class='elli'>{{billData.member}}</view>
+      </view>
+      <view class="li">
+        <view>会员卡号：</view>
+        <view class='elli'>0000000012</view>
+      </view>
+      <view class="li">
+        <view>房型：</view>
+        <view class='elli'>{{billData.room_type_name}}</view>
+      </view>
+      <view class="li">
+        <view>房号：</view>
+        <view class='elli'>{{billData.room_name}}</view>
+      </view>
+      <view class="li">
+        <view>订单号：</view>
+        <view class='elli'>{{billData.order_no}}</view>
+      </view>
+      <view class="li">
+        <view>入住时间：</view>
+        <view class='elli'>{{billData.come_time}}</view>
+      </view>
+      <view class="li">
+        <view>离店时间：</view>
+        <view class='elli'>{{billData.leave_time}}</view>
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class='details'>
+      <view class='details-head flex flex-align-center'>
+        <view>时间</view>
+        <view>房号</view>
+        <view>项目</view>
+        <view>消费金额</view>
+      </view>
+      <view class='details-main'>
+        <view class='column flex flex-align-center'>
+          <view class='elli'>2018-10-10</view>
+          <view class='elli'>1001</view>
+          <view class='elli'>全日房费</view>
+          <view class='elli'>¥12000.00</view>
+        </view>
+      </view>
+    </view>
+    <view class="line"></view>
+    <view class="statistics bg-white">
+      <view class="li">房费合计：
+        <text>￥{{billData.pay_amount}}</text>
+      </view>
+      <view class="li">客房消费合计：
+        <text>￥{{billData.pay_amount}}</text>
+      </view>
+      <view class="li">总消费合计：
+        <text>￥{{billData.pay_amount}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="statistics other bg-white">
+    <view class="li">现金付款：
+      <text>￥{{billData.pay_amount}}</text>
+    </view>
+    <view class="li">会员卡支付：
+      <text>￥{{billData.pay_amount}}</text>
+    </view>
+    <view class="li">会员卡余额：
+      <text>￥{{billData.pay_amount}}</text>
+    </view>
+    <view class="li">收取押金：
+      <text>￥{{billData.pay_amount}}</text>
+    </view>
+    <view class="li">退还金额：
+      <text>￥{{billData.pay_amount}}</text>
+    </view>
+    <view class="li way">退还方式：
+      <text>￥{{billData.refund_deposit}}</text>
+    </view>
+    <!-- <view class="way">微信退还</view> -->
+  </view>
+  <!-- <button class="invoice" bindtap='invoice'>开发票</button> -->
+</view>

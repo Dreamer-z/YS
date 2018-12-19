@@ -1,0 +1,2 @@
+<!--pages/index/page/commonUse/commonUse.wxml-->
+<common-user id="common-user" chose-mode="{{true}}" list="{{list}}" bindaddUser="addUser" bindeditUser="editUser"></common-user>

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "添加入住人",
+  "disableScroll": true,
+  "usingComponents": {
+    "add-user": "/pages/components/addUser/addUser"
+  }
+}

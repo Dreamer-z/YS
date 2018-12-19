@@ -1,0 +1,366 @@
+/**index.wxss**/
+.pages {
+  height: 100%;
+  width: 100%;
+  position: relative;
+ 
+}
+
+.nav-head {
+  flex: 1;
+  height: 90rpx;
+  width: 100%;
+  display: flex;
+  background-color: #fff;
+  box-sizing: border-box;
+  border-bottom: 1rpx solid #e5e5e5;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+}
+
+.nav-head-item {
+  flex: 1;
+  background-color: #fff;
+  height: 100%;
+  text-align: center;
+}
+
+.nav-head-item .title {
+  font-size: 26rpx;
+  line-height: 90rpx;
+}
+
+.nav-head-item .title image {
+  width: 17rpx;
+  height: 8rpx;
+  margin-left: 10rpx;
+  vertical-align: middle;
+}
+
+.nav-tap {
+  height: 0;
+  width: 750rpx;
+  background-color: #fff;
+  position: absolute;
+  left: 0;
+  top: 85rpx;
+  z-index: 999;
+  overflow: hidden;
+}
+
+/* 操作按钮 */
+
+.nav-tap .navOption {
+  display: flex;
+  height: 90rpx;
+}
+
+.nav-tap .navOption button {
+  border-radius: 0;
+  font-size: 34rpx;
+}
+
+.nav-tap .navOption .empty {
+  flex: 1;
+  background-color: #fff;
+}
+
+.nav-tap .navOption .confirm {
+  flex: 2;
+  background-color: #437ff8;
+  color: #fff;
+}
+
+.nav-tap-box {
+  height: 0;
+}
+
+.addTap {
+  height: 564rpx;
+}
+
+.starTap {
+  height: 591rpx;
+}
+
+.sortTap {
+  height: 489rpx;
+}
+
+.filterTap {
+  height: 830rpx;
+}
+
+.addTap .nav-tap-box {
+  height: 474rpx;
+  display: flex;
+}
+
+.starTap .nav-tap-box {
+  height: 500rpx;
+}
+
+.sortTap .nav-tap-box {
+  height: 399rpx;
+}
+
+.filterTap .nav-tap-box {
+  height: 740rpx;
+}
+
+/* 位置筛选 */
+
+.nav-tap1 {
+  width: 30%;
+}
+
+.nav-tap2 {
+  text-align: left;
+  width: 70%;
+}
+
+.nav-tap1-item, .nav-tap2-item {
+  font-size: 28rpx;
+  height: 92rpx;
+  line-height: 92rpx;
+  box-sizing: border-box;
+  border-bottom: 1rpx solid #e5e5e5;
+}
+
+.nav-tap1-item {
+  background-color: #fafafa;
+  color: #808080;
+}
+
+.nav-tap1-item.choose {
+  background-color: #fff;
+  color: #4d4d4d;
+}
+
+.nav-tap2-item {
+  color: #4d4d4d;
+  display: flex;
+}
+
+.nav-tap2-item .dian {
+  width: 80rpx;
+  height: 100%;
+  font-weight: bold;
+  font-size: 40rpx;
+  text-align: center;
+  visibility: hidden;
+}
+
+.nav-tap2-item.choose {
+  color: #437ff8;
+}
+
+.nav-tap2-item.choose .dian {
+  visibility: visible;
+}
+
+/* 星级/价格 */
+
+.nav-tap .nav-tap-box .title {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 19rpx;
+  line-height: 80rpx;
+  text-align: left;
+  font-size: 24rpx;
+  color: #b2b2b2;
+}
+
+.starType .nav-tap-box, .filterType .nav-tap-box {
+  box-sizing: border-box;
+  padding: 0 21rpx;
+}
+
+.chooseInp {
+  box-sizing: border-box;
+  padding: 0 21rpx;
+  width: 100%;
+}
+
+.chooseInp .radio-group {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between; 
+  align-items: center;
+}
+
+.chooseInp .radio-group .type {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 197rpx;
+  height: 60rpx;
+  line-height: 58rpx;
+  margin: 10rpx 20rpx;
+  font-size: 24rpx;
+  color: #4d4d4d;
+  border: 1px solid #d9d9d9;
+  border-radius: 10rpx;
+}
+
+.chooseInp .radio-group .type.choose {
+  color: #437ff8;
+  border: 1px solid #437ff8;
+}
+
+.chooseInp .radio-group .type radio {
+  display: none;
+}
+
+.nav-tap .price {
+  line-height: 24rpx;
+  position: relative;
+  color: #e5e5e5;
+  box-sizing: border-box;
+  padding: 0 21rpx;
+}
+
+.nav-tap .price .sliderValue {
+  position: absolute;
+  top: 0;
+  font-size: 18rpx;
+  color: #437ff8;
+}
+
+.nav-tap .price .sliderMin {
+  left: 30rpx;
+}
+
+.nav-tap .price .sliderMax {
+  right: 60rpx;
+}
+
+.nav-tap .sort {
+  box-sizing: border-box;
+  padding: 0 21rpx;
+  font-size: 28rpx;
+}
+
+.nav-tap .sort .sortItem {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 89rpx;
+  line-height: 89rpx;
+  color: #4d4d4d;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.nav-tap .sort .sortItem.choose {
+  color: #437ff8;
+}
+
+.nav-tap .sort .sortItem image {
+  width: 28rpx;
+  height: 18rpx;
+  margin-right: 12rpx;
+  opacity: 0;
+}
+
+.nav-tap .sort .sortItem.choose image {
+  opacity: 1;
+}
+
+.nav-tap .sort .sortItem view {
+  width: 100%;
+  text-align: left;
+}
+
+.hotel {
+  box-sizing: border-box;
+  /* height: 100%; */
+  width: 100%;
+  position: absolute;
+  /* top: 90rpx; */
+  top: 0;
+  z-index: 99;
+}
+
+.hotel .li {
+  height: 255rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10rpx 20rpx;
+  background-color: #fff;
+  margin: 10rpx 0;
+  border-top: 1px solid #e6e6e6;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.hotel .li .photo {
+  display: inline-block;
+  width: 235rpx;
+  height: 235rpx;
+}
+
+.hotel .li .message {
+  box-sizing: border-box;
+  width: 455rpx;
+  height: 100%;
+  padding-left: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.hotel .li .message .name, .hotel .li .message .starLevel,
+.hotel .li .message .addr, .hotel .li .message .tag,
+.hotel .li .message .basePrice {
+  margin-top: 10rpx;
+}
+
+.hotel .li .message .starLevel, .hotel .li .message .addr {
+  font-size: 22rpx;
+  color: #b2b2b2;
+}
+
+.hotel .li .message .name {
+  font-size: 34rpx;
+}
+
+.hotel .li .message .starLevel {
+  margin-top: 10rpx;
+}
+
+.hotel .li .message .starLevel .type {
+  margin-left: 10rpx;
+}
+
+.hotel .li .message .tag {
+  font-size: 22rpx;
+  color: #6a9df6;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hotel .li .message .tag .tagLi {
+  padding: 0 8rpx;
+  height: 32rpx;
+  margin-right: 10rpx;
+  line-height: 30rpx;
+  text-align: center;
+  border: 1px solid #437ff8;
+  border-radius: 6rpx;
+}
+
+.hotel .li .message .basePrice {
+  font-size: 20rpx;
+  color: #b2b2b2;
+  display: flex;
+  align-items: baseline;
+  justify-content: flex-end;
+}
+
+.hotel .li .message .basePrice .num {
+  font-size: 40rpx;
+}

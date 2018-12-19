@@ -1,0 +1,27 @@
+<!--pages/components/ysCalendar/ysCalendar.wxml-->
+<view class='ys-calendar'>
+  <view class='ys-calendar-week'>
+    <view class='week-item {{index==0 || index==6?"week-day":""}}' wx:for="{{week}}" wx:for-index="index" wx:key="{{index}}">{{item}}</view>
+  </view>
+  <view class='ys-calendar-month'>
+    <view class='month-item' wx:for="{{date}}" wx:for-index="index" wx:key="{{index}}">
+      <view class='month'>{{item.year}}年{{item.month}}月</view>
+      <view class='month-day-container' wx:if="{{continueMode}}">
+        <view class='month-day {{item.active && (item.tag == "in" || item.tag == "out")?"check":""}} {{item.active && item.tag == ""?"active":""}}' wx:for="{{item.dateArr}}" wx:for-index="ind" wx:key="{{ind}}" data-parent="{{index}}" data-child="{{ind}}" bindtap='chooseContinueDate'>
+          <view class='day'>{{item.day}}</view>
+          <!-- <view class='day'>{{item.fiesta?item.fiesta:item.day}}</view> -->
+          <view class='tag' wx:if="{{!item.dis && item.active && item.tag == 'in'}}">入住</view>
+          <view class='tag' wx:if="{{!item.dis && item.active && item.tag == 'out'}}">离店</view>
+        </view>
+      </view>
+      <view class='month-day-container' wx:else>
+        <view class='month-day {{item.active && (item.tag == "in" || item.tag == "out")?"check":""}} {{item.active && item.tag == ""?"active":""}}' wx:for="{{item.dateArr}}" wx:for-index="ind" wx:key="{{ind}}" data-parent="{{index}}" data-child="{{ind}}" bindtap='chooseDate'>
+          <view class='day'>{{item.day}}</view>
+          <!-- <view class='day'>{{item.fiesta?item.fiesta:item.day}}</view> -->
+          <view class='tag' wx:if="{{!item.dis && item.active && item.tag == 'in'}}">入住</view>
+          <view class='tag' wx:if="{{!item.dis && item.active && item.tag == 'out'}}">离店</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

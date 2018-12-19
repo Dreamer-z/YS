@@ -4,7 +4,7 @@ class User {
 
   }
   // 查询联系人
-  queryList(callback) {
+  queryList(callback,status) {
     // callback回调
     wx.showToast({
       title: '',
@@ -20,7 +20,7 @@ class User {
       for (let i = 0; i < userLi.length; i++) {
         userLi[i].choose = false;
       };
-      callback(userLi);
+      callback(userLi,status);
     });
   }
 
@@ -47,16 +47,16 @@ class User {
           title: '添加成功',
         });
         setTimeout(() => {
-          _this.queryList(callback);
-        }, 500)
-      }).catch(function (res) {
+          _this.queryList(callback,true);
+        }, 1000)
+      }).catch(function (err) {
         wx.showToast({
-          title: "添加失敗",
+          title:"" + err.data.msg,
           icon: 'none'
         });
         setTimeout(() => {
-          _this.queryList(callback);
-        }, 500)
+          _this.queryList(callback,false);
+        }, 1000)
       });
     } else {
       wx.showToast({

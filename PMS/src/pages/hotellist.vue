@@ -2,8 +2,11 @@
   <div class="choice">
     <header>
       <img class="middle" src="../assets/images/ys.png" alt=""/>
-      <h3 class="middle">云宿智能酒店管理系统</h3>
+      <p style="fontSize: 24px; color:#333;" class="middle">云宿智能酒店管理系统</p>
     </header>
+    <footer style="marginBottom:5px;" v-if="user.is_admin" @click="addHotel">
+      <el-button size="mini" type="primary">创建酒店</el-button>
+    </footer>
     <div class="contain">
       <div class="head clearfix">
         <p class="fl">请选择酒店</p>
@@ -12,26 +15,27 @@
         </router-link>
       </div>
       <ul>
-          <li v-for="item in hotelList"   :key="item.id"  @click="go(item.id)">
+          <li class="hover" v-for="item in hotelList"   :key="item.id"  @click="go(item.id)">
             <div class="middle">
               <img v-bind:src="item.logo"  width="120" heigth="74" />
             </div>
-            <p class="middle">
-              <span>{{item.address}}</span><span class="fontcolor">{{item.hotel_name}}</span>
-            </p>
+            <nav class="middle">
+              <p style="marginBottom:12px;marginTop:20px;">
+                <span class="fontcolor">{{item.hotel_name}}</span>
+              </p>
+              <p style="color:#b2b2b2;">
+                <span>{{item.address}}</span>
+              </p>
+            </nav>
           </li>
       </ul>
-      <footer @click="addHotel">
-        <p class="middle">创建酒店</p>
-        <span class="middle">＋</span>
-      </footer>
     </div>
   </div>
 </template>
 
 <script>
  import API from '@/store/API'
-
+ import { mapGetters } from 'vuex'
 	export default {
 		name: 'hotelList',
 		data() {
@@ -48,6 +52,11 @@
           console.log(self.hotelList)
       })
     },
+    computed:{
+			...mapGetters({
+				user:'user'
+			})
+		},
     methods:{
       goBack() {
         this.$router.back()
@@ -56,17 +65,18 @@
           var self = this 
           this.hotelList.forEach((el,i)=>{
             if(el.id == id){
-                self.$store.dispatch('setCurrHotel',el)
+              document.title = el.hotel_name
+              self.$store.dispatch('setCurrHotel',el)
             }
              
           })
           //this.$store.dispatch('setHotelList',this.hotelList)
-          this.$router.push({path:'/container/fangtai',param:{
+          this.$router.push({path:'/layerContainer/newhello',param:{ ///container/fangtai
             id:id
           }})
       },
       addHotel:function(){
-        this.$router.push({path:'/container/addhotel'})
+        this.$router.push({path:'/layerContainer/addhotel'})
       }
     }
 	}
@@ -74,8 +84,9 @@
 
 <style lang="scss" scoped>
   .choice{
+    font-size: 12px;
     box-sizing: border-box;
-    padding: 2%;
+    padding: 40px 50px;
     .middle{
       display: inline-block;
       vertical-align: middle;
@@ -84,6 +95,9 @@
       font-size: 16px;
       color: #6a9df6;      
       cursor: pointer;
+    }
+    .hover:hover{
+      background: #f0f9fe;
     }
     ul{
       width: 100%;
@@ -97,27 +111,27 @@
         border-top: none;
         padding: 0 20px;
         height: 100px;
-        font-size: 16px;
         cursor: pointer;
         div{
           height: 76px;
           width: 152px;
-          margin-top: 13px;
+          margin-top: 10px;
           margin-right: 20px;
           text-align: center;
           img{
             display: inline-block;
-            height: 70px;
+            height: 80px;
             width: 150px;
           }
         }
         .fontcolor{
-          color: #6a9df6;
+          color: #00a8ff;
+          font-size: 16px;
         }
       }
     }
     header{
-      margin-bottom: 3%;      
+      margin-bottom: 40px;;      
       img{
         margin-right: 10px;
       }

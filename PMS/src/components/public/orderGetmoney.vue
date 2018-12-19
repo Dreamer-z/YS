@@ -47,11 +47,11 @@
               <span style="margin-right: 0px;" class="middle">{{message.receive_amount?message.receive_amount:0}}</span>
               <!-- <span style="color: #6c9ef7;" class="middle">消费清单</span> -->
             </p>
-            <!-- <p>
-              <span class="middle">剩余预授权</span>
+            <p>
+              <span class="middle">预订定金</span>
               <span class="middle">：</span>
-              <span class="middle">￥11.00</span>
-            </p> -->
+              <span class="middle">{{message.preorder_sum?message.preorder_sum:0}}</span>
+            </p>
             <p>
               <span class="middle">总消费额</span>
               <span class="middle">：</span>
@@ -143,15 +143,15 @@
           <li class="two">
             项目
           </li>
-          <li class="three">笔数</li>
+          <li class="three">数量</li>
           <li class="four bor-none">金额</li>
         </ul>
         <div ref="wrap" class="listtable">
-          <div v-for="(item, key, index) in consumptionListName" class="clienheight">
+          <div :key="index" v-for="(item, key, index) in consumptionListName" class="clienheight">
             <ul @click="changeImgRotate(key,item)" class="table clearfix bj bortopnone">
               <li class="one">
                 <span class="">
-                  <img :class="{'imgrotate': imgRotate.includes(key)}" width="10" height="6" src="@/assets/images/sjx.png" class="mitop imgabsolute"></img>
+                  <img :class="{'imgrotate': imgRotate.includes(key)}" width="10" height="6" src="@/assets/images/sjx.png" class="mitop imgabsolute"/>
                   <!-- <i style="margin-right: -20px;" :class="{'icon-wifi' : imgRotate.includes(key)}" class="mitop iconfont"></i> -->
                   <em style="line-height: 12px;" :class="{'icon-wifi' : 0}" class="mitop iconfont"></em>
                 </span>
@@ -164,7 +164,7 @@
             </ul>
             <el-collapse-transition>
               <div v-show="imgRotate.includes(key)">
-                <ul @click="setIconClassArr(data)" v-for="(data, i) in item.data" class="table clearfix bj bortopnone">
+                <ul @click="setIconClassArr(data)" :key="i" v-for="(data, i) in item.data" class="table clearfix bj bortopnone">
                   <li class="one">
                     <span class="middle">
                       <i style="margin-right: -20px;font-weight:bold;color:#6a9df6;" :class="{'icon-gou' : iconClassArr.includes(data)}" class="mitop iconfont"></i>
@@ -212,14 +212,14 @@
               <span class="middle">{{message.all_amount?message.all_amount:0}}</span>
             </li>
             <li class="three">
-              <span class="middle">已付款</span>
+              <span class="middle">已收金额</span>
               <span class="middle">：</span>
               <span class="middle">{{message.receive_amount?message.receive_amount:0}}</span>
             </li>
             <li>
-              <span class="middle">还需支付</span>
+              <span class="middle">应结金额</span>
               <span class="middle">：</span>
-              <span class="middle">{{consumption - collection}}</span>
+              <span class="middle">{{(consumption - collection).toFixed(2)}}</span>
             </li>
           </ul>
           <p @click="setConsumpItemNone" class="middle addbtn">
@@ -232,7 +232,7 @@
           <p class="footdo">处理</p>
           <div class="footdolist">
             <ul>
-              <li @click="ToDo(item, index)" :class="{'mrgtop': index > 5, 'clickbac': clickbac == index}" v-for="(item, index) in footDoList">
+              <li @click="ToDo(item, index)" :class="{'mrgtop': index > 5, 'clickbac': clickbac == index}" :key="index" v-for="(item, index) in footDoList">
                 {{item.name}}<span>（F{{index + 1}}）</span>  
               </li>
             </ul>
@@ -240,7 +240,8 @@
         </footer>
       </div>
     </div>
-    <check-out :memberId="memberId" :orderId="orderId" :mes="(consumption - collection)" v-if="checkOutNone"></check-out>
+    <checkoutsettlement :orderId="orderId" :item="forSuccess"   v-if="checkOutNone"></checkoutsettlement> <!-- (consumption - collection) -->
+    <!--<check-out :item="forSuccess" :memberId="memberId" :orderId="orderId" :mes="(consumption - collection)" v-if="checkOutNone"></check-out> -->
     <consumption-list :mes="message.room?message.room.name:''" :orderId="orderId" v-if="consumptionListNone"></consumption-list>
     <guest :roomName="message.room_name" :list="message.member?message.member:[]" v-if="guestNone"></guest>
     <consump-item :orderId="orderId" :mes="roomId" :roomName="message.room_name?message.room_name:''" v-if="consumpItemNone"></consump-item>
@@ -252,13 +253,16 @@ import { mapGetters } from 'vuex'
 import API from "@/store/API"
 import bus from "@/store/bus"
 import checkOut from "@/components/public/checkout"     // 单房结账   结账
-import consumpItem from "@/components/public/consumpItem"  //  添加其他消费项
+import consumpItem from "@/components/public/consumpitem"  //  添加其他消费项
 import guest from "@/components/public/guest"     //查看跟多入住人
 import consumptionList from "@/components/public/consumptionlist"   // 消费清单
+import checkoutsettlement from "@/components/public/checkoutsettlement"; 
+
   export default{
     name: 'orderGetMoney',
     data() {
       return {
+        forSuccess: '',
         memberId: '',
         orderId: '',
         message: {},
@@ -292,7 +296,8 @@ import consumptionList from "@/components/public/consumptionlist"   // 消费清
       checkOut,
       consumptionList,
       guest,
-      consumpItem
+      consumpItem,
+      checkoutsettlement
     },
     watch: {
       clickListNumber(newval) {
@@ -342,19 +347,22 @@ import consumptionList from "@/components/public/consumptionlist"   // 消费清
       checkRoomStatu() {
         let obj = {
           hotel_id: this.hotel.id,
-          room_id: this.roomId
+          room_id: this.roomId,
+          order_id: this.orderId
         }
         API.post("/pms/roomstatus/check", obj).then(res=>{
           if (res.error_code == 0) {
             this.$message({
-              message: '发起查房成功',
+              message: `${res.msg}`,
               type: 'success'
             })
           } else {
-            this.$message({
-              message: '该房间没有负责人，请指定',
-              type: 'warning'
-            })
+            if (res.msg) {
+              this.$message({
+                message: `${res.msg}`,
+                type: 'warning'
+              })
+            }
           }
         })
       },
@@ -371,7 +379,7 @@ import consumptionList from "@/components/public/consumptionlist"   // 消费清
         // bus.ev.$emit('setConsumpItem',{"roomId": this.roomId})
         // this.forChild = [this.roomId]
       },
-      ToDo(e, i) {
+      ToDo(e, i) {  
         this.clickbac = i;
         switch (e.name) {
           case '单房结账':
@@ -429,8 +437,8 @@ import consumptionList from "@/components/public/consumptionlist"   // 消费清
           // })
         }
       },
-      beNone() {
-        bus.ev.$emit('getMoneyBeNone')
+      beNone(e) {
+        bus.ev.$emit('getMoneyBeNone',e)
       },
       resize(){
         let _this = this;
@@ -444,8 +452,7 @@ import consumptionList from "@/components/public/consumptionlist"   // 消费清
       bus.ev.$on('checkoutNone',(e) => {
         this.checkOutNone = false
         if (typeof e != 'undefined') {
-          this.beNone()
-          // this.$router.push("/containerwhite/orderlist")
+          this.beNone(e)
         }
       })
       bus.ev.$on('consumptionListNone', () => {
@@ -477,6 +484,7 @@ import consumptionList from "@/components/public/consumptionlist"   // 消费清
     },  
     created() {
       bus.ev.$on('willBeOrderGetMoney',(e)=>{
+        this.forSuccess = e
         console.log('tuifang000',e)
         this.orderId = e.order_id
         this.roomId = e.room_id

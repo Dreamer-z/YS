@@ -1,11 +1,10 @@
 <template>
   <div class="station-container">
-    <bread-crumb :child-msg='router'></bread-crumb>
     <el-row class="optionsBtn">
-      <el-button class="btn" type="primary" size="small" @click="add">新增</el-button>
-      <el-button class="btn" size="small" :disabled="disableClick" @click="addStation">保存</el-button>
+      <el-button class="btn" type="primary" size="mini" @click="add">新增</el-button>
+      <el-button class="btn" size="mini" :disabled="disableClick" @click="addStation">保存</el-button>
     </el-row>
-    <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" height='85%' style="width: 1060px" border @selection-change="handleSelectionChange">
+    <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" height='85%' style="width: 1060px"  @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="58"></el-table-column>
       <el-table-column label="岗位名称" width="140">
         <template slot-scope="scope">
@@ -41,8 +40,6 @@
 </template>
 
 <script>
-import BreadCrumb from '@/components/public/breadcrumb' //面包屑导航栏
-import { routs } from '@/assets/js/routs'
 import { mapGetters } from 'vuex'
 import API from '@/store/API/index'
 export default {
@@ -51,13 +48,8 @@ export default {
       hotel: 'currHotel'
     })
   },
-  components: {
-    BreadCrumb
-  },
   data() {
     return {
-      // 面包屑导航路径及名称
-      router: [routs.index, routs.station],
       // 表单数据
       tableData: [],
       // 选中表单条目数据
@@ -95,22 +87,25 @@ export default {
     // 验证是否重复
     judgeRep(arr) {
       let tableData = this.tableData
-      let n = 0
+      let n = []
       if (arr) {
         for (let i = 0; i < arr.length; i++) {
+           n[i] = 0
           for (let j = 0; j < tableData.length; j++) {
             if (arr[i].name == tableData[j].name) {
-              n++;
+              n[i]++;
             }
           }
         }
       }
-      if (n > 1) {
-        this.$message({
-          type: 'warning',
-          message: '该岗位已存在，请不要重复添加！'
-        })
-        return false
+      for (let i = 0; i < n.length; i++) {
+        if (n[i] > 1) {
+          this.$message({
+            type: 'warning',
+            message: '该岗位已存在，请不要重复添加！'
+          })
+          return false
+        }
       }
     },
     // 选中表单条目数据
@@ -244,7 +239,8 @@ export default {
         .then(() => {
           API.stationAmend(row.id, {
             name: row.name,
-            description: row.description
+            description: row.description,
+            hotel_id:_this.hotel.id,
           })
             .then(function(res) {
               if (res.error_code == 0) {
@@ -345,8 +341,7 @@ export default {
 <style lang="scss" scoped>
 .station-container {
   box-sizing: border-box;
-  height: 100%;
-  font-size: 14px;
-  overflow: auto !important;
+  padding: 10px 35px;
+  overflow-y: auto;
 }
 </style>

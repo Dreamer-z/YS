@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "常用旅客",
+  "usingComponents": {
+    "common-user": "/pages/components/commonUser/commonUser"
+  }
+}

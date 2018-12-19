@@ -1,6 +1,14 @@
-/* pages/components/calendar/calendar.wxss */
+/* pages/components/cal/calendar.wxss */
 
 /* 日历 */
+
+.mask {
+  height: 100%;
+}
+
+.calendar.hide {
+  display: none;
+}
 
 .calendar {
   background: #fff;
@@ -48,6 +56,24 @@
   text-align: center;
   height: 100%;
   width: 100%;
+  position: relative;
+}
+
+.flex-item .item-content .check{
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  border-radius:50%; 
+  font-size: 24rpx;
+  color: #fff;
+  background-color: #437ff8;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.hide{
+  display: none;
 }
 
 .flex-item .item-content .previous, .flex-item .item-content .next {
@@ -64,11 +90,11 @@
   width: 1rem;
 }
 
-.flex-item .item-content .previous{
+.flex-item .item-content .previous {
   justify-content: flex-start;
 }
 
-.flex-item .item-content .next{
+.flex-item .item-content .next {
   justify-content: flex-end;
 }
 
@@ -91,7 +117,7 @@
   border-radius: 50%;
 }
 
-.item-day.week{
+.item-day.week {
   color: #437ff8;
 }
 
@@ -100,8 +126,7 @@
   background-color: #eee;
 }
 
-.item-day.today.chooseday,
-.item-day.chooseday  {
+.item-day.today.chooseday, .item-day.chooseday {
   color: #fff;
   background-color: #437ff8;
 }

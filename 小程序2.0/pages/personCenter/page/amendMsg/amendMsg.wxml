@@ -1,0 +1,40 @@
+<!--pages/personCenter/page/amendMsg/amendMsg.wxml-->
+<view class='box flex flex-vertical'>
+  <view class='person-msg bg-white flex flex-align-center'>
+    <view class='photo'>
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+    <view class='name flex-1'>
+      <open-data type="userNickName"></open-data>
+    </view>
+    <view class='tabs'>{{card_level_name}}</view>
+  </view>
+  <view class='member-msg bg-white flex-1'>
+    <view class='part-title'>个人资料</view>
+    <view class='msg-box'>
+      <view class='item'>
+        <view class='item-title'>姓名</view>
+        <input class='item-msg' value='{{name}}' bindinput='getName'></input>
+      </view>
+      <view class='item'>
+        <view class='item-title'>身份证号</view>
+        <input class='item-msg' value='{{idcard}}' bindinput='getIdcard'></input>
+      </view>
+      <!-- <view class='item'>
+        <view class='item-title'>国家/地区</view>
+        <input class='item-msg' value='张三' bindinput='getCountry'></input>
+      </view> -->
+      <view class='item'>
+        <view class='item-title'>手机号码</view>
+        <input class='item-msg' value='{{mobile}}' bindinput='getMobile'></input>
+      </view>
+      <view class='item'>
+        <view class='item-title'>短信验证码</view>
+        <input class='item-msg' value='{{code}}' bindinput='getCodeVal'></input>
+        <button bindtap='getCode' wx:if="{{time == 0}}">获取验证码</button>
+        <button wx:else>{{time}}s后重发</button>
+      </view>
+    </view>
+    <view class='amend' bindtap='send'>确认修改</view>
+  </view>
+</view>

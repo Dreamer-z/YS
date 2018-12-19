@@ -5,35 +5,43 @@
 			<header v-else>添加房间</header>
 			<div class="main">
 				<div class="one">
-					<p class="blue">楼层</p>
+					<p style="width:98px;marginLeft:10px;" class="blue">楼层</p>
 					<span v-show="val.name !=''">{{val.name}}楼</span>
 					<span style="color: red;" v-show="val.name == ''">请点击取消，返回上一个操作</span>
 					<span style="color: red;" v-show="thesamename">已有相同的房间</span>
 				</div>
 				<div class="two">
-					<p class="blue mar-r">房间类型</p>
-					<el-select @change="cons" size="medium" v-model="value2" placeholder="请选择房间类型">
+					<p style="width:108px;" class="blue">
+						<span style="color:red;">*</span>
+						<span>房间类型：</span>
+					</p>
+					<el-select size="medium" v-model="value2" placeholder="请选择房间类型">  <!-- @change="cons"-->
             <el-option v-for="item in roomType" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
-				</div>
-				<div class="two">
-					<p class="blue mar-lf">房号</p>
+					<span style="color:red;margin-left:108px;">*</span>
+					<p class="blue">房号：</p>
 					<input @focus="thesamename = false" @blur="checkName" v-model="roomname" type="text">
 				</div>
+				<div class="two tag">
+					<div class="ver-top">
+						<p style="width:98px;marginLeft:10px;" class="blue">房间标签：</p>
+					  <!-- <input @focus="thesamename = false" @blur="checkName" v-model="roomname" type="text"> -->
+					</div>
+					<nav style="maxWidth:87%;" class="ver-top">
+						<p @click="setNeedTagsArr(item.id)" :class="{'active': needTagsArr.includes(item.id)}" v-for="(item, index) in tagsArr" :key="index" class="middle tag-list">{{item.name}}</p>
+					</nav>
+				</div>
 				<div class="three">
-					<p class="blue mar-lf">备注</p>
-					<input v-model="remark" placeholder="不要超过20个汉字" type="text">
+					<p style="width:98px;marginLeft:10px;" class="blue middle">备注：</p>
+					<!-- <input v-model="remark" placeholder="不要超过20个汉字" type="text"> -->
+					<textarea v-model="remark" placeholder="不要超过20个汉字" class="remark middle"></textarea>
 				</div>
 				<p @click="isshow = true;" v-show="!isshow" class="more">更多设置</p>
 				<p @click="isshow = false;" v-show="isshow" class="more">收起</p>
 				<el-collapse-transition>
 					<div v-show="isshow" class="moretext">
 						<div class="four">
-							<p class="blue">房间朝向</p>
-							<input v-model="toward" type="text">
-						</div>
-						<div class="four mar">
 							<p class="blue">房间电话</p>
 							<input v-model="phone" type="number">
 						</div>
@@ -78,13 +86,28 @@ import API from "@/store/API"
 				lock_num:'',
 				lock_secret:'',   //miyao
 				checkNames: [],
-				thesamename: false
+				thesamename: false,
+				tagsArr: [],
+				needTagsArr: [],
+				onece: true
 			}
 		},
 		props: ['val'],
 		methods: {
-			cons() {
-				// console.log(this.val)
+			setNeedTagsArr(id) {
+				if (this.needTagsArr.includes(id)) {
+					let find = this.needTagsArr.indexOf(id)
+					this.needTagsArr.splice(find , 1)
+				} else {
+					this.needTagsArr.push(id)
+				}
+			},
+			getTags() {
+				API.get("/pms/room/tags").then(res => {
+					if (res.error_code == 0) {
+						this.tagsArr = res.data
+					}
+				})
 			},
 			getName() {
 				let _this = this;
@@ -120,6 +143,8 @@ import API from "@/store/API"
 			},
 			tononeagainAdd() {  //添加房间的
 				if (this.thesamename) {return}
+				if (!this.onece){return}
+				this.onece = false
 				let _this = this;
 				if(this.roomname && this.value2) {
 					let obj = {
@@ -132,11 +157,13 @@ import API from "@/store/API"
 						'phone': this.phone,   //	是	string	房间电话
 						'toward': this.toward,    //	是	string	房间朝向
 						'lock_num': this.lock_num,    //	是	string	房间锁号
-						'lock_secret': this.lock_secret    //	是	string	门锁秘钥
+						'lock_secret': this.lock_secret,    //	是	string	门锁秘钥
+						'tags': this.needTagsArr
 					}
 					API.addNewRoom(obj).then(res => {
 						let str;
 						if(res.error_code == 0) {
+							this.onece = true
 							this.roomType.forEach( function(element, index) {
 								if(element.value == _this.value2){        //value是 id。 this.value2拿到的也是id
 									str = element.label          //  让this.value2  还是id    
@@ -154,9 +181,14 @@ import API from "@/store/API"
 				        	this.$emit('addonceAdd', {'msg': this.roomobj})
 			          }
 			        })
+						} else {
+							this.onece = true
+							if (res.msg) {
+	              this.$message.error(`${res.msg}`)
+	            }
 						}
 					})
-				}else{
+				} else {
 					// this.$emit('addonce',{'msg': ''})
 					this.$message({
 	          message: '请填写房间信息',
@@ -166,6 +198,8 @@ import API from "@/store/API"
 			},
 			tononeagain() {     //  编辑用的
 				if (this.thesamename) {return}
+				if (!this.onece) {return}
+				this.onece = false
 				let _this = this;
 				let str;
 				if(typeof this.val.id != 'undefined') {
@@ -193,10 +227,12 @@ import API from "@/store/API"
 						'phone': this.phone,   //	是	string	房间电话
 						'toward': this.toward,    //	是	string	房间朝向
 						'lock_num': this.lock_num,    //	是	string	房间锁号
-						'lock_secret': this.lock_secret    //	是	string	门锁秘钥
+						'lock_secret': this.lock_secret,   //	是	string	门锁秘钥
+						'tags': this.needTagsArr
 					}
 					API.changeRoomName(this.val.id, obj).then(res =>{
 						if(res.error_code == 0){
+							this.onece = true
 							this.$alert('操作成功', '', {
 			          confirmButtonText: '确定',
 			          callback: ()=>{
@@ -209,9 +245,13 @@ import API from "@/store/API"
 				        	this.$emit('addonce', {'msg': this.roomobj})
 			          }
 			        })
+						} else {
+							this.onece = true
+							if (res.msg) {
+	              this.$message.error(`${res.msg}`)
+	            }
 						}
 					})
-					// console.log(obj,this.value2)
 				}else{
 					// this.$emit('addonce',{'msg': ''})
 				}
@@ -219,10 +259,25 @@ import API from "@/store/API"
 		},
 		mounted() {
 			this.getroomtype()
-			this.cons()
 		},
 		created() {
+			this.getTags()
 			this.getName()
+			if (this.val.id) {
+				API.get("/pms/room/" + this.val.id).then(res => {
+					if (res.error_code == 0) {
+						let data = res.data
+						this.remark = data.remark    //beizhu
+						this.phone = data.phone
+						this.toward = data.toward  //chaoxiang
+						this.lock_num= data.lock_num
+						this.lock_secret = data.lock_secret
+						res.data.tags.forEach(e => {
+							this.needTagsArr.push(e.tag_id)
+						})
+					}
+				})
+			}
 		}
 	}
 </script>
@@ -251,40 +306,39 @@ import API from "@/store/API"
 					width: 42%;
 					margin-left: 26px;
 				}
-				.ft12{
-					font-size: 12px;
-				}
 			}
 		}
 		position: fixed;
 		top:0;left:0;right:0;bottom:0;
 		background: rgba(0,0,0,.4);
 		z-index: 166;
-		font-size: 16px;
+		font-size: 14px;
+		display: flex;
+    align-items:center;
+    justify-content: center;
+		.ver-top{
+			display: inline-block;
+			vertical-align: top;
+		}
 		.context{
 			.more{
 				width:100%; text-align: right;
 				margin-bottom: 18px;
 				cursor: pointer;
 			}
-			border-radius: 4px;
-			width: 68%;
-			margin: 0 10% 0 24%;
-			// padding-top: 60px;
+			// border-radius: 4px;
+			width: 1000px;
 			background: #f5f5f5;
 			p{
 				display: inline-block;
 			}
 			header{
 				line-height: 60px;
-				border-top-left-radius: 6px;
-				border-top-right-radius: 6px;
 				text-align: center;
 				background: #437ff9;
 				font-size: 18px;
 				color: #fff;
 				margin-bottom: 16px;
-				margin-top: 60px;
 			}
 			.main{
 				width: 100%;
@@ -298,9 +352,6 @@ import API from "@/store/API"
 					p,span{
 						display: inline-block;
 					}
-					span{
-						margin-left: 56px;
-					}
 				}
 				.mar-lf{
 						margin-left: 26px;
@@ -313,7 +364,7 @@ import API from "@/store/API"
 					p{
 						display: inline-block;
 						vertical-align: middle;
-						margin-right: 30px;
+						// margin-right: 30px;
 					}
 					input{
 						height: 36px;
@@ -322,15 +373,29 @@ import API from "@/store/API"
 				}
 				.three{
 					margin-bottom: 36px;
-					p{
-						margin-right: 30px;
-					}
-					input{
-						height: 36px;
-						width: 86%;
-					}
+					// p{
+					// 	margin-right: 30px;
+					// }
+				}
+				.tag-list{
+					width: 80px;height: 30px;
+					line-height: 30px;
+					text-align: center;
+					background: #e6e6e6;
+					margin-right: 10px;
+					margin-bottom: 14px;
+					cursor: pointer;
+				}
+				.active{
+					background: #fcdc6d;
 				}
 			}
+		}
+		.remark{
+			width: 804px;
+			height: 40px;
+			border-radius: 4px;
+			text-indent: 6px;
 		}
 		footer{
 			width: 100%;

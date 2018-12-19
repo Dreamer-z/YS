@@ -1,0 +1,15 @@
+<view class='result flex flex-vertical flex-align-center {{msg.result?"success":"fail"}}'>
+  <view class='result-msg flex flex-align-center flex-pack-center'>
+      <view>{{msg.result?"充值成功":"充值失败"}}</view>
+      <image class='result-img' src='{{msg.result?"/images/success.png":"/images/fail.png"}}'></image>
+  </view>
+  <view class='result-details flex flex-vertical flex-align-center' wx:if="{{msg.result}}">
+    <view>充值金额：<text>{{recharge_amount}}</text></view>
+    <view>充值赠送：<text>{{give_amount}}</text></view>
+    <view>稍后您可在会员中心查看</view>
+    <!-- <view>当前余额：<text>{{msg.balance}}</text></view> -->
+  </view>
+  <view class='result-details flex flex-vertical flex-align-center' wx:else>系统繁忙。您可稍后再试！</view>
+  <view class='get-details success' bindtap='getDetails' wx:if="{{msg.result}}">点我查看详情</view>
+  <view class='get-details fail' bindtap='again' wx:else>重新充值</view>
+</view>

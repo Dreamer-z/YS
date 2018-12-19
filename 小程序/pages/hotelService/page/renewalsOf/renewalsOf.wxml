@@ -1,5 +1,4 @@
 <!--pages/hotelService/page/renewalsOf/renewalsOf.wxml-->
-<import src="/pages/components/calendar/calendar.wxml" />
 <view class="room bg-white">
   <image src='/images/ls.png'></image>
   <view class='msg'>
@@ -18,15 +17,15 @@
   <view class="part checkIn">
     <view class="title">入住</view>
     <view class="content">
-      <text class="day">{{checkIn1}}<text>周{{week[0]}}</text></text>
+      <text class="day">{{date.checkIn1}}<text>周{{date.week[0]}}</text></text>
       <image src='/images/calendar.png'></image>
     </view>
   </view>
   <view class="place"></view>
   <view class="part checkOut">
     <view class="title">离店</view>
-    <view class="content" bindtap='showCalendar'>
-      <text class="day">{{checkOut1}}<text>周{{week[1]}}</text></text>
+    <view class="content" bindtap='choseDate'>
+      <text class="day">{{date.checkOut1}}<text>周{{date.week[1]}}</text></text>
       <image src='/images/calendar.png'></image>
     </view>
   </view>
@@ -34,11 +33,11 @@
 <view class="basePrice bg-white">
   房费
   <view class="symbol">¥</view>
-  <view class="num">{{hotelData.price}}</view>
+  <view class="num">{{hotelData.price*day}}</view>
 </view>
-<view class="calendarBox" hidden='{{calendar}}'>
-  <view class='empty' bindtap='showCalendar'></view>
-  <template is="calendar" data="{{currentDate,currentDayList,checkIn,checkOut,today}}"></template>
+<view class='calendar flex flex-vertical {{hide?"hide":""}}'>
+  <view class='empty' bindtap='choseDate'></view>
+  <calendar id="calendar" continue="{{true}}" date="{{leave_time}}" bindgetDate="getDate" bindchooseEnd="chooseEnd"></calendar>
 </view>
 <!-- <view class="rules bg-white">
   <view class="content">
@@ -50,5 +49,5 @@
   </view>
 </view> -->
 <form report-submit bindsubmit='payForIt'>
-  <button class="renewals" form-type='submit'>微信支付</button>
+  <button class="renewals {{hotelData.end_status==0?'':'disabled'}}" form-type='submit' disabled="{{hotelData.end_status==0?false:true}}">微信支付</button>
 </form>

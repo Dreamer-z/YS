@@ -1,0 +1,54 @@
+<!--pages/personCenter/page/withdrawPages/withdrawPages.wxml-->
+<scroll-view class='withdraw-pages'>
+  <view class='container bg-white'>
+    <view class='bank-card flex' bindtap='getBankPop'>
+      <view class='title'>到帐银行卡</view>
+      <view class='content flex-1' wx:if="{{bankCard.length>0}}">
+        <image src='{{bankCard[index].mini_logo}}'></image>
+        <view class='bank flex flex-align-center'>{{bankCard[index].bank_name}}（{{bankCard[index].last_four_code}}）</view>
+        <view>预计{{msg.work_day}}个工作日内到账</view>
+      </view>
+      <view class='content flex-1' wx:else>您还没有添加银行卡</view>
+      <image class='more' src='/images/more.png'></image>
+    </view>
+    <view class='amount'>
+      <view class='title'>提现金额</view>
+      <view class='amount_num flex flex-align-center'>¥
+        <input type='digit' value='{{money}}' bindinput='getMoney'></input>
+      </view>
+    </view>
+    <view class='hotel-msg'>
+      <view class='hotel flex flex-align-center'>
+        <image src='/images/distribute/hotel.png'></image>{{msg.hotel_name}}</view>
+      <view class='can-withdraw-amount flex flex-align-center flex-pack-justify'>
+        <view class='num'>可提现金额¥
+          <text>{{amout_money}}</text>
+        </view>
+        <view class='all-withdraw' bindtap='allWithdraw' wx:if="{{amout_money>0}}">全部提现</view>
+      </view>
+    </view>
+  </view>
+  <view class='withdraw' wx:if="{{amout_money>0}}">
+    <button class='finish-big' bindtap='withdraw'>提现至银行卡</button>
+  </view>
+</scroll-view>
+<view class='popup flex flex-vertical {{chooseBank?"":"hide"}}'>
+  <view class='space flex-1' bindtap='getBankPop'></view>
+  <view class='bank-content bg-white flex flex-vertical'>
+    <view class='content-head'>
+      <view class='content-head-title'>选择到账银行卡</view>
+      <image class='close' src='/images/close_1.png' bindtap='getBankPop'></image>
+    </view>
+    <view class='content-main flex-1'>
+      <view class='item' wx:for="{{bankCard}}" wx:for-index="index" wx:key="{{index}}" data-index="{{index}}" bindtap='choose'>
+        <image class='icon' src='{{item.mini_logo}}'></image>
+        <view class='bank-name'>{{item.bank_name}}</view>
+        <view class='bank-card'>储蓄卡（{{item.last_four_code}}）</view>
+      </view>
+    </view>
+    <view class='content-foot flex flex-align-center' bindtap='addNewCard'>
+      <image src='/images/add_on.png'></image>
+      <view>使用新卡提现</view>
+    </view>
+  </view>
+</view>

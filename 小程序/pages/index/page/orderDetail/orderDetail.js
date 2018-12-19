@@ -19,7 +19,6 @@ Page({
     })
     // 订单详情
     preorder(preorder_id).then(function (data) {
-      console.log(data)
       wx.hideLoading();
       _this.setData({
         orderDetails: data.data,

@@ -1,0 +1,16 @@
+<!--pages/personCenter/page/transactResult/transactResult.wxml-->
+<view class='result flex flex-vertical flex-align-center {{msg.result?"success":"fail"}}'>
+  <view class='result-msg flex flex-align-center flex-pack-center'>
+      <view>{{msg.result?"绑定成功":"绑定失败"}}</view>
+      <image class='result-img' src='{{msg.result?"/images/success.png":"/images/fail.png"}}'></image>
+  </view>
+  <view class='result-details flex flex-vertical flex-align-center' wx:if="{{msg.result}}">
+    <view>恭喜您，成功绑定{{msg.level_name}}</view>
+    <view wx:for="{{msg.member_right}}" wx:for-index="index" wx:key="{{index}}">{{item}}</view>
+  </view>
+  <view class='result-details flex flex-vertical flex-align-center' wx:else>
+    {{msg.error_msg?msg.error_msg:"系统繁忙，请稍后再试！"}}
+  </view>
+  <view class='get-details success' bindtap='getDetails' wx:if="{{msg.result}}">点我查看详情</view>
+  <view class='get-details fail' bindtap='again' wx:else>重新绑定</view>
+</view>

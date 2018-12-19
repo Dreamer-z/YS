@@ -40,7 +40,7 @@
       <view class="content roomNumber">
         <text>{{roomNumber}}间</text>
         <view class="place"></view>
-        <view class="count">
+        <!-- <view class="count">
           <view class="sub" data-type="sub" bindtap='count'>
             <image src='{{countType == "sub"?"../../../../images/sub_on.png":"../../../../images/sub.png"}}'></image>
           </view>
@@ -48,13 +48,13 @@
           <view class="add" data-type="add" bindtap='count'>
             <image src='{{countType == "add"?"../../../../images/add_on.png":"../../../../images/add.png"}}'></image>
           </view>
-        </view>
+        </view> -->
       </view>
     </view>
     <view class="columnOne">
       <view class="title required">入住人</view>
       <view class="content checkInPerson">
-        <input type='text' placeholder='{{realName?"每间需填写一人真实姓名":"每间需填写一人姓名"}}' placeholder-style='color:#ccc' wx:for="{{user}}" wx:key="{{key}}" confirm-type="done" data-index="{{index}}" bindtap='quickCheckIn' value='{{item.name==""?"":item.name}}' bindinput="getName"></input>
+        <input type='text' placeholder='{{realName?"需填写真实姓名":"需填写真实姓名"}}' placeholder-style='color:#ccc' wx:for="{{user}}" wx:key="{{key}}" confirm-type="done" data-index="{{index}}" bindtap='quickCheckIn' value='{{item.name==""?"":item.name}}' bindinput="getName"></input>
       </view>
       <view class="icon" bindtap='choosePerson'>
         <image src='../../../../images/reservation/people.png'></image>

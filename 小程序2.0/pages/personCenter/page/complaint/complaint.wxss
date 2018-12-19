@@ -1,0 +1,26 @@
+/* pages/personCenter/page/complaint/complaint.wxss */
+.complaintBox{
+  box-sizing: border-box;
+  padding: 30rpx;
+  width: 100%;
+	height: 600rpx;
+	background-color: #ffffff;
+	border-radius: 4rpx;
+}
+
+.complaintBox textarea{
+  width: 100%;
+  height: 100%;
+  font-size: 26rpx;  
+}
+
+.push{
+  width: 100%;
+  height: 90rpx;
+  border-radius: 0;
+  margin: 20rpx 0 0 0;
+  padding: 0;
+  background-color: #6a9df6;
+  font-size: 34rpx;
+	color: #fff;
+}

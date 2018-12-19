@@ -4,136 +4,19 @@
     <div class="scroll-bar">
       <el-row class="">
         <el-col :span="24">
-          <el-menu style="text-align:center; border: none; font-size: 18px;" default-active="2" class="el-menu-vertical-demo" background-color="#2e3740" text-color="#acaeb1" active-text-color="#6a9df6" unique-opened>
-            <el-submenu index="1">
-              <template color: red; slot="title">
-                <span>酒店管理</span>
+          <el-menu style="text-align:center; border: none; font-size: 18px;" default-active="2" class="el-menu-vertical-demo" background-color="#292f45" text-color="#fff" active-text-color="#6a9df6" unique-opened>
+            <el-submenu v-for="(item) in someArr" :key="item.id" :index="item.id+''" >
+              <template slot="title">
+                <span>{{item.name}}</span>
               </template>
               <el-menu-item-group>
-                <el-menu-item index="1-1">
-                  <router-link tag="div" to="/container/roomtypelist">添加房型</router-link>
-                </el-menu-item>
-                <el-menu-item index="1-2">
-                  <router-link tag="div" to="/container/addroom">添加房间</router-link>
-                </el-menu-item>
-                <el-menu-item index="1-3">
-                  <router-link tag="div" to="/container/hotelphotos">酒店相册</router-link>
-                </el-menu-item>
-                <el-menu-item index="1-4">
-                  <router-link tag="div" to="/container/roomtypephotos">房型相册</router-link>
+                <el-menu-item v-for="(v) in item.children" :key="v.id" :index="v.id" >
+                  <router-link tag="div" :to="v.url">{{v.name}}</router-link>
                 </el-menu-item>
               </el-menu-item-group>
             </el-submenu>
-            <el-submenu index="2">
-              <template slot="title">
-                <span>房态中心</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="2-1">
-                  <router-link tag="div" to="/container/fangtai">房态图</router-link>
-                </el-menu-item>
-                <el-menu-item index="2-2">
-                  <router-link tag="div" to="/containerwhite/forwardcalendar">远期房态</router-link>
-                </el-menu-item>
-                <!-- <el-menu-item index="2-3">
-                  <router-link tag="div" to="/containerwhite/hotelCalendar">房态日历</router-link>
-                </el-menu-item> -->
-              </el-menu-item-group>
-            </el-submenu>
-            <el-submenu index="3">
-              <template slot="title">
-                <span>预定管理</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="3-1">
-                  <router-link tag="div" to="/containerwhite/quickpreorder">快速预定</router-link>
-                </el-menu-item>
-                <el-menu-item index="3-2">
-                  <router-link tag="div" to="/containerwhite/batchpreorder">批量预定</router-link>
-                </el-menu-item>
-                <el-menu-item index="3-3">
-                  <router-link tag="div" to="/containerwhite/orderlist">预订单列表</router-link>
-                </el-menu-item>
-                <!-- <el-menu-item index="3-4">
-                  <router-link tag="div" to="/containerwhite/oneorderlist">排房显示</router-link>
-                </el-menu-item> -->
-              </el-menu-item-group>
-            </el-submenu>
-            <el-submenu index="4">
-              <template slot="title">
-                <span>账号管理</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="4-1">
-                  <router-link tag="div" to="/container/department">部门设置</router-link>
-                </el-menu-item>
-                <el-menu-item index="4-2">
-                  <router-link tag="div" to="/container/station">岗位设置</router-link>
-                </el-menu-item>
-                <el-menu-item index="4-3">
-                  <router-link tag="div" to="/container/roleManagement">角色管理</router-link>
-                </el-menu-item>
-                <el-menu-item index="4-4">
-                  <router-link tag="div" to="/container/staffManagement">员工管理</router-link>
-                </el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-            <el-submenu index="5">
-              <template slot="title">
-                <span>系统设置</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="5-1">
-                  <router-link tag="div" to="/container/addMenu">添加菜单</router-link>
-                </el-menu-item>
-                <el-menu-item index="5-2">
-                  <router-link tag="div" to="/container/backgroundMenu">后台菜单</router-link>
-                </el-menu-item>
-                <el-menu-item index="5-3">
-                  <router-link tag="div" to="/container/classes">班次设置</router-link>
-                </el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-            <el-submenu index="6">
-              <template slot="title">
-                <span>会员系统</span>
-              </template>
-              <el-menu-item-group>
-                <el-menu-item index="6-1">
-                  <router-link tag="div" to="/containerwhite/taskmanagement">住客详情</router-link>
-                </el-menu-item>
-                <el-menu-item index="6-2">
-                  <router-link tag="div" to="/container/addMember">添加会员</router-link>
-                </el-menu-item>
-                <el-menu-item index="6-3">
-                  <router-link tag="div" to="/container/memberCard">会员卡级设置</router-link>
-                </el-menu-item>
-                <el-menu-item index="6-4">
-                  <router-link tag="div" to="/container/cooperator">合作单位管理</router-link>
-                </el-menu-item>
-              </el-menu-item-group>
-            </el-submenu>
-            <el-submenu index="7">
-              <template slot="title">
-                <span>系统财报</span>
-              </template>
-            </el-submenu>
-            <el-menu-item index="8">
-              <router-link slot="title" tag="div" to="/container/auntManagement">阿姨管理</router-link>
-            </el-menu-item>
-            <el-submenu index="9">
-              <template slot="title">
-                <span>商品管理</span>
-              </template>
-              <el-menu-item index="9-1">
-                <router-link tag="div" to="/container/goodsType">商品类型设置</router-link>
-              </el-menu-item>
-              <el-menu-item index="9-2">
-                <router-link tag="div" to="/container/goodsManagement">商品设置</router-link>
-              </el-menu-item>
-            </el-submenu>
-            <el-menu-item index="10">
-              <router-link slot="title" tag="div" to="/container/checkInManagement">入住管理</router-link>
+            <el-menu-item v-for="(item) in oneArr" :key="item.id" :index="item.id+''" >
+              <router-link slot="title" tag="div" :to="item.url">{{item.name}}</router-link>
             </el-menu-item>
           </el-menu>
         </el-col>
@@ -143,16 +26,56 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import API from "@/store/API"
 export default {
   name: 'leftMenu',
   data() {
-    return {}
-  }
+    return {
+      leftList: [],
+      someArr: [],
+      oneArr: []
+    }
+  },
+  computed:{
+    ...mapGetters({
+      // 映射 `this.doneCount` 为 `store.getters.doneTodosCount`
+      hotel:'currHotel',
+      sleftList: 'leftList'
+    })
+  },
+  beforeCreate() {
+    // console.log('0007',this.sleftList)
+    API.get("/pms/menu").then(res => {
+      if (res.error_code == 0) {
+        // this.$store.dispatch('setLeftList',res.data)
+        this.leftList = res.data
+        this.leftList.forEach((e,i) => {
+          if (e.children) {
+            this.someArr.push(e)
+          } else {
+            this.oneArr.push(e)
+          }
+        })
+      }
+    })
+  },
+  created() {
+    console.log('0009',this.sleftList)
+    // this.leftList.forEach((e,i) => {
+    //   if (e.children) {
+    //     this.someArr.push(e)
+    //   } else {
+    //     this.oneArr.push(e)
+    //   }
+    // })
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .leftmenu {
+  overflow-y: auto !important;
   .router-link-exact-active {
     color: #6a9df6;
   }
@@ -161,7 +84,7 @@ export default {
   overflow: hidden;
   min-height: 800px;
   height: 100%;
-  background: #2e3740;
+  background: #292f45;
   z-index: 91;
   h3 {
     font-weight: nomal;

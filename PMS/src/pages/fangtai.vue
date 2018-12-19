@@ -6,14 +6,14 @@
     		<p class="aligntop">房间状态：</p>
     		<div style="width: 92%" class="list aliTop">
     			<ul>
-    				<li class="middle">
+    				<li class="middle list-li">
     					<div @click="ClickStatuIdAll" class="middle">
     						<div class="checkbox middle">
 	    						<nav style="margin-left: -2px;font-size: 20px;font-weight: bold; color: #6a9df6;" :class="{'icon-gou' : isClickStatuIdAll}" class="iconfont"></nav>
 	    					</div>
 	    					<span class="middle">全部</span>   <!--  @click="getvip('vip')" -->
     					</div>
-    				</li><li @click="checkRoomStatu(item.status)" class="middle" v-for="(item, index) in roomStatuArr">
+    				</li><li @click="checkRoomStatu(item.status)" :key="index" class="middle list-li" v-for="(item, index) in roomStatuArr">
     					<div class="checkbox middle">
     						<nav style="margin-left: -2px;font-size: 20px;font-weight: bold; color: #6a9df6;" :class="{'icon-gou' : hasClickStatuIdArr.includes(item.status)}" class="iconfont"></nav>
     					</div>
@@ -26,14 +26,14 @@
     		<p class="aligntop">房间标签：</p>
     		<div style="width: 92%" class="list middle">
     			<ul>
-    				<li class="middle">
+    				<li class="middle list-li">
     					<div @click="ClickTagsIdAll" class="middle">
 	    					<div class="checkbox middle">
 	    						<nav style="margin-left: -2px;font-size: 20px;font-weight: bold; color: #6a9df6;" :class="{'icon-gou' : isClickTagsIdAll}" class="iconfont"></nav>
 	    					</div>
 	    					<span style="margin-right: 0;" class="middle">全部</span>
 	    				</div>
-    				</li><li @click="checkTags(item.id)" class="middle" :key="index" v-for="(item, index) in tagsArr">  <!-- tagsArr -->
+    				</li><li @click="checkTags(item.id)" class="middle list-li" :key="index" v-for="(item, index) in tagsArr">  <!-- tagsArr -->
     					<div class="checkbox middle">
     						<nav style="margin-left: -2px;font-size: 20px;font-weight: bold; color: #6a9df6;" :class="{'icon-gou' : hasClickTagsIdArr.includes(item.id)}" class="iconfont"></nav>
     					</div>
@@ -46,18 +46,18 @@
     		<p class="aligntop aliRight">房型：</p>
     		<div style="width: 92%" class="list middle">
     			<ul>
-    				<li class="middle">
+    				<li class="middle list-li">
     					<div @click="ClickRoomTypeIdAll" class="midle">
     						<div class="checkbox middle">
 	    						<nav style="margin-left: -2px;font-size: 20px;font-weight: bold; color: #6a9df6;" :class="{'icon-gou' : isClickRoomTypeIdAll}" class="iconfont"></nav>
 	    					</div>
 	    					<span class="middle">全部</span>
     					</div>
-    				</li><li @click="checkRoomType(item.id)" class="middle" :key="index" v-for="(item, index) in roomTypeArr">
+    				</li><li @click="checkRoomType(item.id)" class="middle list-li" :key="index" v-for="(item, index) in roomTypeArr">
     					<div class="checkbox middle">
     						<nav style="margin-left: -2px;font-size: 20px;font-weight: bold; color: #6a9df6;" :class="{'icon-gou' : hasClickRoomTypeIdArr.includes(item.id)}" class="iconfont"></nav>
     					</div>
-    					<span class="middle">{{item.name}}</span>
+    					<span style="width:130px;"  class="middle ellipsis">{{item.name}}</span>
     				</li>
     			</ul>
     		</div>
@@ -98,7 +98,7 @@
 					<p :title="value.floor_num" class="aliTop floornum">{{value.floor_num}}楼：</p>
 					<div class="aliTop roomnum">
 						<ul>
-							<li :class="[fourClassArr[fourNameArr.indexOf(item.status)].border,{'clickBorderColor': isClickShow == item}]" @click="clickShow(item)" @mouseleave="setFalse" @mouseenter="checkBindHover(item)" class="aliTop" :key="index" v-for="(item, index) in value.rooms">
+							<li :class="[fourClassArr[fourNameArr.indexOf(item.status)].border,{'clickBorderColor': isClickShow == item}]" ref="boundingRect" @click="clickShow(item,index)" @mouseleave="setFalse" @mouseenter="checkBindHover(item)" class="aliTop" :key="index" v-for="(item, index) in value.rooms">
 								<h6>{{item.name}} {{item.code}}</h6>
 								<!-- <p>
 									<span>{{item.message?item.message[0]:''}}</span>
@@ -137,16 +137,19 @@
 				</div>
     	</div>
     </div>
+		<!-- <new-stay :msg="msgForNewStay" @letNewStayNone="setStayBeNone" v-if="isNewStayShow"></new-stay> -->
+		<new-stay-tai :msg="msgForNewStay" @letNewStayNone="setStayBeNone" v-if="isNewStayShow"></new-stay-tai>
     <other @getBeNone="setBeNone" v-show="otherShow"></other>
-    <be-stay @getStayBeNone="setStayBeNone" v-show="stayShow"></be-stay>
     <get-money :msg="msgForMoney" v-if="moneyShow" @getMoneyBeNone="setGetMoneyNone"></get-money>
     <exchange-room :list="changeRoom" v-if="exchangeroomShow"></exchange-room>
-    <stop-use v-show="stopUseShow"></stop-use>
+    <stop-use :val="forStopUse" v-if="stopUseShow"></stop-use>
     <re-new v-show="renewShow"></re-new>
 	</div>
 </template>
 
 <script>
+import newStayTai from "@/components/public/newstaytai"
+import newStay from "@/components/public/newstay"
 import clumBread from "@/components/public/clumbread"
 import reNew from "@/components/public/renew"   //  xufang
 import stopUse from "@/components/public/stopuse"   //  tingyong   weixiu
@@ -161,6 +164,9 @@ import { mapGetters } from 'vuex'
 		name: 'fangTai',
 		data() {
 			return {
+				msgForNewStay: '',
+				isNewStayShow: false,
+        forStopUse: '',
 				msgForMoney: '',
 				saveItem: '',
 				changeRoom: '',
@@ -187,8 +193,8 @@ import { mapGetters } from 'vuex'
 				isBindHover: -1,
 				willBeOne: ['办理入住','转为空脏','转为维修','转为停用'],  //空净
 				willBeTwo: ['转为维修','转为停用','通知打扫','转为空净'],  // kongzang
-				willBeThree: ['退房','续房','换房'],    //zhujing  ,'备注'
-				willBefour: ['退房','续房','换房','通知打扫','备注'], // zhuzang
+				willBeThree: ['账单','续房','换房'],    //zhujing  ,'备注'
+				willBefour: ['账单','续房','换房','通知打扫'], // zhuzang   ,'备注'
 				willBefive: ['查看停用','结束停用'],   //tingyong
 				willBesix: ['查看维修','结束维修'],     // weixiu
 				willBeList: [],
@@ -213,29 +219,35 @@ import { mapGetters } from 'vuex'
           type: 'success'
         })
       },
-			getRoomNums(id,i) {
-				API.getRoomNums(id).then(res=>{
-					// console.log('jknfdkjldfslkjdfs',res)
-					if(res.error_code == 0) {
-            // this.hasClickStatuIdArr = []
-						// this.showFloor = res.data
+			getRoomNums(id,i,str) {
+				// API.getRoomNums(id).then(res=>{
+				// 	// console.log('jknfdkjldfslkjdfs',res)
+				// 	if(res.error_code == 0) {
+        //     // this.hasClickStatuIdArr = []
+				// 		// this.showFloor = res.data
+        //     this.getroomStatuArr()
+				// 		if (str) {
+				// 			this.showFloor = res.data
+				// 		} else {
+				// 			this.roomSearch()
+				// 		}
+				// 	}
+				// })
+				this.buildActive = i
             this.getroomStatuArr()
             this.roomSearch()
-					}
-				})
-				this.buildActive = i
-				// this.hasClickRoomTypeIdArr = []
-				// this.hasClickStatuIdArr = []
-				// this.hasClickTagsIdArr = []
-
 			},
 			getHasedBuild() {
 				API.getHasedBuild(this.hotel.id).then(res=>{
 					// console.log('5456456456',res)
 					if(res.error_code == 0) {
 						this.builds = res.data
-						this.getRoomNums(this.builds[0].id, 0)
-					}
+						this.getRoomNums(this.builds[0].id, 0,'str')
+					} else {
+          if (res.msg) {
+            this.$message.error(`${res.msg}`)
+          }
+        }
 				})
 			},
 			ClickTagsIdAll() {
@@ -288,25 +300,29 @@ import { mapGetters } from 'vuex'
 			// 	})
 			// },
 			setGetMoneyNone(e) {
-				if (e) {
+        this.moneyShow = false
+				if (e != null) {
 					this.saveItem.status = 1
           this.roomStatuArr.forEach((val,i)=>{
             if (val.status == 1) {
               this.roomStatuArr[i].count++
-            }
-            if (val.status == 2) {
+            } else if (val.status == 2) {
               this.roomStatuArr[i].count--
             }
           })
-					this.saveItem.icon = "icon-zangfang"
+					this.saveItem.icon = "icon-zangfang"   ///     要 有判断了
 				}
-				this.moneyShow = false
 			},
 			getroomStatuArr() {
 				API.getroomStatuArr(this.hotel.id).then(res => {
-					if(!res.error_code) {
+					if(res.error_code == 0) {
+						this.roomStatuArr = []
 						this.roomStatuArr = res.data
-					}
+					} else {
+          if (res.msg) {
+            this.$message.error(`${res.msg}`)
+          }
+        }
 				})
 			},
 			getTagsArr() {
@@ -318,15 +334,17 @@ import { mapGetters } from 'vuex'
 
 			},
 			setStayBeNone(e) {
-				this.stayShow = false
+				// this.stayShow = false
+				this.isNewStayShow = false
 				if(e) {
-					// console.log('fdsfsdfhehehehehehe00',e)
-					this.showFloor[e.floorIndex].rooms[e.roomIndex].status = e.statu
+					console.log('fdsfsdfhehehehehehe00',e)
+					this.showFloor[e.floorIndex].rooms[e.roomIndex].status = 2
+          this.showFloor[e.floorIndex].rooms[e.roomIndex].icon = 'icon-zaizhu'
+          this.showFloor[e.floorIndex].rooms[e.roomIndex].order_id = e.order_id
           this.roomStatuArr.forEach((val,i)=>{
-            if (val.status == e.statu) {
+            if (val.status == 2) {
               this.roomStatuArr[i].count++
-            }
-            if (val.status == 0) {
+            } else if (val.status == 0) {
               this.roomStatuArr[i].count--
             }
           })
@@ -339,9 +357,12 @@ import { mapGetters } from 'vuex'
 				// this.hasActive = n;
 				switch(element) {
 					case '办理入住':
-					  item.hotelId = this.hotel.id
-					  bus.ev.$emit('willBeStay', {'value': item,'index': i, 'Index': I})
-						this.stayShow = true;
+						item.hotelId = this.hotel.id
+						item.buildName = this.builds[this.buildActive].build_num
+					  // bus.ev.$emit('willBeStay', {'value': item,'index': i, 'Index': I})
+						// this.stayShow = true;
+						this.msgForNewStay = {'value': item,'index': i, 'Index': I,status: 0}
+						this.isNewStayShow = true
 						this.willBeList = []
 					return;
 					case '转为空脏':
@@ -351,9 +372,8 @@ import { mapGetters } from 'vuex'
                 this.roomStatuArr.forEach((val,i)=>{
                   if (val.status == 1) {
                     this.roomStatuArr[i].count++
-                  }
-                  if (val.status == 0) {
-                    this.roomStatuArr[i].count++
+                  } else if (val.status == 0) {
+                    this.roomStatuArr[i].count--
                   }
                 })
 					  		item.icon = 'icon-zangfang'
@@ -372,19 +392,21 @@ import { mapGetters } from 'vuex'
             //     this.roomStatuArr[i].count++
             //   }
             // })
-					  let obj = {'pagename': '维修','value': item,'index': i, 'Index': I}
-					  bus.ev.$emit('willBeStopUse', obj)
+					  let obj = {'pagename': '维修','value': {...item},'index': i, 'Index': I}
+					  // bus.ev.$emit('willBeStopUse', obj)
+            this.forStopUse = obj;
 						this.stopUseShow = true;
 						this.willBeList = []
 					break;
 					case '转为停用':
-					  let o = {'pagename': '停用','value': item,'index': i,'Index': I}
-						bus.ev.$emit('willBeStopUse', o)
+					  let o = {'pagename': '停用','value': {...item},'index': i,'Index': I}
+						// bus.ev.$emit('willBeStopUse', o)
+            this.forStopUse = o;
 						this.stopUseShow = true;
 						this.willBeList = []
 					break;
 					case '通知打扫':
-					  API.callClean({"hotel_id": this.hotel.id, "room_id": item.id}).then(res=>{
+					  API.callClean({"hotel_id": this.hotel.id,"order_id":item.order_id, "room_id": item.id}).then(res=>{
 					  	if(res.error_code == 0) {
 					  		this.successTitle()
 					  	} else {
@@ -396,16 +418,16 @@ import { mapGetters } from 'vuex'
 					break;
 					case '转为空净':
 					  API.beClean(item.id).then(res=>{
+              this.willBeList = []
 					  	if(res.error_code == 0) {
 					  		item.status = 0
 					  		item.icon = ''
                 this.roomStatuArr.forEach((val,i)=>{
                   if (val.status == 0) {
                     this.roomStatuArr[i].count++
-                  }
-                  if (val.status == 1) {
+                  } else if (val.status == 1) {
                     this.roomStatuArr[i].count--
-                  }
+                  } 
                 })
 					  		this.successTitle()
 					  	} else {
@@ -414,9 +436,9 @@ import { mapGetters } from 'vuex'
                 }
               }
 					  })
-					  this.willBeList = []
+					  // this.willBeList = []
 					break;
-					case '退房':
+					case '账单':
 						this.moneyShow = true;
 						this.msgForMoney = item
 						// bus.ev.$emit('willBeGetMoney',item)
@@ -437,12 +459,14 @@ import { mapGetters } from 'vuex'
 					break;
 					case '查看维修':
 					  this.stopUseShow = true
-					  bus.ev.$emit('willBeStopUse', {'pagename': '维修','value': item})
+					  // bus.ev.$emit('willBeStopUse', {'pagename': '维修','value': item})
+            this.forStopUse = {'pagename': '维修','value': item}
 					  this.willBeList = []
 					break;
 					case '查看停用':
 					  this.stopUseShow = true
-					  bus.ev.$emit('willBeStopUse', {'pagename': '停用','value': item})
+					  // bus.ev.$emit('willBeStopUse', {'pagename': '停用','value': item})
+            this.forStopUse = {'pagename': '停用','value': item}
 					  this.willBeList = []
 					break;
 					case '结束维修':
@@ -453,8 +477,7 @@ import { mapGetters } from 'vuex'
                 this.roomStatuArr.forEach((val,i)=>{
                   if (val.status == 1) {
                     this.roomStatuArr[i].count++
-                  }
-                  if (val.status == 4) {
+                  } else if (val.status == 4) {
                     this.roomStatuArr[i].count--
                   }
                 })
@@ -475,8 +498,7 @@ import { mapGetters } from 'vuex'
                 this.roomStatuArr.forEach((val,i)=>{
                   if (val.status == 1) {
                     this.roomStatuArr[i].count++
-                  }
-                  if (val.status == 5) {
+                  } else if (val.status == 5) {
                     this.roomStatuArr[i].count--
                   }
                 })
@@ -490,12 +512,17 @@ import { mapGetters } from 'vuex'
 					  this.willBeList = []
 					break;
 				} 
-				//item.statu.data = '脏房'      //  等待返回的状态码  再进行赋值
 			},
 			noBeTheSame() {
 				this.showFloor = [...this.totalFloors]
 			},
 			roomSearch() {
+				let loading = this.$loading({
+          lock: true,
+          text: 'Loading',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        })
 				let obj = {
 					"room_type": this.hasClickRoomTypeIdArr.join(','),
 					"status": this.hasClickStatuIdArr.join(','),
@@ -505,6 +532,8 @@ import { mapGetters } from 'vuex'
 				API.roomSearch(obj).then(res=>{
 					if (res.error_code == 0) {
 						this.showFloor = res.data
+						loading.close()
+						loading = null
 					}
 				})
 			},
@@ -540,8 +569,8 @@ import { mapGetters } from 'vuex'
 				this.isBindHover = -1;
 				this.isClickShow = -1
 			},
-			clickShow(item) {
-				// console.log('dsfdsfd102101201',item)
+			clickShow(item,i) {
+				console.log('dsfdsfd102101201',this.$refs.boundingRect[i].getBoundingClientRect())
 				this.saveItem = item;
 				this.isBindHover = -1;
 				switch (item.status) {
@@ -555,7 +584,7 @@ import { mapGetters } from 'vuex'
 						break;
 					case 2:
 					  this.willBeList = []
-					  this.willBeList = this.willBeThree;
+					  this.willBeList = this.willBefour;  //willBeThree
 						break;
 					case 3:
 					  this.willBeList = []
@@ -621,15 +650,14 @@ import { mapGetters } from 'vuex'
 			// 	this.moneyShow = false
 			// })
 			bus.ev.$on('exchangeroomBeNone', (e) => {
-				// console.log('<><><>>>>>',e,this.showFloor)
+				// console.log('<><><>>>>>',e,this.showFloor)    如果是住脏换房  在现有的基础上 住脏--  住净还要++
 				let _this = this
 				this.exchangeroomShow = false
 				if (typeof e != "undefined") {
           this.roomStatuArr.forEach((val,i)=>{
             if (val.status == 1) {
               this.roomStatuArr[i].count++
-            }
-            if (val.status == 0) {
+            } else if (val.status == 0) {
               this.roomStatuArr[i].count--
             }
           })
@@ -651,7 +679,7 @@ import { mapGetters } from 'vuex'
 				}
 			})
 			bus.ev.$on('stopUsebeNone', (e)=>{
-				console.log(e)
+				// console.log(e)
 				this.stopUseShow = false
 				if(e) {
 					this.showFloor[e.floorIndex].rooms[e.roomIndex].status = e.statu
@@ -659,7 +687,8 @@ import { mapGetters } from 'vuex'
           this.roomStatuArr.forEach((val,i)=>{
             if (val.status == e.statu) {
               this.roomStatuArr[i].count++
-              // return
+            } else if (val.status == e.msg.value.status) {
+              this.roomStatuArr[i].count--
             }
           })
 				}
@@ -675,138 +704,13 @@ import { mapGetters } from 'vuex'
 			this.getHasedBuild()
 			this.getRoomTypeArr()
 			this.getTagsArr()
-			let _this = this;
-			document.onkeydown = function(e){ 
-	      e = window.event || e;  
-	      let keycode = e.keyCode || e.which;
-			  switch (keycode) {
-			  	case 13:
-			  	  if(_this.otherShow){
-			  	  	if(window.event){
-			          e.returnValue = false  
-			        }else{ 
-			          e.preventDefault()
-			        }
-		        	bus.ev.$emit('otherShow')
-		        }
-		        if(_this.stayShow){
-			  	  	if(window.event){
-			          e.returnValue = false  
-			        }else{ 
-			          e.preventDefault()
-			        }
-		        	bus.ev.$emit('stayShow')
-		        }
-		      case 112:
-		        if(_this.moneyShow){
-			      	if(window.event){ 
-			          e.returnValue = false  
-			        }else{ 
-			          e.preventDefault()
-			        }
-			        bus.ev.$emit('f1Click')
-			      }
-		        break;
-		      case 113:
-		        if(_this.moneyShow){
-			      	if(window.event){ 
-			          e.returnValue = false
-			        }else{ 
-			          e.preventDefault()
-			        }
-			        bus.ev.$emit('f2Click')
-			      }
-		        break;
-		      case 114:
-		        if(_this.moneyShow){
-			      	if(window.event){ 
-			          e.returnValue = false
-			        }else{ 
-			          e.preventDefault()
-			        }
-			        bus.ev.$emit('f3Click')
-			      }
-		        break;
-		      case 115:
-		      	if(_this.moneyShow){
-			      	if(window.event){ 
-			          e.returnValue = false
-			        }else{ 
-			          e.preventDefault()
-			        }		        	
-			        bus.ev.$emit('f4Click')
-		        }
-		        break;
-		      case 116:
-		      	if(_this.moneyShow){
-			      	if(window.event){ 
-			          e.returnValue = false
-			        }else{ 
-			          e.preventDefault()
-			        }
-			        bus.ev.$emit('f5Click')
-			      }		        
-		        break;
-		      case 117:
-		        if(_this.moneyShow){
-			      	if(window.event){ 
-			          e.returnValue = false
-			        }else{ 
-			          e.preventDefault()
-			        }
-		        	bus.ev.$emit('f6Click')
-		        }
-		        break;
-		      case 118:
-		        if(_this.moneyShow){
-			      	if(window.event){ 
-			          e.returnValue = false
-			        }else{
-			          e.preventDefault()
-			        }
-			        bus.ev.$emit('f7Click')
-		        }
-		        break;
-		      case 119:
-		        if(_this.moneyShow){
-			      	if(window.event){ 
-			          e.returnValue = false  
-			        }else{ 
-			          e.preventDefault()
-			        }
-		        	bus.ev.$emit('f8Click')
-		        }		        
-		        break;
-		      case 120:
-		        if(_this.moneyShow){
-			      	if(window.event){ 
-			          e.returnValue = false
-			        }else{
-			          e.preventDefault()
-			        }
-		        	bus.ev.$emit('f9Click')
-		        }
-		        break;
-		      case 121:
-		        if(_this.moneyShow){
-			      	if(window.event){ 
-			          e.returnValue = false
-			        }else{ 
-			          e.preventDefault()
-			        }
-		        	bus.ev.$emit('f10Click')
-		        }
-		        break;
-		      default:
-		        break;
-		    }    	
-			}
 		},
 		components: {
+			newStay,
 			reNew,
 			stopUse,
 			other,
-			beStay,
+			newStayTai,
 			getMoney,
 			exchangeRoom,
 			clumBread
@@ -816,15 +720,12 @@ import { mapGetters } from 'vuex'
 
 <style lang="scss" scoped>
 	.fangtai{
+		box-sizing: border-box;
 		min-height: 800px;
 		padding-bottom: 200px;
 		.aliTop{
 			display: inline-block;
 			vertical-align: top;
-		}
-		.middle{
-			display: inline-block;
-			vertical-align: middle;
 		}
 	  .aligntop{
 			display: inline-block;
@@ -849,22 +750,25 @@ import { mapGetters } from 'vuex'
 				margin-right: 24px;
 			}
 			.list{
-				ul{
-					li{
-						margin-bottom: 6px;
-						cursor: pointer;
-						width: 156px;
-						text-align: left;
-						.checkbox{
-							width: 18px;
-							height: 18px;
-							border: 1px solid #e5e5e5;
-							border-radius: 2px;
-							box-sizing: border-box;
-						}
+				.list-li{
+					margin-bottom: 6px;
+					cursor: pointer;
+					height: 18px;
+					width: 156px;
+					.checkbox{
+						width: 18px;
+						height: 18px;
+						border: 1px solid #e5e5e5;
+						border-radius: 2px;
+						box-sizing: border-box;
 					}
 				}
 			}
+		}
+		.ellipsis{
+			white-space: nowrap;
+			overflow : hidden;
+			text-overflow: ellipsis;
 		}
 		.color{
 			width: 100%;

@@ -40,6 +40,7 @@ import API from "@/store/API"
 				})
 				window.geocoder = new qq.maps.Geocoder({
 					complete: function(res){
+						 _this.latlng = res.detail.location
 						map.setCenter(res.detail.location);
 						var marker = new qq.maps.Marker({
 							map: map,
@@ -54,15 +55,28 @@ import API from "@/store/API"
 				})
 			},
 			codeAddress() {
+				let _this = this;
 				let address = this.address      //document.getElementById('address').value;
 				geocoder.getLocation(address)
+
+			//	geocoder.setComplete(function(result) {
+      //      _this.latlng = result.detail.location
+            // _this.$alert(`${_this.latlng}`, '', {
+            //   confirmButtonText: '确定'
+            // });
+	          // map.setCenter(result.detail.location);
+	          // var marker = new qq.maps.Marker({
+	          //     map: map,
+	          //     position: result.detail.location
+	          // });
+	          // //点击Marker会弹出反查结果
+	          // qq.maps.event.addListener(marker, 'click', function() {
+	          //     alert("坐标地址为： " + result.detail.location);
+	          // });
+	    //  });
 			}
 		},
 		created() {
-			//?address="+'湖南省长沙市开福区万达广场'+"&key=BJJBZ-UPLW3-IRH35-YTOYJ-TGORK-IFBIH"
-			// API.get(encodeURI("http://apis.map.qq.com/ws/geocoder/v1")).then(res=>{
-			// 	console.log('dsfsdfaaaaa',res)
-			// })
 		},
 		mounted() {
 			this.init()

@@ -1,0 +1,14 @@
+<!--pages/components/addUser/addUser.wxml-->
+<view class='add-user-box'>
+  <view class='add-user'>
+    <view class="add-user">
+      <view class="title">中文姓名</view>
+      <input type='text' placeholder-style="color:#b3b3b3" placeholder='请输入姓名' value='{{userName}}' confirm-type='done' bindinput="newName"></input>
+      <input class='idcard' type='idcard' placeholder-style="color:#b3b3b3" placeholder='请输入身份证号' value='{{userIdCard}}' confirm-type='done' bindinput="newIdCard"></input>
+      <view class="title">手机号</view>
+      <input type='number' placeholder-style="color:#b3b3b3" placeholder='请输入电话号码' value='{{userTel}}' confirm-type='done' bindinput="newTel"></input>
+    </view>
+  </view>
+  <button class="finish-big" bindtap='addToUser'>保存</button>
+  <!-- <button class="cancel-big" bindtap='delete'>删除</button> -->
+</view>

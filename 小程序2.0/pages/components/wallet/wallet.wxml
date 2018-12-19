@@ -1,0 +1,28 @@
+<!--pages/components/wallet/wallet.wxml-->
+<!-- 支付窗口 -->
+<template name='wallet'>
+  <view class="popup payBox" hidden='{{pay?false:true}}'>
+    <view class="place" bindtap='close'></view>
+    <view class="content bg-white">
+      <image class="close" src='../../../../images/close_1.png' bindtap='close'></image>
+      <view class="wallet">{{title}}钱包</view>
+      <view class="title">支付金额</view>
+      <view class="price">
+        ￥
+        <text class="number">{{total_price}}</text>
+      </view>
+      <scroll-view class="payWay" scroll-y>
+        <radio-group class="radio-group" name="payWay" bindchange="getWay">
+          <label class="way" wx:for="{{payWayList}}" wx:for-index="index" wx:key="{{index}}">
+            <text class='name'>{{item.name}}</text>
+            <image hidden='{{item.id==1?false:true}}' src='/images/wechat.png'></image>
+            <text class="balance" wx:if="{{item.id==5&&item.is_pay}}">余额：{{item.balance}}</text>
+            <text class="no-balance" wx:if="{{item.id==5&&!item.is_pay}}">当前已担保金额超限！</text>
+            <radio class="wayRadio" color="#437ff8" value="{{item.id}}" disabled="{{item.id==5&&!item.is_pay}}" checked="{{item.id==1?true:false}}" />
+          </label>
+        </radio-group>
+      </scroll-view>
+      <button class="payForIt" bindtap='payForIt'>立即预订</button>
+    </view>
+  </view>
+</template>

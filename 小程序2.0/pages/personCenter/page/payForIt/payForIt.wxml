@@ -1,0 +1,38 @@
+<!--pages/personCenter/page/payForIt/payForIt.wxml-->
+<import src="../../../components/wallet/wallet.wxml" />
+<view class="orderDetails bg-white">
+  <view class="status"><text>{{orderDetails.pay_status}}</text><image src='../../../../images/personcenter/wait.png'></image></view>
+  <view class="orderNo">订单号:<text>{{orderDetails.order_no}}</text></view>
+  <view class="remind">系统将在30分钟内取消订单，请在15分钟内完成支付</view>
+</view>
+<view class="hotelMsg bg-white">
+  <view class="hotel">
+    <view class="hotelName">{{orderDetails.hotel.hotel_name}}</view>
+    <view class="address">{{orderDetails.hotel.address}}</view>
+  </view>
+  <view class="room">
+    <view class="roomMsg">{{orderDetails.room_type_name}} {{orderDetails.total_count}}间 共{{orderDetails.days}}晚</view>
+    <view class="roomLi time"><text class="liTitle">入住时间:</text>{{orderDetails.come_time}} 至 {{orderDetails.leave_time}}</view>
+    <view class="roomLi time"><text class="liTitle">预计到达时间:</text>{{orderDetails.arrive_time}}</view>
+    <view class="roomLi time"><text class="liTitle">入住人:</text> <text class="liName" wx:for="{{orderDetails.member}}" wx:key="{{key}}">{{item.name}}</text> </view>
+    <view class="roomLi time"><text class="liTitle">联系电话:</text>{{orderDetails.mobile}}</view>
+  </view>
+</view>
+  <view class="orderOption bg-white">
+    <view class="callMe" data-tel="{{orderDetails.hotel.reception_phone}}" bindtap='callMe'><image src='../../../../images/personcenter/phone.png'></image><text>联系酒店</text></view>
+    <view class="addr" data-lat="{{orderDetails.hotel.lat}}" data-lng="{{orderDetails.hotel.lng}}" bindtap='map'><image src='../../../../images/personcenter/addr.png'></image><text>查看地图</text></view>
+  </view>
+<view class="orderMsg bg-white">
+  <view class="price">
+    <view class='totalPrice'>订单总价:<text>￥{{orderDetails.total_price}}</text></view>
+    <view class='discounts'>优惠:<text>￥0.00</text></view>
+  </view>
+  <view class="payment">实付款: <text> ￥{{orderDetails.sum}}</text></view>
+  <view class="orderTime">下单时间:<text>{{orderDetails.create_time}}</text></view>
+</view>
+<view class="OrderRemind" wx:if="{{orderDetails.check_notice?true:false}}">温馨提示：{{orderDetails.check_notice}}</view>
+<view class="option bg-white" wx:if="{{orderDetails.is_pay?false:true}}">
+  <view class="cancel" data-id="{{orderDetails.id}}" bindtap='cancelOrder'>取消订单</view><view class="payFor" bindtap='payFor'>立即支付</view>
+</view>
+<!-- 支付窗口 -->
+<template is="wallet" data="{{pay,payWayList,price,roomNumber,day,total_price}}"></template>

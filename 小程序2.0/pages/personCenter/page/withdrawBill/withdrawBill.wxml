@@ -1,0 +1,39 @@
+<!--pages/personCenter/page/withdrawBill/withdrawBill.wxml-->
+<scroll-view class='withdraw-bill bg-white'>
+  <view class='container flex flex-vertical'>
+    <view class='head'>
+      <view class='amount'>{{msg.money}}</view>
+      <view class='where'>提现至银行卡</view>
+    </view>
+    <view class='details flex-1'>
+      <view class='item'>
+        <view class='title'>当前状态</view>
+        <view class='content elli'>{{msg.status==0?"待审核":msg.status==1?"已打款":"拒绝"}}</view>
+      </view>
+      <view class='item fail' wx:if="{{msg.status==2}}">
+        <view class='title'>失败原因</view>
+        <view class='content elli'>{{msg.remark}}</view>
+      </view>
+      <view class='item'>
+        <view class='title'>提现金额</view>
+        <view class='content elli'>¥{{msg.money}}</view>
+      </view>
+      <view class='item'>
+        <view class='title'>申请时间</view>
+        <view class='content elli'>{{msg.create_time}}</view>
+      </view>
+      <view class='item'>
+        <view class='title'>提现银行</view>
+        <view class='content elli'>{{msg.bank_name}}（{{msg.last_four_code}}）</view>
+      </view>
+      <view class='item'>
+        <view class='title'>酒店名称</view>
+        <view class='content elli'>{{msg.hotel_name}}</view>
+      </view>
+      <view class='item'>
+        <view class='title'>提现单号</view>
+        <view class='content elli'>{{msg.draw_no}}</view>
+      </view>
+    </view>
+  </view>
+</scroll-view>

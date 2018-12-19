@@ -1,0 +1,174 @@
+/* pages/personCenter/page/distributeCenter/distributeCenter.wxss */
+
+.box {
+  width: 100%;
+  height: 100%;
+}
+
+.personMsg {
+  width: 100%;
+  height: 410rpx;
+  position: relative;
+}
+
+.personMsg .bg {
+  width: 100%;
+  height: 410rpx;
+}
+
+.personMsg .container {
+  box-sizing: border-box;
+  width: 100%;
+  height: 410rpx;
+  padding: 19rpx 49rpx 62rpx 49rpx;
+  font-size: 28rpx;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.personMsg .person .personPhoto {
+  width: 90rpx;
+  height: 90rpx;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 25rpx;
+}
+
+.personMsg .person .levelName {
+  font-size: 26rpx;
+}
+
+.personMsg .withdraw {
+  margin-top: 40rpx;
+}
+
+.personMsg .can-withdraw-title {
+  margin-top: 20rpx;
+}
+
+.personMsg .can-withdraw {
+  margin-top: 35rpx;
+  font-size: 90rpx;
+  line-height: 90rpx;
+}
+
+.personMsg .can-withdraw button {
+  width: 170rpx;
+  height: 50rpx;
+  font-size: 26rpx;
+  line-height: 50rpx;
+  color: #f44273;
+  background-color: #fff;
+  border-radius: 25rpx;
+}
+
+.option {
+  padding: 34rpx 0;
+}
+
+.option>view {
+  width: 240rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 14rpx;
+  overflow: hidden;
+  font-size: 28rpx;
+  color: #fff;
+  position: relative;
+}
+
+.option>view>image {
+  width: 100%;
+  height: 100%;
+}
+
+.option .popularize {
+  margin-right: 124rpx;
+}
+
+.option>view>view {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding-left: 50rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.other {
+  margin-top: 10rpx;
+}
+
+.other .other-column {
+  box-sizing: border-box;
+  padding: 40rpx 30rpx 23rpx 30rpx;
+  border-bottom: 1rpx solid #e6e6e6;
+}
+
+.other .other-column:nth-last-of-type(1) {
+  border-bottom: 0;
+}
+
+.other .other-column .icon {
+  align-self: flex-start;
+}
+
+.other .other-column .icon image {
+  width: 38rpx;
+  height: 38rpx;
+  border-radius: 8rpx;
+}
+
+.other .other-column .content {
+  margin-left: 28rpx;
+}
+
+.other .other-column .content .title {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.other .other-column .content .msg {
+  font-size: 22rpx;
+  color: #b3b3b3;
+}
+
+.other .other-column:nth-of-type(1) .content .msg {
+  color: #ff4a13;
+}
+
+.hide {
+  display: none;
+}
+
+.popup {
+  box-sizing: border-box;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.distribute-center {
+  box-sizing: border-box;
+  margin: 0 auto;
+  height: 100%;
+  width: 100%;
+  padding-top: 86rpx;
+  position: relative;
+}
+
+.distribute-center .img {
+  height: 933rpx;
+  width: 700rpx;
+  margin-left: 22rpx;
+}
+
+.distribute-center .close {
+  height: 100rpx;
+  width: 210rpx;
+  position: absolute;
+  top: 922rpx;
+  left: calc(50% - 105rpx);
+}

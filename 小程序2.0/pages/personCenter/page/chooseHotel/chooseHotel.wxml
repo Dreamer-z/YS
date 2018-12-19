@@ -1,0 +1,32 @@
+<!--pages/personCenter/page/chooseHotel/chooseHotel.wxml-->
+<view class='box bg-white flex flex-vertical'>
+  <view class='title'>我的会员卡</view>
+  <view class='hotel flex-1' wx:if="{{hotel.length>0}}">
+    <view class='container' wx:for="{{hotel}}" wx:for-index="index" wx:key="{{index}}" style='top:{{index*130}}rpx' data-index="{{index}}" bindtap='memberCenter'>
+      <view class='member-card {{item.is_member?"gold":"none"}}'>
+        <image src='{{item.is_member?"/images/member/member_card.png":"/images/member/member_card_4.png"}}'></image>
+        <view class='card-msg flex flex-vertical flex-align-center'>
+          <view class='card-type flex flex-align-center flex-pack-justify'>
+            <view class='type'>{{item.hotel_name}}</view>
+            <view class='level flex flex-align-center' wx:if="{{item.is_member}}">
+              <image class='icon' src='/images/member/member_level_1.png'></image>VIP{{item.member_level_num}}
+            </view>
+            <view class='to-member' wx:else>办理会员卡</view>
+          </view>
+          <view class='member-msg flex-1 flex flex-vertical'>
+            <view class='msg flex-1 flex flex-vertical flex-align-center flex-pack-center'>
+              <view class='person flex flex-align-center flex-pack-center'>
+                <view class='elli2'>{{item.is_member?item.card_num:"享受更多会员权益"}}</view>
+              </view>
+            </view>
+            <view class='option flex flex-align-center flex-pack-justify'>
+              <view class='to-be-member' wx:if="{{item.is_member}}"></view>
+              <view class='card-price' wx:if="{{item.is_member}}">卡费：{{item.balance}}元</view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='hotel flex-1' style='text-align:center;line-height:60rpx;' wx:else>暂无相关信息</view>
+</view>

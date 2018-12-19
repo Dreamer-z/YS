@@ -1,0 +1,148 @@
+/* pages/personCenter/page/billDetails/billDetails.wxss */
+.billDetails{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.billDetails>.title{
+  font-size: 26rpx;
+	color: #808080;
+  padding: 20rpx 30rpx;
+  height: 110rpx;
+  line-height: 110rpx;
+}
+
+.billDetails .title text{
+	color: #6b9ef7;
+}
+
+.billDetails .content{
+  box-sizing: border-box;
+  padding: 30rpx 0;
+  font-size: 26rpx;
+  margin-top: 10rpx;
+}
+
+.billDetails .content .title{
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  padding-bottom: 30rpx;
+}
+
+.billDetails .content .list{
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  color: #333;
+}
+
+.billDetails .content .list .li{
+  width: 100%;
+  margin-bottom: 10rpx;
+}
+
+.billDetails .content .list.person-msg .li{
+  display: flex;
+  align-items: center;
+}
+
+.billDetails .content .list.person-msg .li view:nth-of-type(1){
+  color: #808080;
+  font-size: 26rpx;
+  width: 140rpx;
+}
+
+.billDetails .content .list.person-msg .li view:nth-of-type(2){
+  width: 550rpx;
+}
+
+.billDetails .content .line{
+  margin: 30rpx 0;
+  width: 100%;
+  height: 2rpx;
+  background-color: #e6e6e6;
+}
+
+.details{
+  box-sizing: border-box;
+  padding-top: 42rpx;
+  font-size: 28rpx;
+}
+
+.details .details-head{
+  color: #999;
+  padding-bottom: 30rpx;
+}
+
+details .details-main .column{
+  margin-bottom: 22rpx;
+}
+
+details .details-main .column:nth-last-of-type(1){
+  margin-bottom: 0;
+}
+
+.details .details-head view,.details .details-main .column view{
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  text-align: center;
+}
+
+.details .details-head view:nth-of-type(1),.details .details-main .column view:nth-of-type(1){
+  width: 220rpx;
+}
+
+.details .details-head view:nth-of-type(2),.details .details-main .column view:nth-of-type(2){
+  width: 130rpx;
+}
+
+.details .details-head view:nth-of-type(3),.details .details-main .column view:nth-of-type(3){
+  flex: 1;
+}
+
+.details .details-head view:nth-of-type(4),.details .details-main .column view:nth-of-type(4){
+  width: 190rpx;
+}
+
+.statistics{
+  text-align: right;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+}
+
+.statistics.other{
+  margin-top: 10rpx;
+  padding: 30rpx;
+}
+
+.statistics .li{
+  color: #999;
+  margin-top: 10rpx;
+}
+
+.statistics .li:nth-of-type(1){
+  margin-top: 0;
+}
+
+.statistics .li text{
+  color: #333;
+  padding-left: 20rpx;
+}
+
+.statistics .way{
+  color: #f86f41;
+}
+
+.billDetails .invoice{
+  width: 100%;
+	height: 98rpx;
+  font-size: 34rpx;
+	background-color: #437ff9;
+  color: #fff;
+  border-radius: 0;
+  position: fixed;
+  bottom: 0;
+}

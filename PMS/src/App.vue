@@ -9,21 +9,54 @@
 </template>
 
 <script>
-
-// import navHeader from './components/public/header';
-// import leftMenu from './components/public/leftmenu';
+import { route } from "@/assets/js/menu.js";
+import { mapActions } from 'vuex';
 export default {
-  name: 'App'
-  // components:{
-  //   navHeader,
-  //   leftMenu
-  // }
+  name: 'App',
+  data () {
+    return {
+      route:{
+        path:null,
+        nowRoute:["未配置","未配置"]
+      }
+    }
+  },
+  created() {
+    this.route = route;
+  },
+  watch: {
+    $route: "pathChange"
+  },
+  methods: {
+    ...mapActions(['setRoute',"setTopMenuId","setLeftMenuId"]),
+    pathChange() {
+      var route = {};
+      let path = this.$route.path
+        .split("/")
+        .filter(function(val, index, arr) {
+          return val != "" && val != "layerContainer";
+        })
+        .join();
+      route.path = path;
+      if(path == "systemMessage" || path == "checkOutRequest"){
+        this.setTopMenuId(null);
+        this.setLeftMenuId(null);
+      }
+      for (let key in this.route) {
+        if (key == path) {
+          route.nowRoute = this.route[key];
+          this.setRoute(route);
+        };
+      }
+      this.setRoute(route);
+    }
+  }
 }
 </script>
-
 <style lang="scss" scoped>
 document,body{
   width: 100%;
   height: 100%;
+  color: #333;
 }
 </style>

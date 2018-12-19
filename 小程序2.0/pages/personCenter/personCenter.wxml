@@ -1,0 +1,133 @@
+<!--pages/personCenter/personCenter.wxml-->
+<view class="personCenter">
+  <view class="personMsg bg-white">
+    <image class='unit-bg' src='/images/personcenter/person_center.png'></image>
+    <view class='msg'>
+      <view class="levelName">
+        <open-data type="userNickName"></open-data>
+        <!-- {{userMsg.nickName}} -->
+      </view>
+      <view class="personPhoto">
+        <open-data type="userAvatarUrl"></open-data>
+        <!-- <image src='{{userMsg.avatarUrl}}'></image>  -->
+      </view>
+      <!-- <view class="edit" bindtap='edit'>
+        <text>编辑</text>
+        <image class='more' src='/images/more.png'></image>
+      </view> -->
+    </view>
+    <!-- <image class='member-level-bg' src='/images/personcenter/member_bg.png'></image> -->
+    <!-- <view class='member-level flex flex-align-center flex-pack-center'>
+      <image class='icon' src='/images/personcenter/member_icon_1.png'></image>
+      <text>普通会员</text>
+    </view> -->
+  </view>
+  <view class="functional bg-white">
+    <view class="mod" bindtap='allOrder'>
+      <view class="modImg">
+        <image src='/images/personcenter/allOrder.png'></image>
+      </view>
+      <view class="modName">我的订单</view>
+      <!-- <view class="modMsg">查看所有</view> -->
+    </view>
+    <view class='line'></view>
+    <view class="mod" bindtap='bill'>
+      <view class="modImg">
+        <image src='/images/personcenter/bill.png'></image>
+      </view>
+      <view class="modName">退房账单</view>
+      <!-- <view class="modMsg">在线退房</view> -->
+    </view>
+    <view class='line'></view>
+    <view class="mod" bindtap='share'>
+      <view class="modImg">
+        <image src='/images/personcenter/share.png'></image>
+      </view>
+      <view class="modName">邀请好友</view>
+      <!-- <view class="modMsg">分享转发</view> -->
+    </view>
+    <!-- <view class="mod" bindtap='invoice'>
+      <view class="modImg">
+        <image src='/images/personcenter/invoice.png'></image>
+      </view>
+      <view class="modName">我的发票</view>
+      <view class="modMsg">电子发票</view>
+    </view> -->
+  </view>
+  <view class="member list bg-white">
+    <view class="li flex flex-align-center" bindtap='memberCenter' wx:if="{{mode!='' && !mode}}">
+    <!-- <view class="li flex flex-align-center member-center" bindtap='memberCenter'> -->
+      <view class="icon">
+        <image src='/images/personcenter/member_icon_2.png'></image>
+      </view>
+      <text class='content flex-1'>会员卡</text>
+      <text class='mini-title'>开通会员卡，享受更多优惠</text>
+      <image class="more" src='/images/more.png'></image>
+    </view>
+    <view class="li flex flex-align-center distribute" bindtap='distribute'>
+      <view class="icon">
+        <image src='/images/personcenter/money.png'></image>
+      </view>
+      <text class='content flex-1'>分销中心</text>
+      <view class='msg flex-1 flex flex-align-center'>可提佣金：
+        <text>{{msg.amout_money}}</text>
+      </view>
+      <image class="more" src='/images/more.png'></image>
+    </view>
+  </view>
+  <view class="member hotel-service bg-white" wx:if="{{mode!='' && !mode}}">
+  <!-- <view class="member hotel-service bg-white"> -->
+    <view class="li flex flex-align-center" bindtap='hotelService'>
+      <view class="icon">
+        <image src='/images/hotel.png'></image>
+      </view>
+      <text class='content flex-1'>酒店服务</text>
+      <text class="remind">住店点这里  轻松全掌控</text>
+      <image class="more" src='/images/more.png'></image>
+    </view>
+  </view>
+  <view class="functionalMore bg-white">
+    <view class="title">更多功能
+      <image src=''></image>
+    </view>
+    <view class="list">
+      <view class="li" bindtap='user'>
+        <view class="icon">
+          <image src='/images/personcenter/traveller.png'></image>
+        </view>
+        <text class="content">常用旅客</text>
+        <text class="remind">编辑常用联系人信息</text>
+        <image class="more" src='/images/more.png'></image>
+      </view>
+      <view class="li" bindtap='complaint'>
+        <view class="icon">
+          <image src='/images/personcenter/complain.png'></image>
+        </view>
+        <text class="content">投诉建议</text>
+        <text class="remind"></text>
+        <image class="more" src='/images/more.png'></image>
+      </view>
+      <view class="li">
+        <view class="icon">
+          <image src='/images/personcenter/about.png'></image>
+        </view>
+        <text class="content">关于</text>
+        <text class="remind">版本号：{{version}}</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='popup {{popup?"":"hide"}}'>
+  <view class='distribute-center flex flex-align-center'>
+    <view class="icon">
+      <image src='/images/personcenter/money.png'></image>
+    </view>
+    <text class='content flex-1'>分销中心</text>
+    <view class='msg'>可提佣金：
+      <text>2000.00</text>
+    </view>
+    <image class="more" src='/images/more.png'></image>
+    <view class='img' style='background:url({{popImg[0]}})no-repeat center;background-size:cover;'></view>
+    <view class='close' bindtap='pop'></view>
+  </view>
+</view>

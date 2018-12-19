@@ -30,7 +30,7 @@ Page({
       app.sendUserMsg(e.detail.userInfo);
       this.navigateBack();
     } else {
-      this.openSetting();
+      // this.openSetting();
       return
     }
   },

@@ -1,0 +1,15 @@
+<!--pages/personCenter/page/transactResult/transactResult.wxml-->
+<view class='result flex flex-vertical flex-align-center {{result?"success":"fail"}}'>
+  <view class='result-msg flex flex-align-center flex-pack-center'>
+      <view>{{result?"办理会员成功":"系统繁忙，请您稍后再试"}}</view>
+      <image class='result-img' src='{{result?"/images/success.png":"/images/fail.png"}}'></image>
+  </view>
+  <view class='result-details flex flex-vertical flex-align-center' wx:if="{{result}}">
+    <view>恭喜您，成为本酒店的{{msg.card_level_name}}</view>
+    <view class="advantage"><text wx:for="{{msg.rights}}" wx:for-index="index" wx:key="{{index}}">{{item.rights_info}}</text></view>
+    <view class='balance'>当前余额：<text>{{msg.balance}}</text></view>
+  </view>
+  <view class='result-details flex flex-vertical flex-align-center' wx:else>系统繁忙，请您稍后再试</view>
+  <view class='get-details success' bindtap='getDetails' wx:if="{{result}}">点我查看详情</view>
+  <view class='get-details fail' bindtap='again' wx:else>重新办理会员</view>
+</view>

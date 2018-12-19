@@ -1,0 +1,32 @@
+<!--pages/personCenter/page/recharge/recharge.wxml-->
+<view class='box flex flex-vertical'>
+  <view class='balance bg-white flex flex-vertical flex-align-center'>
+    <view class='banlance-title'>当前余额</view>
+    <view class='banlance-number'>¥
+      <text>{{amount}}</text>
+    </view>
+    <view class='recharge-remind'>{{"最低充值0.1元"}}</view>
+  </view>
+  <view class='detail-option bg-white flex-1'>
+    <view class='quick-search-box'>
+      <view class='quick-search flex flex-align-center flex-wrap'>
+        <view class='item {{quickIndex==index?"check":""}}' wx:for="{{quick}}" wx:for-index="index" wx:key="{{index}}" data-index="{{index}}" bindtap='check'>{{item}}</view>
+      </view>
+    </view>
+    <view class='detail-option-item'>
+      <view class='item'>
+        <view class='item-title'>充值金额</view>
+        <input class='item-msg' type='digit' placeholder='请输入充值金额' value='{{amount}}' bindinput='getAmount'></input>
+      </view>
+      <view class='item'>
+        <view class='item-title'>赠送金额</view>
+        <view class='item-msg'>{{give_amount}}</view>
+      </view>
+      <view class='item balance'>
+        <view class='item-title'>充值后金额</view>
+        <view class='item-msg'>{{give_amount + amount}}</view>
+      </view>
+    </view>
+    <view class='recharge' bindtap='recharge'>确定充值</view>
+  </view>
+</view>

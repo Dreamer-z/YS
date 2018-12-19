@@ -32,21 +32,21 @@ export default {
         default: 999
       },
       confirmText: String,
-      cancelText: String,
+      cancelText: String
     }
     // popupShow:Boolean
   },
   data() {
     return {
       popupShow: false
-    }
+    };
   },
   methods: {
     close() {
-      this.popupShow = !this.popupShow
+      this.popupShow = !this.popupShow;
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -79,16 +79,16 @@ export default {
     box-sizing: border-box;
   }
   .popup-head {
-    padding: 0 30px;
+    padding: 0 20px;
     color: #fff;
     font-size: 14px;
-    background-color: #437ff9;
+    background-color: #00a8ff;
     display: flex;
     align-items: center;
     .popup-title {
       width: 100%;
-      height: 40px;
-      line-height: 40px;
+      height: 35px;
+      line-height: 35px;
     }
     .el-icon-close {
       font-size: 18px;
@@ -96,16 +96,21 @@ export default {
   }
   & > .content {
     padding: 29px 24px;
+    padding-left: 40px !important;
+    padding-right: 40px !important;
   }
   .popup-option {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 20px;
-    padding-top: 10px;
+    padding-bottom: 10px !important;
+    padding-top: 10px !important;
     & > button {
-      width: 100px;
-      height: 40px;
+      width: 98px;
+      height: 28px;
+    }
+    button + button {
+      margin-left: 10px;
     }
   }
 }

@@ -1,12 +1,12 @@
 <template>
 	<div class="hotelupload" v-loading="loading2" element-loading-text="操作进行中" element-loadig-spinner="el-icon-loading" element-loading-background="rgba(0,0,0,.4)">
-		<p class="head">
+		<!-- <p class="head">
 			<span class="middle">当前位置</span>
 			<span class="middle">：</span>
-			<span class="middle">相册</span>
+			<span class="middle">酒店管理</span>
 			<span class="middle">></span>
 			<span class="middle">酒店相册</span>
-		</p>
+		</p> -->
 		<div class="contain">
 			<div style="margin-bottom: 10px;">
 				<p class="middle">
@@ -16,9 +16,9 @@
 					<span class="middle">PNG</span>
 				</p>
 				<p class="middle">
-					<span class="middle">建议尺寸</span>
+					<span class="middle">图片上传尺寸比例</span>
 					<span class="middle">：</span>
-					<span class="middle">180×120</span>
+					<span class="middle">5：4（长：宽）</span>
 				</p>
 				<p class="middle">
 					<span class="middle">已上传</span>
@@ -62,7 +62,10 @@
 					<el-button slot="trigger" size="small" type="primary">选取文件</el-button>
 					</el-upload>
 				</div>
-				<div @click="submitUpload" class="btn">上传文件</div>
+				<!-- <div @click="submitUpload" class="btn">上传文件</div> -->
+				<div style="textAlign:center;">
+					<el-button class="btn" @click="submitUpload" size="small" type="primary">上传文件</el-button>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -256,7 +259,7 @@ import { mapGetters } from 'vuex'
 		}
 		.contain{
 			box-sizing: border-box;
-			padding: 38px 28px 0 28px;
+			padding: 15px 35px;
 		}
 		.photoarea{
 			border: 1px solid #e6e6e6;
@@ -317,15 +320,15 @@ import { mapGetters } from 'vuex'
 			}
 		}
 		.btn{
-			width: 118px;
-			height: 38px;
-			line-height: 38px;
-			text-align: center;
-			border-radius: 4px;
-			background: #6a9df6;
-			color: #fff;
-			margin: 0 auto;
-			cursor: pointer;
+			// width: 118px;
+			// height: 38px;
+			// line-height: 38px;
+			// text-align: center;
+			// border-radius: 4px;
+			// background: #6a9df6;
+			// color: #fff;
+			// margin: 0 auto;
+			// cursor: pointer;
 			margin-top: 100px;
 		}
 	}

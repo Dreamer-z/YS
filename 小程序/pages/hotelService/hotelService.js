@@ -74,6 +74,10 @@ Page({
       _this.setData({ door: 3 });
     }, 500);
   },
+  // 开门密码弹窗
+  closeDoorPopup(){
+    this.setData({ door: 1 });
+  },
   // 分享
   share:function(){
     wx.navigateTo({

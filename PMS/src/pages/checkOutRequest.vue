@@ -1,16 +1,15 @@
 <template>
   <div class="check-out-request">
-    <bread-crumb :child-msg='router'></bread-crumb>
     <div class="request-type-box">
       <div class="request-type">
         <div data-type="0" class="request-type-li" :class="[requestType==0?'current-row':'']" @click="changeRequestType($event)">待查房({{allRequest['0'].length}})<img src="@/assets/images/icon_right_on.png" v-if="requestType==1"><img src="@/assets/images/icon_right.png" v-else></div>
         <div data-type="1" class="request-type-li" :class="[requestType==1?'current-row':'']" @click="changeRequestType($event)">查房中({{allRequest['1'].length}})<img src="@/assets/images/icon_right_on.png" v-if="requestType==2"><img src="@/assets/images/icon_right.png" v-else></div>
         <div data-type="2" class="request-type-li" :class="[requestType==2?'current-row':'']" @click="changeRequestType($event)">已查房({{allRequest['2'].length}})<img src="@/assets/images/icon_right_on.png" v-if="requestType==3"><img src="@/assets/images/icon_right.png" v-else></div>
-        <div data-type="3" class="request-type-li" :class="[requestType==3?'current-row':'']" @click="changeRequestType($event)">退房待结({{allRequest['3'].length}})<img src="@/assets/images/icon_right_on.png" v-if="requestType==4"><img src="@/assets/images/icon_right.png" v-else></div>
-        <div data-type="4" class="request-type-li" :class="[requestType==4?'current-row':'']" @click="changeRequestType($event)">退房已结({{allRequest['4'].length}})<img src="@/assets/images/icon_right_on.png" v-if="requestType==5"><img src="@/assets/images/icon_right.png" v-else></div>
+        <!-- <div data-type="3" class="request-type-li" :class="[requestType==3?'current-row':'']" @click="changeRequestType($event)">退房待结({{allRequest['3'].length}})<img src="@/assets/images/icon_right_on.png" v-if="requestType==4"><img src="@/assets/images/icon_right.png" v-else></div>
+        <div data-type="4" class="request-type-li" :class="[requestType==4?'current-row':'']" @click="changeRequestType($event)">退房已结({{allRequest['4'].length}})<img src="@/assets/images/icon_right_on.png" v-if="requestType==5"><img src="@/assets/images/icon_right.png" v-else></div> -->
       </div>
     </div>
-    <el-table :data="tableData" border height="100%" style="width: 1222px">
+    <el-table :data="tableData"  height="100%" style="width: 1222px">
       <el-table-column prop="num" label="序号" width="80">
         <template slot-scope="scope">{{scope.row.num}}</template>
       </el-table-column>
@@ -42,89 +41,125 @@
 </template>
 
 <script>
-import BreadCrumb from '@/components/public/breadcrumb' //面包屑导航栏
-import { routs } from '@/assets/js/routs' //面包屑导航栏地址
-
-import { mapGetters } from 'vuex'
+import { mapGetters,mapActions  } from 'vuex'
 import getMoney from '@/components/public/getmoney'
 import API from '@/store/API/index'
 
+import Bus from '@/store/bus'
+
 export default {
   components: {
-    BreadCrumb,
     getMoney
-  },  
+  },
   computed: {
     ...mapGetters({
-      hotel: 'currHotel'
+      hotel: 'currHotel',
+      checkOutRequest:'checkOutRequest'
     })
   },
   data() {
     return {
-      // 面包屑导航路径及名称
-      router: [routs.index, routs.checkOutRequest],
       requestType: 0,
-      allRequest:{0:[],1:[],2:[],3:[],4:[]},
+      allRequest: { 0: [], 1: [], 2: [], 3: [], 4: [] },
       tableData: [],
       //弹窗部分数据
-      msgForMoney:{},
-      moneyShow:false,
+      msgForMoney: {},
+      moneyShow: false
     }
   },
-  methods: {
+  methods: {    
+    ...mapActions([
+      'setCheckOutReq'
+    ]),
     changeRequestType(e) {
-      this.requestType = e.currentTarget.dataset['type'];
-      this.tableData = this.allRequest[this.requestType];
+      this.requestType = e.currentTarget.dataset['type']
+      this.tableData = this.allRequest[this.requestType]
     },
-    checkOutRequest(){
-      let _this = this;
+    checkOutReq() {
+      let _this = this
       API.checkOutRequest({
-        id:this.hotel.id,
-      }).then(function (res) {
-        let newarr = res.data;
-        for (let i = 0; i < newarr.length; i++) {
-          if (newarr[i].status == 0) {
-            newarr[i].num = _this.allRequest['0'].length+1;
-            _this.allRequest['0'].push(newarr[i]);
-          };
-          if(newarr[i].status == 1){
-            newarr[i].num = _this.allRequest['1'].length+1;
-            _this.allRequest['1'].push(newarr[i]);
-          };
-          if(newarr[i].status == 2){
-            newarr[i].num = _this.allRequest['2'].length+1;
-            _this.allRequest['2'].push(newarr[i]);
-          };
-          if(newarr[i].status == 3){
-            newarr[i].num = _this.allRequest['3'].length+1;
-            _this.allRequest['3'].push(newarr[i]);
-          };
-          if(newarr[i].status == 4){
-            newarr[i].num = _this.allRequest['4'].length+1;
-            _this.allRequest['4'].push(newarr[i]);
-          };
-        };
-        _this.tableData = _this.allRequest[_this.requestType];
-      }).catch(function (err) {
-        console.log(err);
+        id: this.hotel.id
       })
+        .then(function(res) {
+          let newarr = res.data
+          for (let i = 0; i < newarr.length; i++) {
+            if (newarr[i].status == 0) {
+              newarr[i].num = _this.allRequest['0'].length + 1
+              _this.allRequest['0'].push(newarr[i])
+            }
+            if (newarr[i].status == 1) {
+              newarr[i].num = _this.allRequest['1'].length + 1
+              _this.allRequest['1'].push(newarr[i])
+            }
+            if (newarr[i].status == 2) {
+              newarr[i].num = _this.allRequest['2'].length + 1
+              _this.allRequest['2'].push(newarr[i])
+            }
+            if (newarr[i].status == 3) {
+              newarr[i].num = _this.allRequest['3'].length + 1
+              _this.allRequest['3'].push(newarr[i])
+            }
+            if (newarr[i].status == 4) {
+              newarr[i].num = _this.allRequest['4'].length + 1
+              _this.allRequest['4'].push(newarr[i])
+            }
+          }
+          _this.tableData = _this.allRequest[_this.requestType]
+        })
+        .catch(function(err) {
+          console.log(err)
+        })
     },
     datails(row) {
-      console.log(row);
       this.msgForMoney = {
-        name:row.room_name,
-        id:row.room_id,
-        order_id:row.order_id
+        name: row.room_name,
+        id: row.room_id,
+        order_id: row.order_id
       }
-      this.moneyShow = true;
+      this.moneyShow = true
     },
     setGetMoneyNone(e) {
-			this.moneyShow = false
-		},
+      this.moneyShow = false
+    },
+    changeType(type) {
+      let _this = this
+      switch (type) {
+        case 'needCheck':
+          _this.requestType = 0
+          _this.tableData = _this.allRequest[_this.requestType]
+          break
+        case 'startCheck':
+          _this.requestType = 1
+          _this.tableData = _this.allRequest[_this.requestType]
+          break
+        case 'endCheck':
+          _this.requestType = 2
+          _this.tableData = _this.allRequest[_this.requestType]
+          break
+        default:
+          break
+      }
+    }
   },
   mounted() {
-    this.checkOutRequest();
+    let _this = this
+    let params = this.$route.params
+    if (params.type) {
+      this.changeType(params.type)
+      this.setCheckOutReq(0);
+    }
+    this.setCheckOutReq(0);
+    this.checkOutReq()
+    Bus.ev.$on('headerMsgReq', function(type) {
+      console.log(type);
+      _this.checkOutReq()
+      _this.changeType(type)
+      _this.setCheckOutReq(0);
+    })
   },
+  destroyed() {
+    Bus.ev.$off('headerMsgReq')
+  }
 }
 </script>
 
@@ -134,8 +169,7 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: auto !important;
-  font-size: 14px;
+  padding: 10px 35px;
   padding-bottom: 30px;
   .request-type-box {
     max-width: 1222px;

@@ -1,0 +1,86 @@
+<!--pages/personCenter/page/distributeCenter/distributeCenter.wxml-->
+<scroll-view class='box'>
+  <view class='personMsg'>
+    <image class='bg' src='/images/distribute/distributeCenter_bg.png'></image>
+    <view class='container flex flex-vertical flex-pack-center'>
+      <view class='person flex flex-align-center'>
+        <view class="personPhoto">
+          <open-data type="userAvatarUrl"></open-data>
+        </view>
+        <view class="levelName">
+          <open-data type="userNickName"></open-data>
+        </view>
+      </view>
+      <view class='withdraw'>成功提现金额：
+        <text>{{msg.draw_money}}</text>
+      </view>
+      <view class='can-withdraw-title'>可提现佣金：</view>
+      <view class="can-withdraw flex flex-align-center flex-pack-justify">
+        <view class='flex-1'>{{msg.amout_money}}</view>
+        <button bindtap='withdraw'>佣金提现</button>
+      </view>
+    </view>
+  </view>
+  <view class='option bg-white flex flex-align-center flex-pack-center'>
+    <view class='popularize' bindtap='authSetting'>
+      <image src='/images/distribute/popularize.png'></image>
+      <view>推广返利</view>
+    </view>
+    <view class='bank-card' bindtap='bankCard'>
+      <image src='/images/distribute/bank_card.png'></image>
+      <view>银行卡</view>
+    </view>
+  </view>
+  <view class='other bg-white'>
+    <view class='other-column flex flex-align-center' bindtap='getDistributeBrokerage'>
+      <view class='icon'>
+        <image src='/images/distribute/colnum_1.png'></image>
+      </view>
+      <view class='content flex-1'>
+        <view class='title'>分销佣金</view>
+        <view class='msg'>
+          <text>{{msg.total_money}}</text>元</view>
+      </view>
+      <image class='more' src='/images/more.png'></image>
+    </view>
+    <view class='other-column flex flex-align-center' bindtap='distributeOrder'>
+      <view class='icon'>
+        <image src='/images/distribute/colnum_2.png'></image>
+      </view>
+      <view class='content flex-1'>
+        <view class='title'>分销订单</view>
+        <view class='msg'>
+          <text>{{msg.order_num}}</text>笔</view>
+      </view>
+      <image class='more' src='/images/more.png'></image>
+    </view>
+    <view class='other-column flex flex-align-center' bindtap='myClientele'>
+      <view class='icon'>
+        <image src='/images/distribute/colnum_3.png'></image>
+      </view>
+      <view class='content flex-1'>
+        <view class='title'>我的客户</view>
+        <view class='msg'>
+          <text>{{msg.customer_num}}</text>人</view>
+      </view>
+      <image class='more' src='/images/more.png'></image>
+    </view>
+    <view class='other-column flex flex-align-center' bindtap='getRecord'>
+      <view class='icon'>
+        <image src='/images/distribute/colnum_4.png'></image>
+      </view>
+      <view class='content flex-1'>
+        <view class='title'>提现明细</view>
+        <view class='msg'>
+          <text>{{msg.draw_num}}</text>笔</view>
+      </view>
+      <image class='more' src='/images/more.png'></image>
+    </view>
+  </view>
+</scroll-view>
+<view class='popup {{popup?"":"hide"}}'>
+  <view class='distribute-center'>
+    <view class='img' style='background:url({{popImg[1]}})no-repeat center;background-size:cover;'></view>
+    <view class='close' bindtap='pop'></view>
+  </view>
+</view>

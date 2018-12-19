@@ -5,7 +5,7 @@
       <div style="margin: 10px 0;" class="list">
         <p style="margin-right: 30px; color: #f7a947;" class="middle">查看类型：</p>
         <ul class="list-ul middle">
-          <li v-for="(item, index) in memberTypeArr" class="list-ul-li middle">
+          <li v-for="(item, index) in memberTypeArr" :key="index"  class="list-ul-li middle">
             <div @click="setChoosedArr(item)" style="cursor: pointer;" class="middle">
               <div class="checkbox middle">
                 <nav style="margin-left: -2px;font-size: 20px;font-weight: bold; color: #6a9df6;" :class="{'icon-gou' : choosedArr.includes(item)}" class="iconfont"></nav>
@@ -44,7 +44,7 @@
               </el-option>
             </el-select>
           </li>
-          <li @click="searMember" class="last middle">搜索预订</li>
+          <li @click="searMember(1)" class="last middle">搜索预订</li>
         </ul>
       </div>
       <div class="line"></div>
@@ -68,7 +68,7 @@
           <!-- <li class="two">余额</li> -->
           <li class="six">操作</li>
         </ul>
-        <ul v-for="(item, index) in memberListArr" class="tab-body">
+        <ul v-for="(item, index) in memberListArr" :key="index" class="tab-body">
           <li class="one">{{index + 1}}</li>
           <li class="two">{{item.name}}</li>
           <li class="four">{{item.mobile}}</li>
@@ -90,6 +90,17 @@
           </li>
         </ul>
       </div>
+      <div style="text-align: center; margin-top: 100px;">
+        <el-pagination
+          @current-change="currentChange"
+          @prev-click="currentChange"
+          @next-click="currentChange"
+          :page-size="10"
+          :current-page="currentPage"
+          layout="prev, pager, next"
+          :total="totalCount">
+        </el-pagination>
+      </div>
     </div>
   </div>
 </template>
@@ -104,6 +115,9 @@ import clumBread from "@/components/public/clumbread"
     name: 'taskManagement',
     data() {
       return {
+        isSearch: false,
+        totalCount: 1,    //  总条目数   后台传来
+        currentPage: 1,   //  当前的页码   搜索的时候变为1
         searjson: {
           name: '',
           idcard: '',
@@ -118,30 +132,60 @@ import clumBread from "@/components/public/clumbread"
         memberLevel: ''
       }
     },
-    beforeRouteLeave(to, from, next){
-        // let pageY = window.pageYOffset ||document.documentElement.scrollTop || document.body.scrollTop
-        let pageY = document.documentElement.scrollTop
-        console.log('?><??><><???><>0',pageY)
-        let _Array = ['memberDetailsEdit','ordinaryDetailsEdit','memberDetails','ordinaryDetails']
-        if (_Array.includes(to.name)) {
-          sessionStorage.setItem('barCoordinate', pageY)
-        } else {
-          sessionStorage.removeItem('barCoordinate')
-        }
-        next()
-    },
     computed:{
       ...mapGetters({
         hotel:'currHotel'
       })
     },
     methods: {
-      searMember() {
+      currentChange(num) {
+        if(this.isSearch) {
+         this.listCheckTable(num)  // 后台的分页还没有做完  所以没
+        } else {
+         API.get(`/pms/member?id=${this.hotel.id}&page=${num}&num=10`).then(res=>{
+            // console.log('121311323123132131231321',res)
+            if(res.error_code == 0) {
+              // this.memberListArr =
+              this.memberListArr = res.data.data
+              this.totalCount = res.data.total_count
+            }
+          })
+        }
+      },
+      searMember(num) {
+        if (this.choosedArr.length) {
+          switch (this.choosedArr[0].id) {
+            case 3:
+              this.searjson.type = 0
+              break;
+            case 2:
+              this.searjson.type = 1
+              break;
+            case 1:
+              this.searjson.type = 2
+              break;
+            default:
+              if (typeof this.searjson.type != 'undefined') {
+                delete this.searjson['type']
+              }
+              break;
+          }
+        }
+        this.currentPage = num
+        this.isSearch = true
         this.searjson.hotel_id = this.hotel.id
         API.searMember(this.searjson).then(res=>{
-          // console.log(res)
+          // console.log('010101010101',res)
           if (res.error_code == 0) {
-            this.memberListArr = res.data
+            this.memberListArr = res.data.data
+            this.totalCount = res.data.total_count
+          } else {
+            if (res.msg) {
+              this.$message({
+                message: `${res.msg}`,
+                type: 'warning'
+              })
+            }
           }
         })
       },
@@ -195,9 +239,11 @@ import clumBread from "@/components/public/clumbread"
         })
       },
       getMemberList() {
-        API.getMemberList(this.hotel.id).then(res=>{
+        // API.getMemberList(this.hotel.id).then(res=>{
+        API.get(`/pms/member?id=${this.hotel.id}&page=1&num=10`).then(res => {
           if(res.error_code == 0) {
-            this.memberListArr = res.data
+            this.memberListArr = res.data.data
+            this.totalCount = res.data.total_count
           }
         })
       },
@@ -220,26 +266,6 @@ import clumBread from "@/components/public/clumbread"
       }
     },
     mounted() {
-      setTimeout(()=>{
-        window.scrollTo(0,150)
-        // this.$refs.whitetext.scrollTo(0,150)
-        console.log('barCoordinate')
-      },20)
-      // this.$nextTick().then(()=>{
-      //   window.scrollTo(0,150)
-      //   // this.$refs.whitetext.scrollTo(0,150)
-      //   console.log('barCoordinate')
-      // })
-      // let barCoordinate = sessionStorage.getItem('barCoordinate')
-      // if (barCoordinate != null) {
-      //   // this.$nextTick().then(()=>{
-      //   //   document.documentElement.scrollTop = barCoordinate + 'px'
-      //   // })
-      //   // document.documentElement.scrollTop = barCoordinate
-      //   // this.$nextTick(()=>{
-      //   //   document.documentElement.scrollTop = barCoordinate
-      //   // })
-      // }
     },
     created() {
       this.getMemberList()

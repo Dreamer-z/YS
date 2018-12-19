@@ -1,18 +1,20 @@
 <!--pages/index/page/hotel/hotel.wxml-->
-<import src="../../../components/calendar/calendar.wxml" />
 <view class="hotel {{mask || mask1?'height100':''}}">
   <view class="photoShow">
-    <scroll-view class="showbox" scroll-x="true" style="width:100%;height:100%;">
+    <!-- <scroll-view class="showbox" scroll-x="true" style="width:100%;height:100%;">
       <image class="showLi" wx:for="{{img}}" wx:key="key" src='{{item}}' bindtap='zoom' data-index="{{index}}"></image>
+    </scroll-view> -->
+    <scroll-view class="showbox" scroll-x="true" style="width:100%;height:100%;">
+      <view class="showLi" wx:for="{{img}}" wx:key="key" style='background-image:url({{item}});background-size:cover;' bindtap='zoom' data-index="{{index}}"></view>
     </scroll-view>
   </view>
-  <view class="mask {{mask?'maskBlock':''}}" catchtap='zoomHide'>
+  <!-- <view class="mask {{mask?'maskBlock':''}}" catchtap='zoomHide'>
     <swiper class="zoomBox" current='{{zoomInd}}' duration="200">
       <swiper-item wx:for="{{img}}" wx:key="key">
         <image src="{{item}}" class="zoomLi" />
       </swiper-item>
     </swiper>
-  </view>
+  </view> -->
   <view class="operation bg-white">
     <view class="starLevel">
       <text>{{hotel.open_year}}年开业</text>
@@ -51,7 +53,7 @@
     </view>
   </view>
   <view class="calendarValue bg-white">
-    <view class="time checkIn" catchtap='calendarTap'>
+    <view class="time checkIn" catchtap='choseDate'>
       <input class="date" disabled value="{{checkIn1?checkIn1:checkIn}}"></input>
       <view class="week">周{{week[0]}}</view>
       <text class="type">入住</text>
@@ -60,28 +62,24 @@
     <view class="line">
       <view></view>
     </view>
-    <view class="time checkOut" catchtap='calendarTap'>
+    <view class="time checkOut" catchtap='choseDate'>
       <input class="date" disabled value="{{checkOut1?checkOut1:checkOut}}"></input>
       <view class="week">周{{week[1]}}</view>
       <text class="type">离店</text>
       <image class="more" src='../../../../images/more.png'></image>
     </view>
   </view>
-  <view class="mask1 transform1 {{mask1?'block height100':''}}">
-    <view class="place">
-      <view class="empty" catchtap='closeCalendar'></view>
-      <template is="calendar" data="{{currentDate,currentDayList,checkIn,checkOut,today}}"></template>
-    </view>
-  </view>
+
   <view class="roomList">
     <view class="list">
       <view class="room" wx:for="{{room}}" wx:key='{{key}}'>
         <view class="intro" data-id='{{item.id}}' data-item="{{item}}" bindtap='navigate'>
           <view class="navigate">
-            <image class="photo" src='{{item.logo?item.logo:"../../../../images/ls.png"}}'></image>
+            <!-- <image class="photo" src='{{item.logo?item.logo:"../../../../images/ls.png"}}'></image> -->
+            <view class='photo' style='background-image:url({{item.logo}});background-size:cover;'></view>
             <view class="msg">
               <view class="type elli">{{item.name}}</view>
-              <view class="include elli">{{item.bed_type == 1?"单人床":""}}{{item.bed_type == 2?"双人床":""}} | {{item.window}}</view>
+              <view class="include elli">{{item.bed_type == 1?"单人床":""}}{{item.bed_type == 2?"双人床":""}} | {{item.window==0?"无窗":"有窗"}}</view>
               <view class="remind elli">{{hotel.cancel_rule}}</view>
             </view>
           </view>
@@ -98,4 +96,8 @@
       </view>
     </view>
   </view>
+</view>
+<view class='calendar flex flex-vertical {{hide?"hide":""}}'>
+  <view class='empty' bindtap='choseDate'></view>
+  <calendar id="calendar" bindgetDate="getDate" bindchooseEnd="chooseEnd"></calendar>
 </view>

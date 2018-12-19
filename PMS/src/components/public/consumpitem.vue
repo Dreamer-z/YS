@@ -26,7 +26,7 @@
 					<li class="five">金额</li>
 					<li class="six">凭证号</li>
 				</ul>
-				<ul v-for="(item, index) in goodsListModel" class="whypay clearfix">  <!-- 选择项 -->
+				<ul v-for="(item, index) in goodsListModel" :key="index" class="whypay clearfix">  <!-- 选择项 -->
 					<li @click="setGoodsListModelClassArr(index)" class="one">
 						<div :class="{'borcolor': goodsListModelClassArr.includes(index)}">
 							<nav :class="{'beij': goodsListModelClassArr.includes(index)}"></nav>
@@ -37,7 +37,7 @@
 						<img style="position:absolute;top:12px;right:10px;" src="@/assets/images/sjx.png" alt="">
 						<el-collapse-transition>
 							<ul v-show="goodsTypeShow == 1 && goodsTypeIndex == index" class="leixing">
-								<li @click.stop="giveType(item,data)" v-for="(data, i) in typeArr">{{data.name}}</li>
+								<li @click.stop="giveType(item,data)" :key="i" v-for="(data, i) in typeArr">{{data.name}}</li>
 							</ul>
 						</el-collapse-transition>
 					</li>
@@ -46,7 +46,7 @@
 						<img style="position:absolute;top:12px;right:10px;" src="@/assets/images/sjx.png" alt="">
 						<el-collapse-transition>
 							<ul v-show="goodsTypeShow == 2 && goodsTypeIndex == index" class="goods">
-								<li @click.stop="giveGoodsName(item,value)" v-for="(value, n) in item.goodsArr">{{value.name}}</li>
+								<li @click.stop="giveGoodsName(item,value)" :key="n" v-for="(value, n) in item.goodsArr">{{value.name}}</li>
 							</ul>
 						</el-collapse-transition>
 					</li>
@@ -75,7 +75,7 @@
 					</li>
 				</ul>
 				<div>
-					<ul v-for="(item, index) in fromAPI" class="whypay clearfix">
+					<ul v-for="(item, index) in fromAPI" :key="index" class="whypay clearfix">
 						<li @click="setBackground(item)" class="one">
 							<div :class="{'borcolor': setBackColor.includes(item)}">
 								<nav :class="{'beij': setBackColor.includes(item)}"></nav>
@@ -247,15 +247,19 @@ import { mapGetters } from 'vuex'
 			    let obj={
 			    	"room_id": this.mes.roomId?this.mes.roomId:this.mes,  //.roomId
 						"order_id": this.orderId,
-						"consume": arr
+						"consume": arr,
+						"hotel_id": this.hotel.id
 			    }
 				    API.post("/pms/roomstatus/consume", obj).then(res=>{
-				    	console.log('00011010101010......',res,this.mes)
 				    	if (res.error_code == 0) {
 				    		this.$message({
 				          message: '添加成功',
 				          type: 'success'
 				        })
+				    	} else {
+				    		if (res.msg) {
+				    			this.$message.error(`${res.msg}`)
+				    		}
 				    	}
 				    })
 				  
@@ -266,7 +270,7 @@ import { mapGetters } from 'vuex'
 						goods_name: '',
 						goodsId: '',
 						price: '',
-						roomNum: '103',
+						roomNum: this.mes.roomName?this.mes.roomName:this.roomName,
 						goodsArr: [],
 						count: 1,
 						totalPrice: '',
@@ -298,7 +302,6 @@ import { mapGetters } from 'vuex'
 				e.typeId = d.id
 				this.goodsTypeShow = 0
 				API.get("/pms/roomstatus/goods?id=" + d.id).then(res=>{
-					// console.log('0000.000123',res)
 					if (res.error_code == 0 ) {
 						e.goodsArr = res.data
 					}
@@ -336,11 +339,6 @@ import { mapGetters } from 'vuex'
 			this.getFromAPI()
 			this.getCommodityType()
 			this.getListOfGoods()
-			// let _this = this;
-			// this.$nextTick(function() {
-			// 	_this.goodsListModel.push(_this.list)
-			// })
-			// bus.ev.$on()
 		}
 	}
 </script>
@@ -354,7 +352,7 @@ import { mapGetters } from 'vuex'
 			width: 1013px;
 			position: absolute;
 			top: 20%;
-			left: 20%;
+			left: 22%;
 			background: #fff;
 			min-height: 500px;
 			overflow-y: auto;

@@ -1,11 +1,11 @@
 //app.js
 import { hosts, api, userMsg } from "./utils/api.js";
 import token from './utils/token.js';
+import host from './utils/hosts.js';
 App({
   data: {
-    version: '1.1.0.719',
     loginSuccessCallback: null,
-    ShareMessage: '云宿'
+    ShareMessage: hosts.shareMessage
   },
   onShow: function () {
     // 网络状态
@@ -25,6 +25,7 @@ App({
       // 登录、设置token
       token.verify(function (res) {
         if (res) {
+          _this.globalData.tokenData = true;
           _this.globalData.showBtn = false
         }
       });

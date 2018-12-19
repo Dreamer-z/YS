@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "ys-calendar": "/pages/components/ysCalendar/ysCalendar"
+  }
+}

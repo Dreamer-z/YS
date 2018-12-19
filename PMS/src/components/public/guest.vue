@@ -17,7 +17,7 @@
 					<li class="six">会员卡号</li>
 				</ul>
 				<div style="height: 186px;overflow-y:auto;">
-					<ul v-for="(item, index) in list" class="whypay clearfix">
+					<ul v-for="(item, index) in list" :key="index" class="whypay clearfix">
 						<li class="one">{{roomName}}</li>
 						<li class="two">{{item.name}}</li>
 						<li class="seven">{{item.sex == 0?'男':'女'}}</li>

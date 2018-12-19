@@ -1,0 +1,197 @@
+<!--pages/index/page/hotel/hotel.wxml-->
+<scroll-view class='hotel' scroll-y="{{!roomDetailsHide ? false:true}}">
+<!-- <view class="hotel {{roomDetailsHide?'':'height100'}}"> -->
+  <!-- 酒店简介 -->
+  <view class='hotel-introduce'>
+    <view class="hotelPhotoList" wx:if="{{img.length > 0}}">
+      <swiper class="hotelPhoto" autoplay interval="5000" circular bindchange="hotelPhoto">
+        <swiper-item wx:for="{{img}}" wx:key="{{key}}">
+          <view style='height: 419rpx;width: 100%;background:url({{item}})no-repeat center;background-size:cover;'></view>
+        </swiper-item>
+      </swiper>
+      <view class="hotelPhotoIndex">
+        <text>{{imgIndex}}</text> /
+        <text>{{imgLength}}张</text>
+      </view>
+    </view>
+    <view class="hotelPhotoList" style='text-align:center;font-size:28rpx;line-height:90rpx;' wx:else>暂无酒店相册</view>
+    <view class='hotel-msg'>
+      <view class='name-operation bg-white flex flex-vertical flex-pack-justify'>
+        <view class='name flex flex-align-center flex-pack-justify'>
+          <view class='hotel-name elli'>{{hotel.hotel_name}}</view>
+          <view class='hotel-details' bindtap='navigateFacility'>酒店详情
+            <image class='icon' src='/images/more.png'></image>
+          </view>
+        </view>
+        <view class="operation">
+          <view class="starLevel">
+            <text>{{hotel.open_year}}年开业</text>
+            <image class="level" src='/images/star.png' wx:for="{{hotel.star}}" wx:key="key"></image>
+          </view>
+        </view>
+      </view>
+      <view class="addrMap bg-white" catchtap='map'>
+        <image src='/images/hotel/map.png'></image>
+        <view class="addr clearHide">
+          <view class="addrcont elli2">地址：{{hotel.address}}</view>
+          <view class="tel">电话：{{hotel.service_phone}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="calendarValue bg-white">
+    <view class="check checkIn flex flex-vertical flex-pack-justify" catchtap='choseDate'>
+      <view class='title'>入住</view>
+      <view class='time-box flex flex-align-center flex-pack-center'>
+        <view class='date'>{{checkIn1?checkIn1:checkIn}}</view>
+        <view class='week'>周{{week[0]}}</view>
+      </view>
+    </view>
+    <view class='night flex-1 flex flex-align-center flex-pack-justify'>
+      <view class='line'></view>
+      <view class='night-number'>共{{day}}晚</view>
+      <view class='line'></view>
+    </view>
+    <view class="check checkOut flex flex-vertical flex-pack-justify" catchtap='choseDate'>
+      <view class='title'>离店</view>
+      <view class='time-box flex flex-align-center flex-pack-center'>
+        <view class='date'>{{checkOut1?checkOut1:checkOut}}</view>
+        <view class='week'>周{{week[1]}}</view>
+      </view>
+    </view>
+  </view>
+  <view class="roomList">
+    <view class="list">
+      <view class="room" wx:for="{{room}}" wx:for-index="index" wx:key='{{key}}'>
+        <view class="intro" data-id='{{item.id}}' data-item="{{index}}" bindtap='navigate'>
+          <view class="navigate">
+            <!-- <image class="photo" src='{{item.logo?item.logo:"/images/ls.png"}}'></image> -->
+            <view class='photo' style='background:url({{item.logo}})no-repeat center;background-size:cover;'></view>
+            <view class="msg">
+              <view class="type elli">{{item.name}}</view>
+              <view class="include elli">{{item.bed_type == 1?"单人床":""}}{{item.bed_type == 2?"双人床":""}} | {{item.window==0?"无窗":"有窗"}}</view>
+              <view class="remind elli">{{hotel.cancel_rule}}</view>
+              <view class="basePrice">
+                <view class="symbol">¥</view>
+                <view class="num">{{item.price}}</view>
+              </view>
+            </view>
+          </view>
+          <view class="down {{item.is_preorder?'':'disabled'}}" data-item="{{index}}" catchtap='authSetting'>
+            <button class="colorButton">预订</button>
+            <view class='room-number-msg'>
+              {{item.preorder_num==0?"满房":item.preorder_num <5? "仅剩"+item.preorder_num+ "间": "房间充足"}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- <view class='calendar flex flex-vertical {{hide?"hide":""}}'>
+    <view class='empty' bindtap='choseDate'></view>
+    <calendar id="calendar" bindgetDate="getDate" bindchooseEnd="chooseEnd"></calendar>
+  </view> -->
+  <view class='popup room-details flex flex-vertical {{roomDetailsHide?"hide":""}}'>
+    <view class='empty' bindtap='closeRoomDetailsPopup'></view>
+    <view class='content bg-white flex flex-vertical'>
+      <!-- 房型&关闭弹窗 -->
+      <view class='content-head flex flex-align-center flex-pack-justify'>
+        <view class='roomTypeName'>{{roomData.name}}</view>
+        <view class='closeRoomDetails' bindtap='closeRoomDetailsPopup'>
+          <image class='closeRoomDetailsPopup' src='/images/close_1.png'></image>
+        </view>
+      </view>
+      <!-- 房间简介 -->
+      <view class='content-main flex-1'>
+        <view class="roomPhotoList" wx:if="{{roomImg.length>0}}">
+          <swiper class="roomPhoto" autoplay interval="5000" current='{{currentRoomPhoto}}' circular bindchange="roomPhoto">
+            <swiper-item wx:for="{{roomImg}}" wx:key="{{key}}">
+              <view style='height: 415rpx;width: 100%;background:url({{item}})no-repeat center;background-size:cover;'></view>
+            </swiper-item>
+          </swiper>
+          <view class="roomPhotoIndex">
+            <text>{{roomImgIndex}}</text> /
+            <text>{{roomImgLength}}</text>
+          </view>
+        </view>
+        <view class='roomPhotoList' style='height:90rpx;line-height:90rpx;font-size:26rpx;text-align:center;' wx:else>
+          暂无房型相册
+        </view>
+        <view class='room-collocate'>
+          <view class='container flex flex-align-center flex-wrap'>
+            <view class='item elli'>面积
+              <text>{{roomData.area}}m²</text>
+            </view>
+            <view class='item elli'>可住
+              <text>{{roomData.people_num}}人</text>
+            </view>
+            <view class='item elli'>窗户
+              <text>{{roomData.window_name}}</text>
+            </view>
+            <view class='item elli'>早餐
+              <text>{{"无"}}</text>
+            </view>
+            <view class='item elli'>床型
+              <text>{{roomData.bed_length}}米/张</text>
+            </view>
+            <view class='item elli'>卫浴
+              <text>{{roomData.bathroom_name}}</text>
+            </view>
+          </view>
+          <view class='room-facility {{getMoreVal?"":"scale"}}'>
+            <text>设施：</text>
+            <text wx:for="{{roomData.facility}}" wx:for-index="index" wx:key="{{index}}">{{index}}</text>
+          </view>
+          <view class='get-more-box flex flex-align-center flex-pack-center'>
+            <view class='get-more' bindtap='getMore'>{{getMoreVal?"收起":"查看更多设施"}}
+              <image class='icon transform02 {{getMoreVal?"":"rotateX180"}}' src='/images/up_on.png'></image>
+            </view>
+          </view>
+        </view>
+        <view class='part-box'>
+          <!-- <view class='part service'>
+            <view class='title'>服务亮点</view>
+            <view class='container'>
+              <view class='item'>
+                <text class='tag'>小程序</text>
+                <text style='color: #fc8c2c;'>免押金</text>
+                <text class='msg'>入住，离店无需查房</text>
+              </view>
+            </view>
+          </view> -->
+          <view class='part'>
+            <view class='title'>入住政策</view>
+            <view class='container'>
+              <text class='item'>{{hotel.check_notice}}</text>
+            </view>
+          </view>
+          <view class='part service'>
+            <view class='title'>取消规则</view>
+            <view class='container'>
+              <text class='item'>{{hotel.cancel_rule}}</text>
+            </view>
+          </view>
+          <view class='part service'>
+            <view class='title'>使用规则</view>
+            <view class='container'>
+              <text class='item'>{{hotel.use_rule}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='content-foot flex flex-align-center'>
+        <view class='room-price'>房价
+          <text class='price-num'><text class='symbol'>￥</text>{{room[chooseRoomIndex].price}}</text>/晚</view>
+        <view class='goPay {{room[chooseRoomIndex].is_preorder?"":"disabled"}}' data-item="{{chooseRoomIndex}}" bindtap='authSetting'>去预订</view>
+      </view>
+    </view>
+  </view>
+<!-- </view> -->
+</scroll-view>
+<view class='distribute flex flex-vertical flex-align-center {{distribute?"":"hide"}}'>
+  <view class='content flex flex-vertical flex-align-center'>
+    <view class='img' style='background:url({{popImg[0]}})no-repeat center;background-size:cover;'></view>
+    <view class='tap' style='background:url({{popImg[1]}})no-repeat center;background-size:cover;' bindtap='distributeCenter'></view>
+    <image class='close' src='/images/close_3.png' bindtap='closeDistribute'></image>
+  </view>
+</view>

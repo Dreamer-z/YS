@@ -154,6 +154,9 @@ Page({
   },
   // 编辑联系人
   editUser: function (e) {
+    this.setData({
+      chooseNumber: 0
+    });
     user.editUser('../amendUser/amendUser?id=',e);
   }
 })

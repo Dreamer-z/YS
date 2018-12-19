@@ -1,0 +1,10 @@
+<!--pages/personCenter/page/share/share.wxml-->
+<view class='share-box height100 flex flex-vertical flex-align-center'>
+  <image class='qr-code' src='{{qrcode}}' bindtap='preview'></image>
+  <view class='remind'>长按识别 {{name}}小程序</view>
+  <view class='share'>
+    <button class='share-btn' open-type='share'></button>
+    <image src='/images/wx.png'></image>
+  </view>
+  <view class='remind'>点击分享</view>
+</view>

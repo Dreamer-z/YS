@@ -1,6 +1,7 @@
 // pages/shareVerify/shareVerify.js
 import Reg from '../../utils/reg.js';
 import { hosts, api, share } from "../../utils/api.js";
+import token from '../../utils/token.js';
 let app = getApp();
 Page({
   data: {
@@ -11,6 +12,16 @@ Page({
     password:'',
   },
   onLoad: function (options) {
+    // 登录、设置token
+    token.verify(function (res) {
+      if (res) {
+        app.globalData.tokenData = true;
+      } else {
+        wx.showToast({
+          title: '身份验证失败',
+        })
+      }
+    });
     if (options.share_key && options.order_id) {
       this.setData({
         share_key: options.share_key,

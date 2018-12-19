@@ -1,14 +1,13 @@
 <template>
   <div class="checkInTime-management">
-    <bread-crumb :child-msg='router'></bread-crumb>
     <div class="filter">
-      <div class="filter-type">
+      <!-- <div class="filter-type">
         <span>快捷搜索：</span>
         <el-row>
           <el-button type="primary" data-index="1" size="mini" :plain="orderStatusValue==1?false:true" round @click="orderType($event)">在住</el-button>
           <el-button type="primary" data-index="2" size="mini" :plain="orderStatusValue==3?false:true" round @click="orderType($event)">预计今日退房</el-button>
         </el-row>
-      </div>
+      </div> -->
       <div class="search">
         <!-- <div class="search-item">
           <span>订单状态：</span>
@@ -18,23 +17,23 @@
         </div> -->
         <div class="search-item">
           <span>房号：</span>
-          <el-input placeholder="" v-model="searchKey.room_name" clearable size="small"></el-input>
+          <el-input placeholder="" v-model="searchKey.room_name" clearable size="mini"></el-input>
         </div>
-        <div class="search-item">
+        <!-- <div class="search-item">
           <span>预订人：</span>
           <el-input placeholder="" v-model="searchKey.username" clearable size="small"></el-input>
-        </div>
+        </div> -->
         <div class="search-item">
           <span>入住人：</span>
-          <el-input placeholder="" v-model="searchKey.member" clearable size="small"></el-input>
+          <el-input placeholder="" v-model="searchKey.member" clearable size="mini"></el-input>
         </div>
-        <div class="search-item">
+        <!-- <div class="search-item">
           <span>订单号：</span>
           <el-input placeholder="" v-model="searchKey.order_no" clearable size="small"></el-input>
-        </div>
+        </div> -->
         <div class="search-item">
           <span>时间段：</span>
-          <el-date-picker v-model="searchKey.time" type="daterange" @change="datePicker" format="yyyy-M-d" value-format="yyyy-M-d" placeholder="选择日期" size="small" ></el-date-picker>
+          <el-date-picker v-model="searchKey.time" type="daterange" @change="datePicker" format="yyyy-M-d" value-format="yyyy-M-d" placeholder="选择日期" size="mini" ></el-date-picker>
         </div>
         <!-- <div class="search-item">
           <span>开始时间：</span>
@@ -44,19 +43,20 @@
           <span>结束时间：</span>
           <el-date-picker v-model="searchKey.leave_time" format="yyyy-M-d" value-format="yyyy-M-d" type="date" placeholder="选择日期" size="small"></el-date-picker>
         </div> -->
-        <div class="search-item">
+        <!-- <div class="search-item">
           <span>客源类型：</span>
           <el-select v-model="searchKey.from" clearable placeholder="可选择" size="small">
             <el-option v-for="item in sourceArr" :key="item.value" :label="item.label" :value="item.value"></el-option>
           </el-select>
-        </div>
+        </div> -->
         <div class="search-item">
-          <el-button type="primary" @click="search" size="small">搜索</el-button>
+          <el-button type="primary" @click="search" size="mini">搜索</el-button>
+          <el-button  @click="clearSearch" size="mini">清空搜索</el-button>
         </div>
       </div>
     </div>
     <div class="plan">
-      <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" height="100%" style="width: 1482px" border>
+      <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" height="100%" style="width: 1482px">
         <el-table-column label="入住人" width="80">
           <template slot-scope="scope">{{scope.row.member_name}}</template>
         </el-table-column>
@@ -95,7 +95,7 @@
           </template>
         </el-table-column>
         <el-table-column label="入住状态" width="100">
-          <template slot-scope="scope">{{scope.row.set_status_name}}</template>
+          <template slot-scope="scope">{{scope.row.stay_status_name}}</template>
         </el-table-column>
         <!-- <el-table-column label="预计到店时间" width="140">
           <template slot-scope="scope">
@@ -112,15 +112,13 @@
         </el-table-column>
       </el-table>
     </div>
-    <!-- <el-pagination class="pagination" background :page-size='20' layout="prev, pager, next" :total="1000"></el-pagination> -->
+    <el-pagination class="pagination" v-show="totalNum>0?true:false" background :page-size='pageSize' layout="prev, pager, next" :total="totalNum" @current-change="current"></el-pagination>
     <get-money :msg="msgForMoney" v-if="moneyShow" @getMoneyBeNone="setGetMoneyNone"></get-money>
 
   </div>
 </template>
 
 <script>
-import BreadCrumb from '@/components/public/breadcrumb' //面包屑导航栏
-import { routs } from '@/assets/js/routs' //面包屑导航栏地址
 import getMoney from "@/components/public/getmoney"
 
 import { mapGetters } from 'vuex'
@@ -132,13 +130,10 @@ export default {
     })
   },
   components: {
-    BreadCrumb,
     getMoney
   },
   data() {
     return {
-      // 面包屑导航路径及名称
-      router: [routs.index, routs.checkInManagement],
       // 订单状态
       orderStatus: [
         {
@@ -153,7 +148,6 @@ export default {
       sourceArr: [],
       orderStatusValue: '',
       searchKey: {
-        hotel_id:'',
         // 查找的房号
         room_name: '',
         //   预订人
@@ -169,12 +163,18 @@ export default {
         //   结束时间
         leave_time: '',
         //   客源类型
-        from: ''
+        from: '',
+        page:1,
+        num:10,
       },
+      key:{},
       // 表单数据
       tableData: [],
       // 选中表单条目数据
       multipleSelection: [],
+      currentPage:1,
+      pageSize:10,
+      totalNum:0,
       //弹窗部分数据
       msgForMoney:{},
       moneyShow:false,
@@ -200,23 +200,30 @@ export default {
     //   搜索
     search() {
       let _this = this;
-      let searchKey = {
-        hotel_id:this.hotel.id
-      };
+      this.currentPage = 1;
       this.orderStatusValue = '';
-      for (const key in this.searchKey) {
+      for (let key in this.searchKey) {
         if (this.searchKey[key] != '' && this.searchKey[key] != undefined && key != 'time') {
-          searchKey[key] = this.searchKey[key]
+          this.key[key] = this.searchKey[key]
         }
-      }
-      API.searchCheckInList(searchKey)
+      };
+      this.key.hotel_id = this.hotel.id;
+      this.key.num = this.pageSize;
+      this.key.page = this.currentPage;
+      this.searchFn();
+    },
+    searchFn(){
+      let _this = this
+      API.searchCheckInList(this.key)
         .then(function(res) {
           if (res.error_code == 0) {
-            _this.tableData = res.data
+            _this.currentPage = 1;
+            _this.tableData = res.data.data;
+            _this.totalNum = res.data.total_count;
           } else {
             _this.$message({
               type: 'warning',
-              message: '搜索失败'
+              message: res.msg
             })
           }
         }).catch(function(err){
@@ -226,6 +233,33 @@ export default {
             message: '搜索失败'
           })
         })
+    },
+    clearSearch(){      
+      this.searchKey = {
+        hotel_id:'',
+        // 查找的房号
+        room_name: '',
+        //   预订人
+        username: '',
+        //   入住人
+        member: '',
+        //   订单号
+        order_no: '',
+        // 时间段
+        time: '',
+        //   开始时间
+        come_time: '',
+        //   结束时间
+        leave_time: '',
+        //   客源类型
+        from: '',
+        total:0,
+        pageSize:10,
+        currentPage:1,
+      },
+      this.key = {};
+      this.currentPage = 1;
+      this.checkInList()
     },
     // 客源渠道
     getFromWay() {
@@ -258,11 +292,14 @@ export default {
     checkInList() {
       let _this = this
       API.checkInList({
-        id: this.hotel.id
+        id: this.hotel.id,
+        page:this.currentPage,
+        num:this.pageSize,
       })
         .then(function(res) {
           if (res.error_code == 0) {
-            _this.tableData = res.data
+            _this.totalNum = res.data.total_count;
+            _this.tableData = res.data.data;
           } else {
             _this.$message({
               type: 'warning',
@@ -277,7 +314,17 @@ export default {
             message: '获取入住列表失败'
           })
         })
-    },			
+    },
+    current(n){
+      if(this.key.room_name || this.key.username ||this.key.member ||this.key.order_no ||this.key.come_time ||this.key.leave_time ||this.key.from){
+        console.log(1);
+        this.key.page = n;
+        this.searchFn();
+      }else{
+        this.currentPage = n;
+        this.checkInList();
+      }
+    },	
     setGetMoneyNone(e) {
 			this.moneyShow = false
 		},
@@ -304,18 +351,20 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: auto !important;
-  font-size: 14px;
+  overflow-y: auto;
   .plan{
     box-sizing: border-box;
-    height: 100%;
-    flex: 1;
+    padding: 10px 35px;
     padding-bottom: 30px;
+    flex: 1;
     overflow: hidden;
   }
   .filter {
     display: flex;
     flex-direction: column;
+    box-sizing: border-box;
+    padding: 0 35px;
+    background-color: #f2f2f2;
     .filter-type {
       display: flex;
       align-items: center;
@@ -327,20 +376,21 @@ export default {
     .search {
       display: flex;
       flex-wrap: wrap;
-      padding-top: 20px;
-      border-top: 2px solid #e6e6e6;
-      border-bottom: 2px solid #e6e6e6;
-      margin-bottom: 10px;
       .search-item {
         display: flex;
         align-items: center;
-        margin: 0 40px 20px 0;
+        margin: 0 40px 0 0;
+        padding-bottom: 10px;
         .el-input {
           flex: 1;
         }
       }
     }
   }
+}
+.checkInTime-management .pagination{
+  width: 1480px;
+  padding-bottom: 20px;
 }
 .part-title {
   color: #808080;

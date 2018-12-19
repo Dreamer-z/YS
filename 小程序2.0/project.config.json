@@ -1,0 +1,66 @@
+{
+	"description": "项目配置文件。",
+	"setting": {
+		"urlCheck": true,
+		"es6": true,
+		"postcss": true,
+		"minified": true,
+		"newFeature": true,
+		"nodeModules": true,
+		"uglifyFileName": true
+	},
+	"compileType": "miniprogram",
+	"libVersion": "1.9.97",
+	"appid": "wx169d094804abbf62",
+	"projectname": "YunSu-v2.0",
+	"isGameTourist": false,
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"currentL": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": 2,
+			"list": [
+				{
+					"id": 0,
+					"name": "带 shareTicket",
+					"pathName": "pages/shareVerify/shareVerify",
+					"query": "share_key=4cbc0876872206ab50d600ef636f3f47&order_id=18",
+					"scene": "1044",
+					"shareInfo": {
+						"groupName": "测试模拟群0",
+						"shareName": "BeQSqKzVLXY6oOBrtAy5yW51ykIR1vu7pLvvjOO0n5U@cr4dev",
+						"shareKey": "-pbg5Oi01UGp11vjrcqC6GPW9EQp6_5lejXrj-jdFWVwRe0hmZMgNNZg07r4Jm1yPPgJ9uDdaRAaFKR7w8A_lw~~"
+					}
+				},
+				{
+					"id": -1,
+					"name": "扫描二维码",
+					"pathName": "pages/index/index",
+					"query": "hid=1&code=12323",
+					"scene": "1011"
+				},
+				{
+					"id": 2,
+					"name": "扫描小程序码",
+					"pathName": "pages/index/index",
+					"query": "hid=1&code=12323",
+					"scene": "1047"
+				}
+			]
+		}
+	}
+}

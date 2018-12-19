@@ -20,7 +20,7 @@
 <script>
   export default{
     name: 'roomNumber',
-    props: ['roomList'],
+    props: ['roomList','selected'],
     data() {
       return {
         selectedArr: ''
@@ -30,15 +30,16 @@
     },
     methods: {
       letSelect(e) {
-        // if(this.selectedArr.includes(e)) {
-        //   let find = this.selectedArr.indexOf(e)
-        //   this.selectedArr.splice(find, 1)
-        // } else {
-        //   if (this.selectedArr.length < this.maxNum) {
-        //     this.selectedArr.push(e)
-        //   }
-        // }
-        this.selectedArr = e
+        // console.log(this.selected)
+        // return
+        if(this.selected.includes(e.id)) {
+          this.$message({
+          message: '不能选择相同的房间',
+          type: 'warn'
+        })
+        } else {
+          this.selectedArr = e
+        }
       },
       giveSelected() {
         this.$emit('giveNumSelected', this.selectedArr)

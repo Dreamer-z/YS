@@ -1,0 +1,2 @@
+<!--pages/personCenter/page/commonUser/commonUser.wxml-->
+<common-user id="common-user" list="{{list}}" bindaddUser="addUser" bindeditUser="editUser"></common-user>

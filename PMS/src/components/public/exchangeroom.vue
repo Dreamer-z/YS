@@ -22,12 +22,12 @@
 						<span class="middle">：</span>
 					</p>
 					<el-select size="medium" @change="getRoomNum" v-model="roomType" placeholder="请选择房间类型">
-					  <el-option v-for="item in message.room_type" :key="item.id" :label="item.name" :value="item.id">
+					  <el-option v-for="(item,index) in message.room_type" :key="index" :label="item.name" :value="item.id">
 						</el-option>			 
 				  </el-select>
 				  <div style="margin-left: 52px;" class="middle">
 				  	<el-select size="medium" v-model="roomNum" placeholder="请选择房间">
-						  <el-option v-for="item in roomNumArr" :key="item.id" :label="item.name" :value="item.id">
+						  <el-option v-for="(item,index) in roomNumArr" :key="index" :label="item.name" :value="item.id">
 							</el-option>			 
 					  </el-select>
 				  </div>
@@ -155,6 +155,10 @@ import bus from "@/store/bus"
 		          	bus.ev.$emit('exchangeroomBeNone',this.list)
 		          }
 		        })
+					} else {
+						if (res.msg) {
+              this.$message.error(`${res.msg}`)
+            }
 					}
 				})
 			},

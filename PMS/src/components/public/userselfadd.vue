@@ -1,13 +1,13 @@
 <template>
   <div class="self-add">
-    <ol>
+    <ol class="clearfix">
       <li class="left">
         <p style="color: #6a9df6;">{{childpagename}}设施<span>*</span></p>
       </li>
-      <li class="right" @click="centerDialogVisible = true">
+      <!-- <li class="right" @click="centerDialogVisible = true">
         <img src="../../assets/images/add.png" alt=""/>
         <p>新增</p>
-      </li>
+      </li> -->
     </ol>
     <div @click="centerDialogVisible = false" v-show="centerDialogVisible" class="dialog">
       <div @click.stop="" class="container">
@@ -20,35 +20,33 @@
                class="iconfont iconFontSize" :class="item.icon"></span>
               <p style="display: inline-block; vertical-align: middle;">{{item.name}}</p>
             </li>
-            <!---->
-            <!-- <li class=change-bj ref="index" :id="item.id" v-for="(item, index) in userDefine">
-              <p><span>哈</span>{{item.name}}</p>   自定义设施
-              <div @click="delCustom(index)" class="add-delete">×</div>
-            </li> -->
           </ul>
-          <button @click="checkedAll">一键全部添加</button>
-          <!-- <div class="self">
-            <p>自定义</p>
-            <input ref="addInput" v-model="addList" type="text" placeholder="输入设施">
-            <button @click="addUserFac">添加</button>
-          </div> -->
+          <!-- <button @click="checkedAll">一键全部添加</button> -->
+          <el-button style="width:150px;" @click="checkedAll" type="primary">一键全部添加</el-button>
         </section>
         <div class="self-nav">
-          <button class="dele" @click="centerDialogVisible = false">取消</button>
-          <button class="arge" @click="save">确定</button>
+          <!-- <button class="dele" @click="centerDialogVisible = false">取消</button> -->
+          <el-button @click="centerDialogVisible = false">取消</el-button>
+          <!-- <button class="arge" @click="save">确定</button> -->
+          <el-button @click="centerDialogVisible = false" type="primary">确定</el-button>
         </div>
       </div>
     </div>
     <section>
       <ul>
-        <li v-for="(item, index) in userSelectFac ">
-          <span style="vertical-align: middle;display: inline-block;color: #fff;"
-               class="iconfont iconFontSize " :class="item.icon" ></span>
-          <div>{{item.name}}</div>
-          <nav @click="remove(item.id)" class="delete">×</nav>
+        <li :key="index" v-for="(item, index) in userSelectFac ">
+          <span class="iconfont iconFontSize middle" :class="item.icon" ></span>
+          <div class="middle">{{item.name}}</div>
+          <span @click="remove(item.id)" style="fontSize:14px;cursor: pointer;marginLeft:6px;" class="el-icon-close middle"></span>
+          <!-- <nav @click="remove(item.id)" class="delete">×</nav> -->
         </li>
       </ul>
     </section>
+    <nav style="marginTop:25px;color: #437ff9;cursor:pointer;" @click="centerDialogVisible = true">
+      <!-- <img class="middle" src="../../assets/images/add.png" alt=""/> -->
+      <p style="fontSize:14px;" class="middle el-icon-circle-plus-outline"></p>
+      <p class="middle">新增</p>
+    </nav>
   </div>
 </template>
 
@@ -140,32 +138,24 @@ import API from "@/store/API"
         color:    #f2f2f2;
     }
   .self-add{
-    .add-delete{
-      width: 20px;
-      height: 20px;
-      text-align: center;
-      line-height: 20px;
-      position: absolute;
-      top: 0; right: 0;
-      background:red;
-      border-radius: 50%;
-      transform: translate(50%,-50%);
-    }
+    font-size: 12px;
+    color:#333;
     .dialog{
       position: fixed;
       top: 0;left: 0; right: 0;bottom: 0;
       background: rgba(0,0,0,.3);
-      z-index: 1000;
+      z-index: 600;
+      display: flex;
+      align-items:center;/*垂直居中*/
+      justify-content: center;/*水平居中*/
       .container{
         .change-bj{
-              color: #fff;
-              background: #6a9df6;
-            }
+          color: #437ff9;
+          background:rgba(0, 168, 255, .06);
+          border-color:rgba(0, 168, 255, .3);
+        }
         position: absolute;
-        width: 80%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-41%, -50%);
+        width: 1000px;
         background: #fff;
         header{
           width: 100%;
@@ -186,31 +176,31 @@ import API from "@/store/API"
             overflow-y: auto;
             li{
               position: relative;
-              width: 140px;
-              height: 50px;
-              font-size: 16px;
+              width: 120px;
+              height: 38px;
+              font-size: 12px;
               text-align: center;
               border-radius: 3px;
-              margin-right: 34px;
-              margin-bottom: 30px;
+              margin-right: 14px;
+              margin-bottom: 10px;
               background: #fff;
               border: 1px solid #e2e2e2;
               p{
-                line-height: 50px;
+                line-height: 38px;
                 span{
                   margin-right: 18px;
                 }
               }
             }
           }
-          button{
-            width: 198px;
-            height: 46px;
-            border: 1px solid #e2e2e2;
-            border-radius: 3px;
-            background: #fff;
-            outline: none;
-          }
+          // button{
+          //   width: 198px;
+          //   height: 46px;
+          //   border: 1px solid #e2e2e2;
+          //   border-radius: 3px;
+          //   background: #fff;
+          //   outline: none;
+          // }
           .self{
             p{
               line-height: 50px;
@@ -256,8 +246,9 @@ import API from "@/store/API"
     }
     overflow: hidden;
     ol{
-      height: 36px;
-      line-height: 36px;
+      // height: 36px;
+      // line-height: 36px;
+      // line-height: 19px;
       .left{
         float: left;
         span{
@@ -279,43 +270,29 @@ import API from "@/store/API"
     }
     section{
       box-sizing: border-box;
-      padding: 36px 16px;
       background: #fff;
       ul{
         li{
-          cursor: pointer;;
-          position: relative;
           display: inline-block;
           text-align: center;
-          width: 140px;
-          height: 50px;
+          width: 120px;
+          height: 38px;
           border-radius: 3px;
-          background: #6a9df6;
           margin-right: 16px;
-          margin-bottom: 36px;
+          margin-top: 20px;
+          border:1px solid;
+          color: #437ff9;
+          background:rgba(0, 168, 255, .06);
+          border-color:rgba(0, 168, 255, .3);
           img{
             vertical-align: middle;
             margin-right: 20px;
           }
           div{
             display: inline-block;
-            color: #fff;
             vertical-align:middle;
-            height: 50px;
-            line-height: 50px;
-          }
-          nav{
-            width: 20px;
-            height: 20px;
-            line-height: 20px;
-            text-align: center;
-            border-radius: 50%;
-            background: red;
-            color: #fff;
-            position: absolute;
-            transform: translate(10px, -10px);
-            top: 0;
-            right: 0;
+            height:38px;
+            line-height: 38px;
           }
         }
       }

@@ -6,14 +6,30 @@ import io from 'socket.io-client';
 Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
+        route: null,
+        topMenuId: null,
+        leftMenuId: null,
         routers: [],
         token: null,
         hotelList: [],
         currHotel: null,
         user: {},
-        socket: null
+        socket: null,
+        checkOutRequest: 0,
+        sysMessage: 0
     },
     getters: {
+        route: (state, getters) => {
+            return state.route
+        },
+        topMenuId: (state, getters) => {
+            state.topMenuId = sessionStorage.getItem('_setTopMenuId');
+            return state.topMenuId
+        },
+        leftMenuId: (state, getters) => {
+            state.leftMenuId = sessionStorage.getItem('_setLeftMenuId');
+            return state.leftMenuId
+        },
         routers: (state, getters) => {
             return state.routers
         },
@@ -35,8 +51,25 @@ export default new Vuex.Store({
         socket: (state, getters) => {
             return state.socket
         },
+        checkOutRequest: (state, getters) => {
+            return state.checkOutRequest
+        },
+        sysMessage: (state, getters) => {
+            return state.sysMessage
+        },
     },
     mutations: {
+        'setRoute': (state, route) => {
+            state.route = route
+        },
+        'setTopMenuId': (state, index) => {
+            state.topMenuId = index;
+            sessionStorage.setItem('_setTopMenuId', index)
+        },
+        'setLeftMenuId': (state, index) => {
+            state.leftMenuId = index;
+            sessionStorage.setItem('_setLeftMenuId', index)
+        },
         'setRouters': (state, routers) => {
             state.routers = routers
         },
@@ -61,8 +94,23 @@ export default new Vuex.Store({
         'setSocket': (state, socket) => {
             state.socket = socket
         },
+        'setCheckOutRequest': (state, checkOutRequest) => {
+            state.checkOutRequest = checkOutRequest
+        },
+        'setSysMessage': (state, sysMessage) => {
+            state.sysMessage = sysMessage
+        },
     },
     actions: {
+        setRoute({ commit }, route) {
+            commit('setRoute', route);
+        },
+        setTopMenuId({ commit }, index) {
+            commit('setTopMenuId', index);
+        },
+        setLeftMenuId({ commit }, index) {
+            commit('setLeftMenuId', index);
+        },
         generateRoutes({ commit }) {
             // return new Promise((reslove, reject) => {
             /*
@@ -177,7 +225,18 @@ export default new Vuex.Store({
             socket.on('disconnect', function() {
                 console.log('---disconnect')
             });
-
-        }
+        },
+        setCheckOutReq({ commit }, checkOutRequest) {
+            if (checkOutRequest < 0) {
+                checkOutRequest = 0
+            }
+            commit('setCheckOutRequest', checkOutRequest);
+        },
+        setSysMsg({ commit }, sysMessage) {
+            if (sysMessage < 0) {
+                sysMessage = 0
+            }
+            commit('setSysMessage', sysMessage);
+        },
     }
 })

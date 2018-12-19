@@ -1,0 +1,253 @@
+/* pages/personCenter/page/registerMember/registerMember.wxss */
+
+.register-member {
+  height: 100%;
+}
+
+.member-type-container {
+  width: 750rpx;
+  padding: 50rpx 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.no-have{
+  text-align: center;
+  height: 380rpx;
+  line-height: 380rpx;
+  font-size: 36rpx;
+}
+
+.box {
+  height: 380rpx;
+  padding: 0 45rpx;
+}
+
+.box .item {
+  height: 380rpx;
+  width: 660rpx;
+  transform: scale(0.92);
+}
+
+.box .item.now {
+  transform: scale(1);
+}
+
+.member-card, .member-card image, .member-card .card-msg {
+  width: 660rpx;
+  height: 380rpx;
+  border-radius: 30rpx;
+}
+
+.member-card {
+  position: relative;
+  z-index: 100;
+  margin: 0 auto;
+  box-shadow: 0 0 30rpx rgba(0, 0, 0, 0.4);
+}
+
+.member-card.gold {
+  color: rgb(164, 118, 17);
+}
+
+.member-card.silver {
+  color: rgb(137, 135, 131);
+}
+
+.member-card.other {
+  color: rgb(170, 131, 71);
+}
+
+.member-card .card-msg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  padding: 26rpx 45rpx;
+}
+
+.member-card .card-msg .card-type {
+  height: 73rpx;
+  width: 100%;
+  padding-bottom: 2rpx;
+}
+
+.member-card .card-msg .card-type .type {
+  font-size: 40rpx;
+  font-weight: bold;
+  flex: 1;
+}
+
+.member-card .card-msg .card-type .level {
+  font-size: 30rpx;
+  width: auto;
+}
+
+.member-card.gold .card-msg .card-type .level {
+  color: rgba(164, 118, 17, 0.8);
+}
+
+.member-card.silver .card-msg .card-type .level {
+  color: rgba(137, 135, 131, 0.8);
+}
+
+.member-card.other .card-msg .card-type .level {
+  color: rgba(170, 131, 71, 0.8);
+}
+
+.member-card .card-msg .card-type .level image {
+  width: 31rpx;
+  height: 27rpx;
+  margin-right: 8rpx;
+}
+
+.member-card .member-msg .msg .person {
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-bottom: 30rpx;
+}
+
+.member-card .member-msg .msg .person .time {
+  font-size: 24rpx;
+  color: #a47611;
+}
+
+.member-card .member-msg .msg .card-number {
+  color: #fff;
+  font-size: 46rpx;
+}
+
+.member-card .member-msg .option {
+  color: #fff;
+  font-size: 24rpx;
+}
+
+.member-card .member-msg .option .to-be-member {
+  box-sizing: border-box;
+  width: 260rpx;
+  height: 50rpx;
+  line-height: 48rpx;
+  text-align: center;
+  border: solid 1rpx #fff;
+  border-radius: 25rpx;
+}
+
+.indicator {
+  position: absolute;
+  bottom: 16rpx;
+}
+
+.indicator .item {
+  width: 40rpx;
+  height: 5rpx;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-right: 13rpx;
+}
+
+.indicator .item:nth-last-of-type(1) {
+  margin-right: 0;
+}
+
+.indicator .item.now {
+  background-color: #e1b96c;
+}
+
+.member-privilege {
+  box-sizing: border-box;
+  padding: 28rpx 30rpx;
+  width: 100%;
+}
+
+.privilege-item {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.privilege-item .item {
+  width: 50%;
+  margin-bottom: 26rpx;
+}
+
+.privilege-item .item .icon {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 19rpx;
+}
+
+.privilege-details {
+  width: 100%;
+  height: 391rpx;
+  position: relative;
+}
+
+.privilege-details .bg {
+  width: 100%;
+  height: 100%;
+}
+
+.privilege-details .content {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 36rpx;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.privilege-details .content .title {
+  margin-bottom: 42rpx;
+  height: 30rpx;
+}
+
+.privilege-details .content .title .icon {
+  width: 120rpx;
+  height: 4rpx;
+  background: -webkit-linear-gradient(left, #fff 30%, #a9c5fd 100%);
+  background: -o-linear-gradient(left, #fff 30%, #a9c5fd 100%);
+  background: -moz-linear-gradient(left, #fff 30%, #a9c5fd 100%);
+  background: linear-gradient(left, #fff 30%, #a9c5fd 100%);
+}
+
+.privilege-details .content .title .title-msg {
+  margin: 0 16rpx;
+  font-size: 28rpx;
+  color: #4480f9;
+}
+
+.privilege-details .content .item-box {
+  overflow-y: auto;
+}
+
+.privilege-details .content .item-box .item {
+  color: #b3b3b3;
+  margin-bottom: 20rpx;
+}
+
+.privilege-details .content .item-box .item:nth-last-of-type(1) {
+  margin-bottom: 0;
+}
+
+.privilege-details .content .item-box .item .item-title {
+  font-size: 28rpx;
+  color: #4d4d4d;
+}
+
+.privilege-details .content .item-box .item .item-msg {
+  text-indent: 1em;
+}
+
+.transact {
+  margin-top: 55rpx;
+}
+
+.transact button {
+  width: 424rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  font-size: 34rpx;
+  color: #fff;
+  background-image: linear-gradient(90deg, #729ffc 0%, #437ff9 100%), linear-gradient(#437ff9, #437ff9);
+  border-radius: 45rpx;
+}

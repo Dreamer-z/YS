@@ -18,9 +18,83 @@ page {
   color: #fff !important;
 }
 
-.disabled{
+.disabled {
   background-color: #e6e6e6 !important;
   color: #fff !important;
+}
+
+.disabled {
+  background-color: #e6e6e6 !important;
+  color: #fff !important;
+}
+
+.flex {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.flex-vertical {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.flex-wrap {
+  -webkit-flex-wrap: wrap;
+  -moz-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  -o-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.flex-align-center {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.flex-pack-center {
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.flex-pack-justify {
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.flex-pack-start {
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+
+.flex-pack-end {
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.flex-1 {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
 }
 
 /* 过渡 */
@@ -80,6 +154,33 @@ page {
   -ms-transform: rotateZ(180deg);
   -o-transform: rotateZ(180deg);
 }
+
+/* 边框 */
+
+.border {
+  border: 1rpx solid #e6e6e6;
+}
+
+.border-dashad {
+  border: 1rpx dashed #e6e6e6;
+}
+
+.border-top {
+  border-top: 1rpx solid #e6e6e6;
+}
+
+.border-right {
+  border-right: 1rpx solid #e6e6e6;
+}
+
+.border-bottom {
+  border-bottom: 1rpx solid #e6e6e6;
+}
+
+.border-left {
+  border-left: 1rpx solid #e6e6e6;
+}
+
 /* 左浮动 */
 
 .left {
@@ -93,6 +194,10 @@ page {
 }
 
 /* 清除浮动 */
+
+.clear {
+  overflow: hidden;
+}
 
 .clear::after {
   content: "";
@@ -121,7 +226,7 @@ page {
 
 /* 遮盖层 */
 
-.mask, .mask1, .mask2 {  
+.mask, .mask1, .mask2 {
   transition: all 1s;
   -webkit-transition: all 1s;
   -moz-transition: all 1s;
@@ -134,13 +239,13 @@ page {
   bottom: 0;
   left: 0;
   z-index: 99;
-   display: none; 
+  display: none;
 }
 
 /* 显示遮盖层 */
 
 .maskBlock {
-  display: block; 
+  display: block;
   height: 100%;
 }
 
@@ -166,7 +271,6 @@ page {
 
 .empty {
   flex: 1;
-  height: 100%;
   width: 100%;
 }
 
@@ -275,7 +379,7 @@ page {
   justify-content: flex-end;
 }
 
-.basePrice .symbol{
+.basePrice .symbol {
   margin-left: 10rpx;
 }
 
@@ -325,16 +429,15 @@ page {
 
 .columnOne .content {
   width: 100%;
-  flex: 1; 
+  flex: 1;
   display: flex;
   align-items: center;
   align-content: space-between;
   color: #333;
 }
 
-.columnOne .content input[type="text"],
-.columnOne .content input[type="idcard"],
-.columnOne .content input[type="number"]{
+.columnOne .content input[type="text"], .columnOne .content input[type="idcard"],
+.columnOne .content input[type="number"] {
   display: block;
   height: 80rpx;
   width: 100%;
@@ -343,8 +446,8 @@ page {
   white-space: pre-wrap;
 }
 
-.columnOne .content textarea{
-  height:45rpx;
+.columnOne .content textarea {
+  height: 45rpx;
   line-height: 45rpx;
   width: 100%;
   position: static;
@@ -432,17 +535,19 @@ button.cancel-big {
 }
 
 /* 无数据、获取数据失败 */
-.noData{
+
+.noData {
   text-align: center;
-  padding-top:40rpx;
+  padding-top: 40rpx;
   font-size: 24rpx;
-  color: #b2b2b2; 
+  color: #b2b2b2;
 }
 
 /* 必填星号 */
-.required::after{
+
+.required::after {
   content: '*';
-  color:red;
+  color: red;
   position: absolute;
   left: -15rpx;
 }

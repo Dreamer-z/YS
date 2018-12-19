@@ -1,0 +1,101 @@
+/* pages/hotelService/page/share/share.wxss */
+.shareBox{
+  height: 100%;
+  position: relative;
+  background-color: #f2f2f2;
+}
+
+.shareBox .box{
+  background-color: #fff;
+  margin-bottom: 11rpx;
+}
+
+.shareBox .box>.title{
+  padding:59rpx 0 26rpx 0;
+  font-size:26rpx;
+  color:#333;
+  text-align: center;
+}
+
+.shareBox .passWord{
+  padding: 0 0 73rpx 0;
+  text-align: center;
+  font-size: 80rpx;
+  font-weight: bold;
+  color: #f4703c;
+  letter-spacing:8rpx;
+}
+
+.shareBox .options{
+  padding-bottom: 54rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.shareBox .options .copy{
+  box-sizing: border-box;
+  width: 202rpx;
+	height: 60rpx;
+  line-height: 58rpx;
+  font-size: 26rpx;
+	border-radius: 30rpx;
+  color: #f86f41;
+  background-color: #fff;
+	border: solid 1rpx #f86f41;
+  margin-bottom: 19rpx;
+}
+
+.shareBox .options>.remind{
+  font-size: 20rpx;
+	color: #f86f41;
+}
+
+.shareBox>.remind{
+  padding: 21rpx;
+  background-color: #fff;
+  color: #333;
+  font-size: 26rpx;
+  margin-bottom: 44rpx;
+}
+
+.shareBox>.remind .title{
+  margin-bottom: 25rpx;
+}
+
+.shareBox>.remind .content .item{
+  margin-bottom: 15rpx;
+}
+
+.shareBox>.remind .content .item:nth-last-of-type(1){
+  margin-bottom: 0;
+}
+
+.shareBox .statement{
+  padding: 0 21rpx;
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+}
+
+.shareBox .statement .statementCentent{
+  display: flex;
+  align-items: center;
+}
+
+.shareBox .statement .statementCentent text{
+  color: #437ff8;
+}
+
+.shareBox .share{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.shareBox .share .shareBtn{
+  border-radius: 0;
+  background-color: #437ff8;
+  color: #fff;
+}

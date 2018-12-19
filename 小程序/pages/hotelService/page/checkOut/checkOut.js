@@ -37,7 +37,7 @@ Page({
     }
   },
   // 退房
-  checkOut: function () {
+  checkOut: function (e) {
     if (!this.data.readRules) {
       wx.showModal({
         title: '温馨提示',
@@ -48,6 +48,7 @@ Page({
       return;
     };
     this.setData({
+      formId: e.detail.formId,
       out: !this.data.out,
     });
     this.code();
@@ -68,10 +69,18 @@ Page({
     });
   },
   // 检测验证码
-  verifyCode: function () {
+  verifyCode: function (e) {
     let _this = this;
     let hotelData = this.data.hotelData;
+    let formId = this.data.formId;
     let code = this.data.codeNum;
+    if (code.length != 4) {
+      wx.showToast({
+        title: "请输入四位验证码！",
+        icon:"none"
+      });
+      return;
+    };
     verifyCheckOutCode(code).then(function (res) {
       console.log(res)
       wx.showToast({
@@ -89,6 +98,7 @@ Page({
           hotel_id: hotelData.hotel_id,
           action: 3,
           order_id: hotelData.order_id,
+          form_id: formId
         }
       }).then(function(res){
         wx.showToast({
@@ -97,10 +107,6 @@ Page({
         _this.setData({
           doing:true
         });
-        // wx.navigateBack({
-        //   delta: 1
-        // })
-        console.log(res)
       }).catch(function(err){
         console.log(err)
         wx.showToast({
@@ -122,6 +128,7 @@ Page({
   closeCheckOut: function () {
     this.setData({
       out: !this.data.out,
+      code:'',
     })
   }
 })

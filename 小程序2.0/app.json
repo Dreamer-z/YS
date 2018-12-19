@@ -1,0 +1,92 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/index/page/hotel/hotel",
+    "pages/index/page/facility/facility",
+    "pages/index/page/reservations/reservations",
+    "pages/index/page/commonUse/commonUse",
+    "pages/index/page/orderDetail/orderDetail",
+    "pages/personCenter/personCenter",
+    "pages/personCenter/page/myOrders/myOrders",
+    "pages/personCenter/page/payForIt/payForIt",
+    "pages/personCenter/page/bill/bill",
+    "pages/personCenter/page/billDetails/billDetails",
+    "pages/personCenter/page/invoice/invoice",
+    "pages/personCenter/page/myInvoice/myInvoice",
+    "pages/personCenter/page/commonUser/commonUser",
+    "pages/personCenter/page/complaint/complaint",
+    "pages/personCenter/page/orderDetails/orderDetails",
+    "pages/personCenter/page/share/share",
+    "pages/personCenter/page/memberCenter/memberCenter",
+    "pages/personCenter/page/registerMember/registerMember",
+    "pages/personCenter/page/fillInInformation/fillInInformation",
+    "pages/personCenter/page/transactResult/transactResult",
+    "pages/personCenter/page/recharge/recharge",
+    "pages/personCenter/page/rechargeResult/rechargeResult",
+    "pages/personCenter/page/binding/binding",
+    "pages/personCenter/page/verifyTel/verifyTel",
+    "pages/personCenter/page/memberInformation/memberInformation",
+    "pages/personCenter/page/amendMsg/amendMsg",
+    "pages/personCenter/page/chooseHotel/chooseHotel",
+    "pages/personCenter/page/distributeCenter/distributeCenter",
+    "pages/personCenter/page/withdraw/withdraw",
+    "pages/personCenter/page/withdrawMaterial/withdrawMaterial",
+    "pages/personCenter/page/withdrawPages/withdrawPages",
+    "pages/personCenter/page/withdrawRecord/withdrawRecord",
+    "pages/personCenter/page/withdrawBill/withdrawBill",
+    "pages/personCenter/page/distributeBrokerage/distributeBrokerage",
+    "pages/personCenter/page/distributeOrder/distributeOrder",
+    "pages/personCenter/page/myClientele/myClientele",
+    "pages/personCenter/page/bankCard/bankCard",
+    "pages/personCenter/page/popularize/popularize",
+    "pages/personCenter/page/popularizeDetails/popularizeDetails",
+    "pages/personCenter/page/addBankCard",
+    "pages/personCenter/page/addBankCard/addBankCard",
+    "pages/hotelService/hotelService",
+    "pages/hotelService/page/renewalsOf/renewalsOf",
+    "pages/hotelService/page/orderDetails/orderDetails",
+    "pages/hotelService/page/checkOut/checkOut",
+    "pages/hotelService/page/roomControl/roomControl",
+    "pages/hotelService/page/share/share",
+    "pages/hotelService/page/statement/statement",
+    "pages/components/calendar/calendar",
+    "pages/components/wallet/wallet",
+    "pages/components/order/order",
+    "pages/chooseDate/chooseDate",
+    "pages/setting/setting",
+    "pages/shareVerify/shareVerify",
+    "pages/amendUser/amendUser",
+    "pages/addUser/addUser",
+    "pages/chooseRoom/chooseRoom"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#fff"
+  },
+  "tabBar": {
+    "color": "#b2b2b2",
+    "selectedColor": "#437ff8",
+    "backgroundColor": "#fff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "/images/index.png",
+        "selectedIconPath": "/images/index_on.png"
+      },
+      {
+        "pagePath": "pages/personCenter/personCenter",
+        "text": "个人中心",
+        "iconPath": "/images/person.png",
+        "selectedIconPath": "/images/person_on.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 20000,
+    "connectSocket": 20000,
+    "uploadFile": 20000,
+    "downloadFile": 20000
+  }
+}

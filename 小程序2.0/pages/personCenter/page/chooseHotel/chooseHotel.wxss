@@ -1,0 +1,129 @@
+/* pages/personCenter/page/chooseHotel/chooseHotel.wxss */
+.box{
+  box-sizing: border-box;
+  height: 100%;
+  padding-bottom: 30rpx;
+}
+
+.box>.title{
+	font-size: 32rpx;
+	color: #1a1a1a;
+  padding: 30rpx;
+}
+
+.hotel{
+  box-sizing: border-box;
+  overflow-y: auto;
+  position: relative;
+}
+
+.hotel .container{
+  border-radius: 30rpx;
+  position:absolute;
+  left:calc(50% - 330rpx);
+  box-shadow: 0 0 30rpx rgba(0,0,0,.2);
+  overflow: hidden;
+}
+
+.member-card, .member-card image, .member-card .card-msg {
+  width: 660rpx;
+  height: 380rpx;
+  border-radius: 30rpx;
+}
+
+.member-card {
+  position: relative;
+  z-index: 100;
+  margin: 0 auto;
+}
+
+.member-card.gold {
+  color: rgb(164, 118, 17);
+}
+
+.member-card.silver {
+  color: rgb(137, 135, 131);
+}
+
+.member-card.other {
+  color: rgb(170, 131, 71);
+}
+
+.member-card.none {
+  color: #fff;
+}
+
+.member-card .card-msg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  padding: 26rpx 45rpx;
+}
+
+.member-card .card-msg .card-type {
+  height: 73rpx;
+  width: 100%;
+  padding-bottom: 2rpx;
+}
+
+.member-card .card-msg .card-type .type {
+  font-weight: bold;
+  font-size: 40rpx;
+  flex: 1;
+}
+
+.member-card .card-msg .card-type .level {
+  font-size: 30rpx;
+  width: auto;
+}
+
+.member-card.gold .card-msg .card-type .level {
+  color: rgba(164, 118, 17, 0.8);
+}
+
+.member-card.silver .card-msg .card-type .level {
+  color: rgba(137, 135, 131, 0.8);
+}
+
+.member-card.other .card-msg .card-type .level {
+  color: rgba(170, 131, 71, 0.8);
+}
+
+.member-card .card-msg .card-type .level image {
+  width: 31rpx;
+  height: 27rpx;
+  margin-right: 8rpx;
+}
+
+.member-card .card-msg .card-type .to-member{
+  box-sizing: border-box;
+  width: 179rpx;
+  height: 50rpx;
+  line-height: 48rpx;
+  text-align: center;
+  border: solid 1rpx #fff;
+  border-radius: 25rpx;
+}
+
+.member-card .member-msg .msg .person {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 30rpx;
+}
+
+.member-card .member-msg .msg .person .time{	
+  font-size: 24rpx;
+	color: #a47611;
+}
+
+.member-card .member-msg .msg .card-number {
+  color: #fff;
+  font-size: 46rpx;
+}
+
+.member-card .member-msg .option {
+  color: #fff;
+  font-size: 24rpx;
+}

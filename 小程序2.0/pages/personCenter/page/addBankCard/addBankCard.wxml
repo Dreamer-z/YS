@@ -1,0 +1,25 @@
+<!--pages/personCenter/page/addBankCard/addBankCard.wxml-->
+<view class='add-bank-card'>
+  <view class='head-remind'>请绑定持卡人本人的银行卡</view>
+  <view class='msg'>
+    <view class='item'>
+      <view class='title'>银行卡号</view>
+      <input class='section' placeholder='请输入正确卡号' bindinput='gatBankNum' bindblur='getBank' value='{{bankNum}}'></input>
+    </view>
+    <view class='item {{showBank?"":"hide"}}'>
+      <view class='title'>银行名称</view>
+      <view class='section'>
+        <image src='{{cardMsg.mini_logo}}'></image>{{cardMsg.bank_name}}</view>
+    </view>
+    <view class='item'>
+      <view class='title'>开户支行</view>
+      <input class='section' placeholder='请输入开户支行' bindinput='getAccountAddr' value='{{accountAddr}}'></input>
+    </view>
+    <view class='item'>
+      <view class='title'>持卡人姓名</view>
+      <input class='section' placeholder='请输入真实姓名' bindinput='getName' value='{{name}}'></input>
+    </view>
+  </view>
+  <view class='main-remind'>温馨提示：请仔细填写银行卡信息，避免导致提现佣金打款失败</view>
+  <button class='finish-big' bindtap='save'>保存</button>
+</view>

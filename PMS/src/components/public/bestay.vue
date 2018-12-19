@@ -90,7 +90,7 @@
 								<div style="margin-right: 30px;" class="middle">
 									<!-- <p class="middle readonly">{{taday}}</p> -->
 									<!-- <span class="middle readonlyspan">{{nowTime}}</span> -->
-									<el-date-picker :disabled="true" value-format="yyyy-MM-dd HH:mm:ss" size="mini" type="datetime" v-model="[taday,nowTime].join(' ')">
+									<el-date-picker :disabled="true" value-format="yyyy-MM-dd HH:mm:ss" size="mini" type="datetime" :value="[taday,nowTime].join(' ')">
 									</el-date-picker>
 								</div>
 								<nav class="middle addday">
@@ -435,18 +435,6 @@ import API from "@/store/API"
 				],
 				price: '',   // 付款方式
 				wayList: [
-					// {
-					// 	id: '1',
-					// 	name: '散客'
-					// },
-					// {
-					// 	id: '2',
-					// 	name: '团队'
-					// },
-					// {
-					// 	id: '3',
-					// 	name: '家庭'
-					// }
 				],
 				payWayList: [],
 				headjson: {
@@ -507,10 +495,10 @@ import API from "@/store/API"
 				})
 			},
 			getagreementUnit(e) {
-				if (!e.length) {return}
+				if (e.length == 0) {return}
 				this.agreementUnitArr.forEach((v,i)=>{
 					if(v.id == e) {
-						this.roomPrice = this.headjson.price * v.discount
+						this.roomPrice = Number(this.headjson.price) * Number(v.discount)
 					}
 				})
 			},
@@ -539,6 +527,7 @@ import API from "@/store/API"
 					  this.isAgreementUnit = false;
 					  this.isSmallProgram = false;
 					  this.isMember = true;
+					  this.roomPrice = ''
 					  break;
 					 case 4:      // 协议
 					  this.isSmallProgram = false;
@@ -550,12 +539,15 @@ import API from "@/store/API"
 				}
 			},
 			getMemberDiscount(e) {
-				if (!e.length) {return}
+				if (e.length == 0) {return}
 				API.getMemberDiscount(e).then(res=>{  //this.memberNum
 			  	if (res.error_code == 0) {
 			  		let count = res.data.discount
-			  		this.roomPrice = this.headjson.price * count
-			  		// console.log(this.roomPrice)
+			  		this.roomPrice = Number(this.headjson.price) * Number(count)
+			  	} else {
+			  		if (res.msg) {
+			  			this.$message.error(`${res.msg}`)
+			  		}
 			  	}
 			  })
 			},
@@ -693,7 +685,7 @@ import API from "@/store/API"
 						this.$alert('办理入住成功', '', {
 	            confirmButtonText: '确定',
 	            callback: ()=>{
-	            	this.$emit('getStayBeNone',{statu: 2, floorIndex: this.headjson.floorIndex, roomIndex:this.headjson.roomIndex})
+	            	this.$emit('getStayBeNone',{orderId: res.data.order_id, statu: 2, floorIndex: this.headjson.floorIndex, roomIndex:this.headjson.roomIndex})
 	            	Object.assign(this.$data, this.$options.data())
 	            }
 	          })
@@ -702,7 +694,7 @@ import API from "@/store/API"
 							this.$alert(`${res.msg}`, '', {
 		            confirmButtonText: '确定',
 		            callback: ()=>{
-		            	this.beNone()
+		            	// this.beNone()
 		            }
 		          })
 						}
@@ -720,7 +712,7 @@ import API from "@/store/API"
 					let newdate;
 					if((Math.floor(date) + Math.floor(this.stayHowManyDay)) > Math.floor(days)) {
 						month = (month + 2) < 10 ? '0' + (month + 2) :(month + 2)
-						if(Math.floor(month) < 12) {
+						if(Math.floor(month) <= 12) {
 							newdate = Math.floor(this.stayHowManyDay) - (Math.floor(days) - Math.floor(date))
 							newdate = newdate < 10? '0' + newdate : newdate
 							this.dateValue = `${year}-${month}-${newdate}${' ' + this.nowTime}`
@@ -748,7 +740,7 @@ import API from "@/store/API"
 					let newdate;
 					if((Math.floor(date) + Math.floor(this.stayHowManyDay)) > Math.floor(days)) {
 						month = (Math.floor(month) + 2) < 10 ? '0' + (Math.floor(month) + 2) :(Math.floor(month) + 2)
-						if(Math.floor(month)<12) {
+						if(Math.floor(month)<=12) {
 							newdate = Math.floor(this.stayHowManyDay) - (Math.floor(days) - Math.floor(date))
 							newdate = newdate < 10? '0' + newdate : newdate
 							this.dateValue = `${year}-${month}-${newdate}${' ' + this.nowTime}`
@@ -786,6 +778,7 @@ import API from "@/store/API"
 		},
 		created() {
 			bus.ev.$on('willBeStay', (e)=>{
+				console.log('<>><><><><><.',e)
 				this.hoteiId = e.hoteiId
 				API.bestayCreated(e.value.id).then(res=>{ 
 					this.headjson = res.data;

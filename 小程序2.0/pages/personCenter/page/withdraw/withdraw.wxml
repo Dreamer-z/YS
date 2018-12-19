@@ -1,0 +1,24 @@
+<!--pages/personCenter/page/withdraw/withdraw.wxml-->
+<view class='page-withdraw flex flex-vertical'>
+  <view class='can-withdraw bg-white'>
+    <view class='title'>累计可提现佣金</view>
+    <view class='amount'>￥
+      <text>{{withdrawList.activity_money}}</text>
+    </view>
+  </view>
+  <view class='hotel bg-white flex-1' wx:if="{{list.length>0}}">
+    <view class='li flex flex-vertical' wx:for="{{list}}" wx:for-index="index" wx:key="{{index}}">
+      <view class='hotel-name flex flex-align-center'>
+        <image src='/images/distribute/hotel.png'></image>{{item.hotel_name}}</view>
+      <view class='hotel-content flex-1 flex flex-vertical flex-pack-center'>
+        <view class='li-title'>可提现佣金</view>
+        <view class='amount'>￥
+          <text>{{item.amout_money}}</text>
+        </view>
+        <view class='remind' wx:if="{{item.min_money}}">最低提现金额为{{item.min_money}}元</view>
+      </view>
+      <button data-id="{{item.id}}" data-hotel="{{item.hotel_id}}" bindtap='withdraw'>提现</button>
+    </view>
+  </view>
+  <view class='hotel bg-white flex-1' wx:else style="text-align:center;line-height:80rpx;">暂无数据</view>
+</view>

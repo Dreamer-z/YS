@@ -1,0 +1,58 @@
+/* pages/personCenter/page/addBankCard/addBankCard.wxss */
+.add-bank-card{
+  height: 100%;
+  width: 100%;
+  background-color: #fff;
+}
+
+.head-remind{
+  padding: 0 30rpx;
+  height: 52rpx;
+  line-height: 52rpx;
+  color: #fff;
+  background-color: rgba(252, 140, 44, .7);
+}
+
+.msg{
+  padding: 0 30rpx;
+}
+
+.msg .item{
+  display: flex;
+  align-items: center;
+  height: 100rpx;
+  font-size: 28rpx;
+	color: #333;
+  border-bottom: solid 1rpx #e6e6e6;
+}
+
+.msg .item .title{
+  width: 200rpx;
+  color: #808080;	
+}
+
+.msg .item .section{
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.msg .item .section image{
+  width: 42rpx;
+	height: 42rpx;
+  margin-right: 20rpx;
+}
+
+.main-remind{
+  margin-top: 30rpx;
+  color: #fc8c2c;
+  padding: 0 30rpx;
+}
+
+.finish-big{
+  margin-top: 90rpx;
+}
+
+.hide,.msg .item.hide{
+  display: none;
+}

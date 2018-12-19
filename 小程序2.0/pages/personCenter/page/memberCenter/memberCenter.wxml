@@ -1,0 +1,71 @@
+<!--pages/personCenter/page/memberCenter/memberCenter.wxml-->
+<view class='box flex flex-vertical'>
+  <view class='member-card-container'>
+    <view class='member-card gold'>
+      <image src='/images/member/member_card.png'></image>
+      <view class='card-msg flex flex-vertical flex-align-center'>
+        <view class='card-type flex flex-align-center flex-pack-justify'>
+          <view class='type'>{{msg.card_level_name}}</view>
+          <view class='level flex flex-align-center'>
+            <image class='icon' src='/images/member/member_level_1.png'></image>VIP{{msg.card_level}}</view>
+        </view>
+        <view class='member-msg flex-1 flex flex-vertical'>
+          <view class='msg flex-1 flex flex-vertical flex-align-center flex-pack-center'>
+            <view class='person flex flex-align-center flex-pack-justify'>
+              <view>{{msg.name}}</view>
+              <view class='time' wx:if="{{msg.expire_time && msg.expire_time!=''}}">{{msg.expire_time}}</view>
+            </view>
+            <view class='card-number'>{{msg.card_number}}</view>
+          </view>
+          <view class='option flex flex-align-center flex-pack-justify'>
+            <view class='to-be-member'></view>
+            <view class='card-price'>卡费：{{msg.card_fee}}元</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <image class='shadow' src='/images/member/member_card_bg2.png'></image>
+    <view class='member-option-container'>
+      <view class='member-option'>
+        <image class='bg' src='/images/member/member_card_bg1.png'></image>
+        <view class='content flex flex-align-center flex-pack-justify'>
+          <view class='column flex-1 flex flex-vertical flex-align-center'>
+            <view class='title'>余额</view>
+            <view class='section balance'>
+              <text>¥</text>{{msg.balance}}
+            </view>
+          </view>
+          <view class='line'></view>
+          <view class='column flex-1 flex flex-vertical flex-align-center'>
+            <view class='title'>累计消费</view>
+            <view class='section integral'>
+              <text>¥</text>{{msg.balance}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='box-bottom bg-white flex-1 flex flex-vertical'>
+    <view class='balance-integral flex flex-align-center flex-pack-center'>
+      <view class='column flex flex-align-center flex-pack-center' bindtap='recharge'>
+        <image class='icon' src='/images/member/column_1_2.png'></image>
+        <view>充值</view>
+      </view>
+      <view class='column flex flex-align-center flex-pack-center' bindtap='memberInformation'>
+        <image class='icon' src='/images/member/column_4_2.png'></image>
+        <view>会员资料</view>
+      </view>
+    </view>
+    <view class="member-privilege flex-1 flex flex-vertical">
+      <view class='title flex flex-align-center'><image src='/images/member/icon.png'></image>{{msg.card_level_name}}特权</view>
+      <view class='content flex-1' wx:if="{{msg.rights.length>0}}">
+        <view class='column' wx:for="{{msg.rights}}" wx:for-index="index" wx:key="{{index}}">
+          <view class='column-title'>{{index+1}}.{{item.rights_name}}</view>
+          <view class='column-msg'>{{item.rights_info}}</view>
+        </view>
+      </view>
+      <view class='content flex-1' style='font-size:28rpx;line-height:100rpx;text-align:center;' wx:else>暂无相关信息</view>
+    </view>
+  </view>
+</view>

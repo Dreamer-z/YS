@@ -1,0 +1,147 @@
+/* pages/personCenter/page/fillInInformation/fillInInformation.wxss */
+.fill-in-information{
+  padding: 0 30rpx;
+}
+
+.fill-in-information .item{
+  border-bottom: solid 1rpx #e6e6e6;
+  display: flex;
+  align-items: center;
+  height: 98rpx;
+  width: 100%;
+}
+
+.fill-in-information .item .item-title.require::after{
+  content: "*";
+  color: red;
+  padding-left:8rpx;
+}
+
+.fill-in-information .item .item-title{
+  width: 200rpx;
+  font-size: 28rpx;
+	color: #999;
+}
+
+.fill-in-information .item .item-inp{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;	
+  font-size: 28rpx;
+	color: #333;
+}
+
+.fill-in-information .item.price .item-inp,.fill-in-information .item.price .item-inp input{
+  color: #ff4b13;
+}
+
+.fill-in-information .item .item-inp input{
+  height: 48rpx;
+  width: 100%;
+}
+
+.fill-in-information .item .item-inp .picker{
+  width: 100%;
+  height: 100%;
+  line-height: 98rpx;
+}
+
+.fill-in-information .item .item-inp .ys-input{
+  margin-right:88rpx; 
+}
+
+/* 自定义按钮 */
+.ys-input{
+  display: flex;
+  align-items: center;
+}
+
+.ys-input image{
+  width: 33rpx;
+	height: 33rpx;
+  margin-right: 16rpx;
+}
+
+.remind{
+  box-sizing: border-box;
+  padding: 27rpx 35rpx;
+  color: #808080;
+}
+
+.remind .icon{
+	width: 30rpx;
+  margin-right: 10rpx;
+}
+
+.remind .icon image{
+	width: 30rpx;
+	height: 30rpx;
+}
+
+.sendMsg{
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  text-align: center;
+	background-color: #437ff9;
+  font-size: 34rpx;
+	color: #fff;
+  position: fixed;
+  bottom: 0;
+}
+
+.popup .content{
+  box-sizing: border-box;
+  padding: 40rpx 20rpx;
+  width: 100%;
+	height: 770rpx;
+  overflow-y: auto;
+}
+
+.popup .content .item{
+  box-sizing: border-box;
+  width: 100%;
+	height: 214rpx;
+  padding: 30rpx;
+  border: solid 1rpx #e6e6e6;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.popup .content .item.check{
+  border: solid 1rpx #437ff9;
+}
+
+.popup .content .item .item-left{
+  flex: 1;
+  height: 100%;
+  box-sizing: border-box;
+  padding-right: 50rpx;
+  color: #808080;
+}
+
+.popup .content .item .item-left .item-title{
+  font-size: 32rpx;
+  color: #333;
+  margin-bottom: 8rpx;
+}
+
+.popup .content .item .item-left .item-advantage text::after{
+  content: ";";
+  padding-right: 6rpx;
+}
+
+.popup .content .item .item-left .item-advantage text:nth-last-of-type(1):after{
+  content: "0";
+}
+
+.popup .content .item .item-right{
+  width: 38rpx;
+	height: 38rpx;
+}
+
+.hide{
+  display: none;
+}

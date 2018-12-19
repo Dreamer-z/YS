@@ -1,0 +1,64 @@
+/* pages/personCenter/page/withdrawBill/withdrawBill.wxss */
+.withdraw-bill{
+  box-sizing: border-box;
+  height: 100%;
+  padding: 0 30rpx;
+}
+
+.container{
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.head{
+  width: 100%;
+  height: 340rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-bottom: solid 1rpx #e6e6e6;
+}
+
+.head .amount{
+  font-size: 70rpx;
+	color: #ff4b13;
+}
+
+.head .where{
+	font-size: 28rpx;
+	color: #1a1a1a;
+  margin-top: 54rpx;
+}
+
+.details{
+  box-sizing: border-box;
+  width: 100%;
+  padding: 75rpx 0;
+}
+
+.details .item{
+  font-size: 28rpx;
+  color: #333;
+  display: flex;
+  align-items: center;
+  margin-bottom:62rpx; 
+}
+
+.details .item:nth-last-of-type(1){
+  margin-bottom:0;
+}
+
+.details .item .title{
+  width: 200rpx;
+  color: #999;
+}
+
+.details .item .content{
+  flex: 1;
+}
+
+.details .item.fail .content{
+  color: #fc8c2c;
+}

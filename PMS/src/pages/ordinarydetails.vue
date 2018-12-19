@@ -102,7 +102,7 @@ import clumBread from "@/components/public/clumbread"
     methods: {
       beMember(e) {
         this.$router.push({
-            path: '/container/routeraddmember',
+            path: '/layerContainer/routeraddmember',
             query: e
         })
       },

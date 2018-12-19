@@ -1,0 +1,118 @@
+<!--pages/index/page/facility/facility.wxml-->
+<import src="../../../../wxParse/wxParse.wxml"/>
+<view class='tabs flex flex-align-center bg-white'>
+  <view class="tabs-item flex-1 flex flex-align-center flex-pack-center" data-index="1" bindtap='chooseTabs'>
+    <text class="circle {{tabs==1?'':'opacity'}}"></text>酒店设施</view>
+  <view class="tabs-item flex-1 flex flex-align-center flex-pack-center" data-index="2" bindtap='chooseTabs'>
+    <text class="circle {{tabs==2?'':'opacity'}}"></text>酒店政策</view>
+  <view class="tabs-item flex-1 flex flex-align-center flex-pack-center" data-index="3" bindtap='chooseTabs'>
+    <text class="circle {{tabs==3?'':'opacity'}}"></text>图文详情</view>
+  <view class="tabs-item flex-1 flex flex-align-center flex-pack-center" data-index="4" bindtap='chooseTabs'>
+    <text class="circle {{tabs==4?'':'opacity'}}"></text>酒店地址</view>
+</view>
+<scroll-view class="partOne" style="height: 100%;" scroll-with-animation="{{true}}" scroll-y='{{true}}' scroll-into-view="{{tabsVal==1?'facilityServer':tabsVal==2?'hotelPolicy':tabsVal==3?'photoDetails':tabsVal==4?'hotel-addr':'facilityServer'}}" bindscroll="getScroll">
+  <view id="facilityServer" class="facilityServer">
+    <view class='empty'></view>
+    <view class="title bg-white">设施服务</view>
+    <view class="cont bg-white">
+      <view class="facilityLi {{hotel.facility['WiFi']?'block':''}}">
+        <image src='../../../../images/hotel/wifi.png'></image>
+        <view>WIFI</view>
+      </view>
+      <view class="facilityLi {{hotel.facility['停车场']?'block':''}}">
+        <image src='../../../../images/hotel/park.png'></image>
+        <view>停车场</view>
+      </view>
+      <view class="facilityLi {{hotel.facility['餐厅']?'block':''}}">
+        <image src='../../../../images/hotel/dining.png'></image>
+        <view>餐厅</view>
+      </view>
+      <view class="facilityLi {{hotel.facility['健身房']?'block':''}}">
+        <image src='../../../../images/hotel/fitness.png'></image>
+        <view>健身房</view>
+      </view>
+      <view class="facilityLi {{hotel.facility['行李寄存']?'block':''}}">
+        <image src='../../../../images/hotel/luggage.png'></image>
+        <view>行李寄存</view>
+      </view>
+      <view class="facilityLi {{hotel.facility['商务中心']?'block':''}}">
+        <image src='../../../../images/hotel/business.png'></image>
+        <view>商务中心</view>
+      </view>
+      <view class="facilityLi {{hotel.facility['游泳池']?'block':''}}">
+        <image src='../../../../images/hotel/swim.png'></image>
+        <view>游泳池</view>
+      </view>
+      <view class="facilityLi {{hotel.facility['租车服务']?'block':''}}">
+        <image src='../../../../images/hotel/car.png'></image>
+        <view>租车服务</view>
+      </view>
+      <view class="facilityLi {{hotel.facility['咖啡厅']?'block':''}}">
+        <image src='../../../../images/hotel/coffee.png'></image>
+        <view>咖啡厅</view>
+      </view>
+      <view class="facilityLi {{hotel.facility['宴会厅']?'block':''}}">
+        <image src='../../../../images/hotel/feast.png'></image>
+        <view>宴会厅</view>
+      </view>
+      <view class="facilityLi {{hotel.facility['SPA']?'block':''}}">
+        <image src='../../../../images/hotel/spa.png'></image>
+        <view>SPA</view>
+      </view>
+      <view class="facilityLi {{hotel.facility['茶室']?'block':''}}">
+        <image src='../../../../images/hotel/tea.png'></image>
+        <view>茶室</view>
+      </view>
+      <view class="facilityLi {{hotel.facility['会议室']?'block':''}}">
+        <image src='../../../../images/hotel/meeting.png'></image>
+        <view>会议室</view>
+      </view>
+      <view class="facilityLi {{hotel.facility['接机服务']?'block':''}}">
+        <image src='../../../../images/hotel/airplane.png'></image>
+        <view>接机服务</view>
+      </view>
+      <view class="facilityLi {{hotel.facility['有线网络']?'block':''}}">
+        <image src='../../../../images/hotel/online.png'></image>
+        <view>有线网络</view>
+      </view>
+    </view>
+  </view>
+  <view id="hotelPolicy" class="hotelPolicy">
+    <view class="title bg-white">酒店政策</view>
+    <view class="cont bg-white">
+      <view class="policyLi">
+        <view class="title">入离时间</view>
+        <view class="introduce">
+          <text>入住时间：{{hotel.come_time}}以后</text>
+          <text>离店时间：{{hotel.leave_time}}以前</text>
+        </view>
+      </view>
+      <view class="policyLi">
+        <view class="title">宠物</view>
+        <view class="introduce">{{hotel.is_pet == "不允许"?'不可携带宠物':'可以携带宠物'}}</view>
+      </view>
+      <view class="policyLi">
+        <view class="title">酒店接受的支付方式</view>
+        <view class="introduce">
+          <view class='payWayList' wx:for="{{hotel.payway}}" wx:key="key">{{item.name}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view id="photoDetails" class="photoDetails bg-white">
+    <view class="title">
+      <view class="horizontalLine"></view>
+      <view>图文详情</view>
+      <view class="horizontalLine"></view>
+    </view>
+    <view class="content">
+      <!-- {{hotel.intro}} -->
+      <template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+    </view>
+  </view>
+  <view id="hotel-addr" class='hotel-addr bg-white'>
+    <view class="title">酒店地址</view>
+    <map id="map" scale="14" longitude="{{markers[0].longitude}}" latitude="{{markers[0].latitude}}" markers='{{markers}}' show-location enable-zoom="{{false}}" enable-scroll="{{false}}" style="width: 100%; height: 280rpx;" bindtap='map'></map>
+  </view>
+</scroll-view>
+<cover-view class='watch-room-type' bindtap='watchRoomType'>查看房型</cover-view>

@@ -6,7 +6,7 @@
     <form report-submit bindsubmit='payForIt'>
       <view class="content bg-white">
         <image class="close" src='../../../../images/close_1.png' bindtap='pay'></image>
-        <view class="wallet">云宿钱包</view>
+        <view class="wallet">{{title}}钱包</view>
         <view class="title">支付金额</view>
         <view class="price">
           ￥

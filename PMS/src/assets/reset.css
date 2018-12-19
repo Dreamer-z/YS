@@ -8,9 +8,9 @@ footer,header,hgroup,menu,nav,section{margin:0;padding:0;}
 header,footer,section,article,aside,nav,hgroup,address,figure,figcaption,menu,details{display:block;}/*html5*/
 table{border-collapse:collapse;border-spacing:0;}
 input,h1,h2,h3,h4,h5,h6,select,button,textarea{font-weight: normal;}
-address,caption,cite,code,dfn,em,strong,th,var, i,pre{ font-weight: normal; font-style: normal;}
+address,caption,cite,code,dfn,em,strong,th,var, i,pre{ font-weight: normal; font-style: normal;font-size: 12px;}
 input,textarea,select{margin:0px;padding:0px;outline:none;border:none;-webkit-tap-highlight-color: rgba(0,0,0,0); }
-// input[type="text"],textarea,select{margin:0px;padding:0px;}
+/* input[type="text"],textarea,select{margin:0px;padding:0px;}*/
 a{text-decoration: none;outline: none;}
 i,em{font-style:normal;}
 img,fieldset{border:none;}
@@ -22,14 +22,14 @@ pre{word-wrap: break-word; white-space: pre-wrap;font-family: "Microsoft YaHei";
 mark{background: none;}
 a {color: inherit;-webkit-touch-callout: none;-webkit-user-select: none;user-select: none;-webkit-user-drag:none;-webkit-tap-highlight-color: rgba(0,0,0,0);}
 input::-webkit-search-cancel-button {display: none;}
-// input:focus{border:none;background:none;}
+/* input:focus{border:none;background:none;}*/
 input{font-family: "Microsoft Yahei", "STHeitiSC-Light", "STHeiti", Arial;}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button{
     -webkit-appearance: none !important;
     margin: 0;
 }
-body {font-family: "Microsoft YaHei";font-size: 14px;color: #666;line-height:1;}
+body {font-family: "Microsoft YaHei";font-size: 12px;line-height:1;}
 body, html {
   height: 100%;
   min-height: 100%;
@@ -70,7 +70,4 @@ table {
 .middle{
   display: inline-block;
   vertical-align: middle;
-}
-.el-select--mini{
-  width: 178px!important;
 }

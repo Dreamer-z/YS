@@ -1,11 +1,10 @@
 <template>
   <div class="cooperator">
-    <bread-crumb :child-msg='router'></bread-crumb>
     <el-row class="optionsBtn">
       <el-button class="btn" type="primary" size="small" @click="add">新增</el-button>
       <el-button class="btn" size="small" :disabled="disableClick" @click="addCooperator">保存</el-button>
     </el-row>
-    <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" height='85%' style="width: 1933px" border @selection-change="handleSelectionChange">
+    <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" height='85%' style="width: 1933px" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="58"></el-table-column>
       <el-table-column label="序号" width="60">
         <template slot-scope="scope">{{scope.row.num}}</template>
@@ -79,8 +78,6 @@
 </template>
 
 <script>
-import BreadCrumb from '@/components/public/breadcrumb' //面包屑导航栏
-import { routs } from '@/assets/js/routs' //面包屑导航栏地址
 
 import { mapGetters } from 'vuex'
 import API from '@/store/API/index'
@@ -91,13 +88,8 @@ export default {
       hotel: 'currHotel'
     })
   },
-  components: {
-    BreadCrumb
-  },
   data() {
     return {
-      // 面包屑导航路径及名称
-      router: [routs.index, routs.cooperator],
       // 表单数据
       tableData: [],
       disableClick: false,
@@ -183,22 +175,25 @@ export default {
     // 验证是否重复
     judgeRep(arr) {
       let tableData = this.tableData
-      let n = 0
+      let n = []
       if (arr) {
         for (let i = 0; i < arr.length; i++) {
+          n[i] = 0
           for (let j = 0; j < tableData.length; j++) {
             if (arr[i].name == tableData[j].name) {
-              n++;
+              n[i]++
             }
           }
         }
       }
-      if (n > 1) {
-        this.$message({
-          type: 'warning',
-          message: '该合作单位已存在，请不要重复添加！'
-        })
-        return false
+      for (let i = 0; i < n.length; i++) {
+        if (n[i] > 1) {
+          this.$message({
+            type: 'warning',
+            message: '该合作单位已存在，请不要重复添加！'
+          })
+          return false
+        }
       }
     },
     // 选中表单条目数据
@@ -497,5 +492,7 @@ export default {
 .cooperator {
   box-sizing: border-box;
   height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 </style>

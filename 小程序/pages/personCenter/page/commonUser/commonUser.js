@@ -12,18 +12,11 @@ Page({
     userTel: '',
     userIdCard: '',
     title: ["新增旅客", "常用旅客"],
+    cansend: true
   },
 
   /* 生命周期函数--监听页面加载 */
   onLoad: function (options) {
-    let _this = this;
-    user.queryList(function (res) {
-      _this.setData({ userLi: res })
-    })
-  },
-
-  /* 生命周期函数--监听页面初次渲染完成 */
-  onReady: function () {
     let _this = this;
     user.queryList(function (res) {
       _this.setData({ userLi: res })
@@ -46,17 +39,17 @@ Page({
   },
   // 添加联系人
   addToUser: function () {
-    console.log('addToUser')
+    this.setData({ cansend: false })
     let _this = this;
     let name = this.data.userName;
     let tel = this.data.userTel;
     let idcard = this.data.userIdCard;
-    console.log(idcard)
     if (name == '') {
       wx.showToast({
         title: '请填写姓名',
         icon: "none"
       });
+      this.setData({ cansend: true});
       return;
     };
     if (tel == '' || reg.regTel(tel) == false) {
@@ -64,6 +57,7 @@ Page({
         title: '手机号有误',
         icon: "none"
       });
+      this.setData({ cansend: true });
       return;
     };
     if (idcard == '' || reg.regIdCard(idcard) == false) {
@@ -71,14 +65,20 @@ Page({
         title: '身份证号有误',
         icon: "none"
       });
+      this.setData({ cansend: true });
       return;
     };
-    user.addToUser(name, tel, idcard,function(res){
+    user.addToUser(name, tel, idcard,function(res,status){
+      if (status){
+        _this.setData({
+          userName: '',
+          userTel: '',
+          userIdCard: '',
+        })
+      };
       _this.setData({ 
         userLi:res,
-        userName:'',
-        userTel:'',
-        userIdCard:'',
+        cansend: true
       })
     })
   },

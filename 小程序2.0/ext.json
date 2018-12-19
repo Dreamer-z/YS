@@ -1,0 +1,10 @@
+{
+  "extEnable": true,
+  "extAppid": "wx169d094804abbf62",
+  "directCommit": false,
+  "ext": {
+    "name": "云宿",
+    "host":"https://test.yunsuit.com",
+    "key":"20180824154708284802400001"
+  }
+}

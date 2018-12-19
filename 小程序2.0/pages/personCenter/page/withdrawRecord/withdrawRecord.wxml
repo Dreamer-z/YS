@@ -1,0 +1,18 @@
+<!--pages/personCenter/page/withdrawRecord/withdrawRecord.wxml-->
+<view class='withdraw-record' wx:if="{{record.length>0}}">
+  <view class='item bg-white' wx:for="{{record}}" wx:for-index="index" wx:key="{{index}}" data-id="{{item.draw_id}}" bindtap='getDetails'>
+    <view class='msg'>
+      <view class='name'>提现至银行：{{item.bank_name}}（{{item.last_four_code}}）</view>
+      <view class='time'>{{item.create_time}}</view>
+      <view class='hotel'>
+        <image src='/images/distribute/hotel.png'></image>{{item.hotel_name}}
+      </view>
+    </view>
+    <view class='result'>
+      <view class='amount'>+{{item.money}}</view>
+      <view class='result-msg'>{{item.status == 0?'处理中':item.status == 1?'已打款':'拒绝'}}</view>
+    </view>
+    <image class='more' src='/images/more.png'></image>
+  </view>
+</view>
+<view class='withdraw-record' wx:else style="text-align:center;line-height:80rpx;">暂无数据</view>

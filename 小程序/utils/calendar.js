@@ -86,11 +86,13 @@ class Calendar {
     }
     a();
     function b(currentDayList) {
-      let today = _this.currentObj.getDate();
-      if (_this.nowNum == _this.initNum) {
+      let today = new Date().getDate();
+      let year = new Date().getFullYear();
+      let month = new Date().getMonth();
+      if (_this.nowMonth == month && _this.nowYear == year) {
         for (let i = 0; i < currentDayList.length; i++) {
-          if (_this.currentDayList[i].choose != "dis") {
-            if (_this.currentDayList[i].value == today) {
+          if (currentDayList[i].choose != "dis") {
+            if (currentDayList[i].value == today) {
               _this.today = i;
             };
           };
@@ -104,12 +106,39 @@ class Calendar {
       });
     };
   }
-  chooseEnd(){
+  init0(hotel) {
+    for (let i = 0; i < this.currentDayList.length; i++) {
+      if (this.currentDayList[i].choose != "dis") {
+        this.currentDayList[i].choose = false;
+        hotel.setData({ currentDayList: this.currentDayList });
+      };
+    };
+    this.change = null;
+    this.dataarr = [];
+    this.firstkey = [];
+    this.lastkey = [];
+    this.lastNum = '';
+    this.lastMonth = '';
+    this.lastYear = '';
+    wx.showModal({
+      title: '温馨提示',
+      content: '请选择正确的日期！',
+      showCancel: false
+    });
+  };
+  chooseEnd() {
     return this.dataarr;
-  }
+  };
   // 选择时间段
   choose(e, hotel) {
     if (e.currentTarget.dataset.choose == 'dis') {
+      return;
+    }; 
+    if (e.currentTarget.dataset.choose == true) {
+      wx.showToast({
+        title: '不能选在同一天哦',
+        icon: "none"
+      });
       return;
     };
     let week = [];
@@ -117,25 +146,16 @@ class Calendar {
     let first = '', last = '';
     let check = [];
     let currentDayNum = new Date(this.nowYear, (this.nowMonth + 1), 0).getDate();
-    if (this.nowYear < this.initYear || this.nowMonth < this.initMonth || index < this.today) {
-      for (let i = 0; i < this.currentDayList.length; i++) {
-        if (this.currentDayList[i].choose != "dis") {
-          this.currentDayList[i].choose = false;
-          hotel.setData({ currentDayList: this.currentDayList });
-        };
-      };
-      this.change = null;
-      this.dataarr = [];
-      this.firstkey = [];
-      this.lastkey = [];
-      this.lastNum = '';
-      this.lastMonth = '';
-      this.lastYear = '';
-      wx.showModal({
-        title: '温馨提示',
-        content: '请选择正确的日期！',
-        showCancel: false
-      });
+    if (this.nowYear < this.initYear) {
+      this.init0(hotel)
+      return;
+    };
+    if (this.nowYear == this.initYear && this.nowMonth < this.initMonth) {
+      this.init0(hotel)
+      return;
+    };
+    if (this.nowYear == this.initYear && this.nowMonth == this.initMonth && index < this.today) {
+      this.init0(hotel)
       return;
     };
     if (this.change && this.dataarr.length == 1) {
@@ -162,7 +182,6 @@ class Calendar {
         if (that.lastNum == that.firstNum) {
           that.dataarr[0] = that.firstkey[2];
           that.dataarr[1] = that.lastkey[2];
-          console.log(that.firstkey, that.lastkey)
           if (that.firstkey[2] <= that.lastkey[2]) {
             that.week[1] = that.weekDay(new Date(that.nowYear, that.nowMonth, that.currentDayList[that.lastkey[2]].value).getDay());
             that.week[0] = that.weekDay(new Date(that.nowYear, that.nowMonth, that.currentDayList[that.firstkey[2]].value).getDay());
@@ -355,7 +374,7 @@ class Calendar {
       this.direction = 'right'
     };
     if (this.direction == 'left') {
-      if ((m-1) < this.initMonth && Y >= this.initYear) {
+      if (m <= this.initMonth && Y <= this.initYear) {
         return;
       };
       this.nowNum--;
@@ -378,7 +397,7 @@ class Calendar {
       this.nowMonth = m;
       this.direction = e.currentTarget.dataset.key;
     };
-    this.currentObj = new Date(Y, m, d);
+    this.currentObj = new Date(Y, m, 1);
     hotel.setData({
       currentDate: Y + '年' + (m + 1) + '月',
       currentObj: this.currentObj,
@@ -473,7 +492,9 @@ class Calendar {
   }
   defaultDay() {
     let currentDayNum = new Date(this.nowYear, (this.nowMonth + 1), 0).getDate();
+    let currentObj = this.currentObj;
     let num = 0;
+    let today = -1;
     for (let i = 0; i < this.currentDayList.length; i++) {
       if (this.currentDayList[i].choose != "dis") {
         num++;
@@ -483,36 +504,56 @@ class Calendar {
         if (num == currentDayNum) {
           this.firstkey[1] = i;
         }
+        if (num == currentObj.getDate()) {
+          today = i;
+        }
       };
     };
     this.firstNum = this.nowNum;
-    this.firstkey[2] = this.today;
-    this.dataarr.push(this.today);
-    this.week[0] = this.weekDay(new Date(this.nowYear,this.nowMonth, this.currentDayList[this.today].value).getDay());
-    this.week[1] = this.weekDay(new Date(this.nowYear, this.nowMonth, this.currentDayList[this.today].value + 1).getDay());
-  }
+    this.firstkey[2] = today;
+    this.dataarr.push(today);
+    this.week[0] = this.weekDay(new Date(this.nowYear, this.nowMonth, currentObj.getDate()).getDay());
+    let next = new Date(new Date(this.nowYear, this.nowMonth, currentObj.getDate()).getTime() + (60 * 60 * 24 * 1000));
+    this.week[1] = this.weekDay(new Date(next.getFullYear(), next.getMonth(), next.getDate()).getDay());
+  }; 
+  init() {
+    this.change = null;
+    this.lastNum = '';
+    this.lastMonth = '';
+    this.lastYear = '';
+    wx.showModal({
+      title: '温馨提示',
+      content: '请选择正确的日期！',
+      showCancel: false
+    });
+  };
   //续费 选择时间
   chooseOne(e, hotel) {
     if (e.currentTarget.dataset.choose == 'dis') {
       return;
+    };
+    for (let i = 0; i < this.currentDayList.length; i++) {
+      if (this.currentDayList[i].choose != 'dis') {
+        this.currentDayList[i].choose = false;
+      }
     };
     let week = [];
     let index = e.currentTarget.dataset.index;
     let first = '', last = '';
     let check = [];
     let currentDayNum = new Date(this.nowYear, (this.nowMonth + 1), 0).getDate();
-    if (this.nowYear < this.initYear || this.nowMonth < this.initMonth || index < this.today) {
-      this.change = null;
-      this.lastNum = '';
-      this.lastMonth = '';
-      this.lastYear = '';
-      wx.showModal({
-        title: '温馨提示',
-        content: '请选择正确的日期！',
-        showCancel: false
-      });
+    if (this.nowYear < this.initYear) {
+      this.init()
       return;
     };
+    if (this.nowYear == this.initYear && this.nowMonth < this.initMonth) {
+      this.init()
+      return;
+    };
+    if (this.nowYear == this.initYear && this.nowMonth == this.initMonth && index < this.today) {
+      this.init()
+      return;
+    };  
     if (this.change) {
       let m = '';
       let num = 0;
@@ -534,31 +575,18 @@ class Calendar {
           };
         };
         that.lastkey[2] = index;
-        // if (that.direction == "left") {
-        //   if (that.lastNum == that.firstNum) {
-        //     that.dataarr[1] = that.lastkey[2];
-        //     that.week[1] = that.weekDay(new Date(that.nowYear, that.nowMonth, that.currentDayList[that.lastkey[2]].value).getDay());
-        //   };
-        //   if (that.lastNum != that.firstNum) {
-        //     that.dataarr[1] = that.lastkey[1];
-        //     that.week[1] = that.weekDay(new Date(that.nowYear, that.nowMonth, that.currentDayList[that.firstkey[2]].value).getDay());
-        //   }
-        // };
-        // if (that.direction == "right") {
+
           if (that.lastNum == that.firstNum) {
             that.dataarr[1] = index;
             if (that.firstkey[2] <= that.lastkey[2]) {
               that.week[1] = that.weekDay(new Date(that.nowYear, that.nowMonth, that.currentDayList[that.lastkey[2]].value).getDay());
-              that.week[0] = that.weekDay(new Date(that.nowYear, that.nowMonth, that.currentDayList[that.firstkey[2]].value).getDay());
             } else {
-              that.week[0] = that.weekDay(new Date(that.nowYear, that.nowMonth, that.currentDayList[that.firstkey[2]].value).getDay());
               that.week[1] = that.weekDay(new Date(that.nowYear, that.nowMonth, that.currentDayList[that.lastkey[2]].value).getDay());
             }
           };
           if (that.lastNum != that.firstNum) {
             that.dataarr[1] = index;
             that.week[1] = that.weekDay(new Date(that.nowYear, that.nowMonth, that.currentDayList[that.lastkey[2]].value).getDay());
-            that.week[0] = that.weekDay(new Date(that.nowYear, that.Month, that.day).getDay());
           };
         // };
         return b(that);
@@ -645,13 +673,13 @@ class Calendar {
     let m = this.currentObj.getMonth();
     let d = this.currentObj.getDate();
     this.change = this.dataarr[0];
-    if (e.currentTarget.dataset.key == 'left') {
+    if (e.currentTarget.dataset.key && e.currentTarget.dataset.key == 'left') {
       this.direction = 'left'
-    } else {
+    } else if (e.currentTarget.dataset.key && e.currentTarget.dataset.key == 'right') {
       this.direction = 'right'
     };
     if (this.direction == 'left') {
-      if ((m-1) < this.initMonth && Y >= this.initYear){
+      if (m <= this.initMonth && Y <= this.initYear) {
         return;
       };
       this.nowNum--;
@@ -662,7 +690,7 @@ class Calendar {
       };
       this.nowYear = Y;
       this.nowMonth = m;
-    } else if (this.direction == 'right') {
+    } else {
       this.nowNum++;
       m++;
       if (m > 11) {
@@ -809,6 +837,20 @@ class Calendar {
         this.direction = 'left';
       };
       this.doDay(e, hotel);
+    }
+  }
+  slide2End(e, hotel) {
+    this.endX = e.changedTouches[0].pageX;
+    if (Math.abs(this.startX - this.endX) < 60) {
+      return;
+    } else {
+      if (this.startX - this.endX > 0) {
+        this.direction = 'right';
+      };
+      if (this.startX - this.endX < 0) {
+        this.direction = 'left';
+      };
+      this.doOneDay(e, hotel);
     }
   }
 }

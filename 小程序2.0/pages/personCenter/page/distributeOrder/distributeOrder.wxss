@@ -1,0 +1,46 @@
+/* pages/personCenter/page/distributeOrder/distributeOrder.wxss */
+.distribute-order{
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.distribute-order .item{
+  box-sizing: border-box;
+  width: 100%;
+  padding: 32rpx 45rpx;
+  border-bottom: solid 1rpx #e6e6e6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.distribute-order .item .item-left .hotel{
+  font-size: 28rpx;
+}
+
+.distribute-order .item .item-left .hotel image{
+  width: 36rpx;
+	height: 36rpx;
+  margin-right: 14rpx;
+}
+
+.distribute-order .item .item-left .time{
+  padding-left: 50rpx;
+	font-size: 26rpx;
+	color: #b3b3b3;
+  margin-top:10rpx;
+}
+
+.distribute-order .item .item-right{
+  font-size: 26rpx;
+  color: #333;
+}
+
+.distribute-order .item .item-right .amount{
+  margin-top:10rpx;
+}
+
+.distribute-order .item .item-right .amount text{
+  color: #ff4a11;
+}

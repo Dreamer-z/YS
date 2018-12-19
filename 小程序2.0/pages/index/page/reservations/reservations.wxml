@@ -1,0 +1,165 @@
+<!--pages/index/page/reservations/reservations.wxml-->
+<import src="../../../components/wallet/wallet.wxml" />
+<!-- <scroll-view class='box' scroll-y="{{detail || pay || store?false:true}}"> -->
+  <view class="box {{detail || pay || store?'height100':''}}">
+  <view class='reserve-msg'>
+    <view class='content'>
+      <view class='content-top bg-white'>
+        <view class='room-type'>{{room_type}}</view>
+        <view class='date'>{{checkIn1}} 周{{week[0]}} - {{checkOut1}} 周{{week[2]}}</view>
+        <view class='other'>{{bed}} 丨 {{window}}</view>
+      </view>
+      <view class='content-bottom'>
+        <view class='rules'>{{hotel.is_cancel==0?'因价格较优惠，预订成功后不可取消或变更。':hotel.is_cancel==1&&hotel.cancel_day==0?'放心订！入住当天'+hotel.cancel_hour+'前可免费取消':'放心订！入住'+ hotel.cancel_day +'天'+hotel.cancel_hour+'前可免费取消'}}</view>
+        <view class='rules'>预订付款成功后，酒店将为您整晚保留房间</view>
+      </view>
+    </view>
+  </view>
+  <!-- 入住信息填写 -->
+  <view class="checkInInformation">
+    <!-- <view class="columnOne">
+      <view class="title">房间类型</view>
+      <view class="content">{{room_type}}</view>
+    </view> -->
+    <view class="columnOne">
+      <view class="title">房间数</view>
+      <view class="content roomNumber">
+        <text>{{roomNumber}}间</text>
+        <view class="place"></view>
+        <!-- <view class="count">
+          <view class="sub" data-type="sub" bindtap='count'>
+            <image src='{{countType == "sub"?"../../../../images/sub_on.png":"../../../../images/sub.png"}}'></image>
+          </view>
+          <input class="number" type='number' value='{{roomNumber}}' bindblur='inputRoomNumber'></input>
+          <view class="add" data-type="add" bindtap='count'>
+            <image src='{{countType == "add"?"../../../../images/add_on.png":"../../../../images/add.png"}}'></image>
+          </view>
+        </view> -->
+      </view>
+    </view>
+    <view class="columnOne person">
+      <view class="title required">入住人</view>
+      <view class="content checkInPerson">
+        <input type='text' placeholder='{{realName?"请填写真实姓名":"请填写真实姓名"}}' placeholder-style='color:#ccc' wx:for="{{user}}" wx:key="{{key}}" confirm-type="done" data-index="{{index}}" bindtap='quickCheckIn' value='{{item.name==""?"":item.name}}' bindinput="getName"></input>
+      </view>
+      <view class="icon" bindtap='choosePerson'>
+        <image class='person' src='../../../../images/reservation/people.png'></image>
+      </view>
+    </view>
+    <view class="columnOne" hidden='{{realName?false:true}}'>
+      <view class="title required">身份证</view>
+      <view class="content checkInIdCard">
+        <input type='idcard' placeholder='请填写真实身份证号' placeholder-style='color:#ccc' wx:for="{{user}}" wx:key="{{key}}" confirm-type="done" data-index="{{index}}" value='{{item.idcard==""?"":item.idcard}}' bindinput="getIdCard"></input>
+      </view>
+    </view>
+    <view class="columnOne">
+      <view class="title required">手机号</view>
+      <view class="content">
+        <input type='number' placeholder='请填写联系手机' placeholder-style='color:#ccc' confirm-type="done" bindinput="getTel" value='{{user[0].mobile?user[0].mobile:""}}'></input>
+      </view>
+    </view>
+    <view class="columnOne store">
+      <view class="title required">预计到店</view>
+      <view class="content" bindtap='store'>{{storeTimeValue}}</view>
+      <view class="icon flex flex-align-center flex-pack-center" bindtap='store'>
+        <image class="down" src='/images/down.png'></image>
+      </view>
+    </view>
+    <view class="columnOne">
+      <view class="title">特殊要求</view>
+      <view class="content">
+        <input type='text' placeholder='备注信息' placeholder-style='color:#ccc' confirm-type="done" bindblur="getRemark"></input>
+        <!-- <textarea auto-height="true" placeholder="请填写备注信息" bindblur="getRemark" /> -->
+      </view>
+    </view>
+  </view>
+  <!-- <view class="popup" hidden='{{realNameBox?true:false}}'>
+    <view class="quickCheckIn">
+      <view class="content bg-white">
+        <view class="title">快速自助入住</view>
+        <scroll-view class="msg" scroll-y>
+          <view class="li">用户只需填写入住人真实姓名和身份证号， 入住时可直接在自动柜台机办理</view>
+          <view class="li">酒店向您承诺绝不收取任何额外费用，不 泄露任何相关信息</view>
+          <view class="li">自助入住有利于节省您办理入住的时间</view>
+        </scroll-view>
+        <button class="writeNow" bindtap='popup'>马上填写</button>
+        <button class="doNot" bindtap='closePopup'>不需要</button>
+      </view>
+
+      <view class="close" bindtap='closePopup'>
+        <image src='../../../../images/close.png'></image>
+      </view>
+    </view>
+  </view> -->
+  <!-- 温馨提示 -->
+  <view class="warm-prompt">
+    <view class='item flex'>
+      <image class="icon" src='/images/reservation/qu.png'></image>
+      <view class="content flex-1">{{hotel.cancel_rule}}</view>
+    </view>
+    <view class='item flex'>
+      <image class="icon" src='/images/reservation/zhu.png'></image>
+      <view class="content flex-1">{{hotel.check_notice}}</view>
+    </view>
+    <view class='item flex'>
+      <image class="icon" src='/images/reservation/bao.png'></image>
+      <view class="content flex-1">快速确认，到店有房，保障您的资金安全</view>
+    </view>
+  </view>
+  <!-- 支付操作 -->
+  <view class="payFor bg-white">
+    <view class="priceDetail">
+      <view class="txt">总价</view>
+      <view class="basePrice">
+        <view class="symbol">¥</view>
+        <view class="num">{{details.total_price}}</view>
+      </view>
+      <view class="place bg-white"></view>
+      <view class="detail" bindtap='detail'>
+        <text class="txt">明细</text>
+        <image class="pulldown transform05 {{detail?'rotateX180':''}}" src='/images/up.png'></image>
+      </view>
+    </view>
+    <form report-submit bindsubmit='pay' style='background-color:#437ff8;height:100%;'>
+      <button class="pay" form-type='submit'>提交订单</button>
+    </form>
+  </view>
+  <!-- 订单明细 -->
+  <view class="mask {{detail?'maskBlock':''}}">
+    <view class="place" bindtap='detailNone'></view>
+    <view class="detailMsg bg-white">
+      <view class="head">
+        <view class="payType">在线付款</view>
+        <view class='member' wx:if="{{details.card_level_name&&details.card_discount}}">{{details.card_level_name}}享{{details.card_discount*10}}折</view>
+        <view class="basePrice">
+          <view class="symbol">¥</view>
+          <view class="num">{{details.total_price}}</view>
+        </view>
+      </view>
+      <scroll-view class="detailList" scroll-y>
+        <view class="li" wx:for="{{details.room_price}}" wx:key="{{key}}">
+          <view class="clauses">房费 {{item.date}} {{roomNumber}}间</view>
+          <view class="line"></view>
+          <view class="price">¥{{item.price}}</view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+  <!-- 支付窗口 -->
+  <template is="wallet" data="{{pay,payWayList,price,roomNumber,day,total_price}}"></template>
+  <!-- 预计到店时间 -->
+  <view class="popup arriveTime" hidden='{{store?false:true}}'>
+    <view class="empty" bindtap='store'></view>
+    <view class="storeTime transform05 {{store?'show':''}} bg-white">
+      <view class="title">预计到店</view>
+      <view class="remind">14：00前到店可能需要等房</view>
+      <view class="timeList">
+        <view class="time {{storeTimeChoose==index?'choose':''}}" id="{{index}}" wx:for="{{storeTime}}" wx:key="key" data-val="{{item.date}}" data-guarantee="{{item.guarantee}}" bindtap='storeTimeFn'>
+          <view class="timeNum">{{item.date}}</view>
+          <!-- <view class="guarantee" wx:if="{{item.guarantee}}">担保￥{{item.guarantee}}</view> -->
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!-- </scroll-view> -->

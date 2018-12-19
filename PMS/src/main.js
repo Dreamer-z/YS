@@ -5,15 +5,19 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
+// import "@/plugs/tab"
+// import 'element-ui/lib/theme-chalk/index.css'
+import "@/assets/css/baseRoot.scss";
 import './assets/reset.css';
 import "@/assets/icon/iconfont.css";
+import "@/assets/icon/iconfont2.css";
 import "@/assets/css/base.styl";
 import "@/assets/css/el-base.styl";
+import Print from '@/plugs/print';
+import store from './store';
 
-
-import store from './store'
-Vue.use(ElementUI);
+Vue.use(Print) // 注册
+Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 
@@ -34,20 +38,20 @@ router.beforeEach((to, from, next) => {
         })
     } else {
         /*
-        //console.log('---get router', store.getters.routers.length)
-        if (store.getters.routers.length <= 0) {
-            // console.log('---on routers')
-            store.dispatch('generateRoutes').then((res) => {
-                //console.log('---gen routers')
-                //console.log(store.getters.routers)
-                router.addRoutes(store.getters.routers)
-                next({...to, replace: true })
-            })
-        } else {
-            return next()
-        }
-    }
-    */
+		//console.log('---get router', store.getters.routers.length)
+		if (store.getters.routers.length <= 0) {
+				// console.log('---on routers')
+				store.dispatch('generateRoutes').then((res) => {
+						//console.log('---gen routers')
+						//console.log(store.getters.routers)
+						router.addRoutes(store.getters.routers)
+						next({...to, replace: true })
+				})
+		} else {
+				return next()
+		}
+}
+*/
         return next()
     }
 })
@@ -57,6 +61,8 @@ new Vue({
     el: '#app',
     store,
     router,
-    components: { App },
+    components: {
+        App
+    },
     template: '<App/>'
 })

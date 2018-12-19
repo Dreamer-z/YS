@@ -1,0 +1,61 @@
+<!--pages/index/page/chooseRoom/chooseRoom.wxml-->
+<view class='box flex flex-vertical'>
+  <view class='head bg-white'>
+    <view class='title-refresh flex flex-align-center'>
+      <view class='title flex-1 elli'>{{room_type_name}}</view>
+      <view class='refresh flex flex-align-center flex-pack-justify' bindtap='refresh'>刷新
+        <image src='/images/refresh.png'></image>
+      </view>
+    </view>
+    <view class='tabs-title' hidden='{{tabs.length==0?true:false}}'>房间偏好选择</view>
+    <view class='tabs flex flex-align-center' hidden='{{tabs.length==0?true:false}}'>
+      <view class='tabs-container flex-1 flex flex-align-center flex-wrap'>
+        <view class='item {{item.choose?"choose":""}}' wx:for="{{tabs}}" wx:for-index="index" wx:key="{{index}}" data-index="{{index}}" bindtap='getTabs'>{{item.tagName}}</view>
+      </view>
+      <view class='more flex flex-align-center flex-pack-justify' bindtap='more'>更多
+        <image class='rotateX180' src='/images/up_on.png'></image>
+      </view>
+    </view>
+  </view>
+  <view class='main bg-white flex-1 flex'>
+    <view class='main-left'>
+      <scroll-view class='main-left-container' scroll-y="{{true}}" scroll-with-animation="{{true}}" scroll-top="{{floorIndex*40}}">
+        <view class='floor flex flex-align-center flex-pack-justify {{floorIndex == index?"choose":""}}' wx:for="{{floors}}" wx:for-index="index" wx:key="{{index}}" data-index="{{index}}" bindtap='getFloor'>
+          <view class='floor-name flex-1 elli'>{{item.floorName}}</view>
+          <view class='floor-num elli {{item.num<10?"less":""}} {{floorIndex == index?"hide":""}}'>{{item.num}}间</view>
+        </view>
+      </scroll-view>
+    </view>
+    <view class='main-right flex-1 flex flex-vertical'>
+      <view class='room-num'>{{floors[floorIndex].num}}间可定</view>
+      <view class='type flex'>
+        <view class='type-item flex flex-align-center'><view class='icon'></view>满足筛选条件</view>
+        <view class='type-item flex flex-align-center'><view class='icon'></view>已选</view>
+      </view>
+      <view class='room-box flex-1'>
+        <view class='room {{item.isCheck?"accord":""}} {{item.choose?"choose":""}}' wx:for="{{room}}" wx:for-index="index" wx:key="{{index}}" data-index="{{index}}" bindtap='getRoom'>{{item.name}}</view>
+      </view>
+    </view>
+  </view>
+  <view class='foot'>
+    <view class='choose-num'>已选{{max}}间</view>
+    <view class='choose-item'>
+      <view class='room choose flex flex-align-center flex-pack-center' hidden="{{roomIndex || roomIndex ==0?false:true}}">
+        {{room[roomIndex].name}}
+        <view  class='cancel' bindtap='clear'><image src='/images/close_2.png'></image></view>
+      </view>
+    </view>
+    <view class='send' bindtap='send'>确定</view>
+  </view>
+</view>
+<view class='popup {{popup?"":"hide"}}'>
+  <view class='content bg-white flex flex-vertical'>
+    <view class='tabs-box flex-1'>
+      <view class='item {{item.choose?"choose":""}}' wx:for="{{tabs}}" wx:for-index="index" wx:key="{{index}}" data-index="{{index}}" bindtap='getTabs'>{{item.tagName}}</view>
+    </view>
+    <view class='option bg-white flex flex-align-center'>
+      <view class='close flex-1' bindtap='more'>关闭</view>
+      <view class='confirm flex-1' bindtap='search'>确定</view>
+    </view>
+  </view>
+</view>

@@ -1,65 +1,63 @@
 <template>
   <div class="bM-container">
-    <bread-crumb :child-msg='router'></bread-crumb>
     <!-- <el-row class="optionsBtn">
       <el-button class="btn" type="primary" size="small" @click="addMenu">保存</el-button>
     </el-row> -->
-      <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" height="88%" style="width: 1340px" border>
-        <el-table-column class="sort-cloumn" label="排序" width="180">
-          <template slot-scope="scope">
-            <span :class="[scope.row.children?'el-icon-caret-bottom':'el-icon-caret-right']" :style="{textIndent:+(scope.row.level - 1)+'em'}"></span>
-            <input type="number" v-model="scope.row.num" :disabled='scope.row.disable' placeholder="序号">
-          </template>
-        </el-table-column>
-        <el-table-column label="菜单名称" width="160">
-          <template slot-scope="scope">
-            <el-input type="text" v-model="scope.row.name" :disabled='scope.row.disable' placeholder="请输入菜单名称" clearable size="small"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column label="路由" width="280">
-          <template slot-scope="scope">
-            <el-input type="text" v-model="scope.row.url" :disabled='scope.row.disable' placeholder="请输入" clearable size="small"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column label="参数" width="120">
-          <template slot-scope="scope">
-            <el-input type="text" v-model="scope.row.parms" :disabled='scope.row.disable' placeholder="请输入" clearable size="small"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column label="图标" width="120">
-          <template slot-scope="scope">
-            <el-input type="text" v-model="scope.row.icon" :disabled='scope.row.disable' placeholder="请输入" clearable size="small"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column label="备注" width="120">
-          <template slot-scope="scope">
-            <el-input type="text" v-model="scope.row.remark" :disabled='scope.row.disable' placeholder="请输入" clearable size="small"></el-input>
-          </template>
-        </el-table-column>
-        <el-table-column label="状态" width="100">
-          <template slot-scope="scope">
-            <el-select v-model="scope.row.status" placeholder="请选择" :disabled='scope.row.disable' default-first-option size="small">
-              <el-option v-for="item in status" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            </el-select>
-          </template>
-        </el-table-column>
-        <el-table-column label="操作" width="240" fixed="right">
-          <template slot-scope="scope">
-            <div class="option" v-if="scope.row.id">
-              <el-button type="text" @click="addChildMeun(scope.row.id,scope.row.name)">添加子菜单</el-button> 丨
-              <el-button type="text" @click="scope.row.disable = !scope.row.disable" v-if="scope.row.disable">编辑</el-button>
-              <el-button type="text" @click="save(scope.row)" v-else>完成</el-button> 丨
-              <el-button type="text" @click="del(scope.row.id)">删除</el-button>
-            </div>
-          </template>
-        </el-table-column>
-      </el-table>
+    <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" height="88%" style="width: 1340px">
+      <el-table-column class="sort-cloumn" label="排序" width="180">
+        <template slot-scope="scope">
+          <span :class="[scope.row.children?'el-icon-caret-bottom':'el-icon-caret-right']" :style="{textIndent:+(scope.row.level - 1)+'em'}"></span>
+          <input type="number" v-model="scope.row.num" :disabled='scope.row.disable' placeholder="序号">
+        </template>
+      </el-table-column>
+      <el-table-column label="菜单名称" width="160">
+        <template slot-scope="scope">
+          <el-input type="text" v-model="scope.row.name" :disabled='scope.row.disable' placeholder="请输入菜单名称" clearable size="small"></el-input>
+        </template>
+      </el-table-column>
+      <el-table-column label="路由" width="280">
+        <template slot-scope="scope">
+          <el-input type="text" v-model="scope.row.url" :disabled='scope.row.disable' placeholder="请输入" clearable size="small"></el-input>
+        </template>
+      </el-table-column>
+      <el-table-column label="参数" width="120">
+        <template slot-scope="scope">
+          <el-input type="text" v-model="scope.row.parms" :disabled='scope.row.disable' placeholder="请输入" clearable size="small"></el-input>
+        </template>
+      </el-table-column>
+      <el-table-column label="图标" width="120">
+        <template slot-scope="scope">
+          <el-input type="text" v-model="scope.row.icon" :disabled='scope.row.disable' placeholder="请输入" clearable size="small"></el-input>
+        </template>
+      </el-table-column>
+      <el-table-column label="备注" width="120">
+        <template slot-scope="scope">
+          <el-input type="text" v-model="scope.row.remark" :disabled='scope.row.disable' placeholder="请输入" clearable size="small"></el-input>
+        </template>
+      </el-table-column>
+      <el-table-column label="状态" width="100">
+        <template slot-scope="scope">
+          <el-select v-model="scope.row.status" placeholder="请选择" :disabled='scope.row.disable' default-first-option size="small">
+            <el-option v-for="item in status" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          </el-select>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作" width="240" fixed="right">
+        <template slot-scope="scope">
+          <div class="option" v-if="scope.row.id">
+            <el-button type="text" @click="addChildMeun(scope.row.id,scope.row.name)">添加子菜单</el-button> 丨
+            <el-button type="text" @click="scope.row.disable = !scope.row.disable" v-if="scope.row.disable">编辑</el-button>
+            <el-button type="text" @click="save(scope.row)" v-else>完成</el-button> 丨
+            <el-button type="text" @click="del(scope.row.id)">删除</el-button>
+          </div>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 
 
 <script>
-import BreadCrumb from '@/components/public/breadcrumb' //面包屑导航栏
 import { mapGetters } from 'vuex'
 import API from '@/store/API/index'
 
@@ -71,22 +69,8 @@ export default {
       hotel: 'currHotel'
     })
   },
-  components: {
-    BreadCrumb
-  },
   data() {
     return {
-      // 面包屑导航路径及名称
-      router: [
-        {
-          url: '/',
-          name: '首页'
-        },
-        {
-          url: '/container/backgroundMenu',
-          name: '后台菜单'
-        }
-      ],
       // 表单数据
       tableData: [],
       // 状态下拉菜单选项
@@ -132,26 +116,29 @@ export default {
           }
         }
       }
-    },    
+    },
     // 验证是否重复
     judgeRep(arr) {
       let tableData = this.tableData
-      let n = 0
+      let n = []
       if (arr) {
         for (let i = 0; i < arr.length; i++) {
+          n[i] = 0
           for (let j = 0; j < tableData.length; j++) {
             if (arr[i].name == tableData[j].name) {
-              n++;
+              n[i]++
             }
           }
         }
       }
-      if (n > 1) {
-        this.$message({
-          type: 'warning',
-          message: '该菜单已存在，请不要重复添加！'
-        })
-        return false
+      for (let i = 0; i < n.length; i++) {
+        if (n[i] > 1) {
+          this.$message({
+            type: 'warning',
+            message: '该菜单已存在，请不要重复添加'
+          })
+          return false
+        }
       }
     },
     // 获取菜单列表

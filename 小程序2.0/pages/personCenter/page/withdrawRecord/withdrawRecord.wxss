@@ -1,0 +1,69 @@
+/* pages/personCenter/page/withdrawRecord/withdrawRecord.wxss */
+.withdraw-record{
+  height: 100%;
+}
+
+.withdraw-record .item{
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 40rpx 30rpx 20rpx 30rpx;
+  border-bottom: solid 1rpx #e6e6e6;
+}
+
+.withdraw-record .item .msg{
+  flex: 1;
+}
+
+.withdraw-record .item .msg .name{
+  font-size: 28rpx;
+	color: #333;
+}
+
+.withdraw-record .item .msg .time{
+  font-size: 26rpx;
+	color: #b3b3b3;
+}
+
+.withdraw-record .item .msg .hotel{
+	font-size: 26rpx;
+	color: #b3b3b3;
+  margin-top: 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.withdraw-record .item .msg .hotel image{
+  width: 36rpx;
+	height: 36rpx;
+  margin-right: 14rpx;
+}
+
+.withdraw-record .item .result{
+  height: 100%;
+  width: 140rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 25rpx;
+}
+
+.withdraw-record .item .result .amount{
+  font-size: 34rpx;
+	color: #333;
+}
+
+.withdraw-record .item .result .result-msg{
+  font-size: 26rpx;
+	color: #b3b3b3;
+  margin-top: 10rpx;
+}
+
+.withdraw-record .item .result .result-msg.fail{
+	color: #f4703c;
+}
+
+.withdraw-record .item .result .result-msg.doing{
+	color: #437ff9;
+}

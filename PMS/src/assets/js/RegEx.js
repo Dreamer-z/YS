@@ -11,7 +11,7 @@ export default {
     },
     // 账号验证
     account(account) {
-        let reg = /^[a-zA-Z0-9]|([a-zA-Z0-9]|_|@|.){6,20}$/
+        let reg = /^([a-zA-Z0-9]|([a-zA-Z0-9]|_|@|.)){6,20}$/
         return reg.test(account)
     },
     // 邮箱验证
@@ -31,8 +31,13 @@ export default {
     },
     // 价格验证
     price(price) {
-        let reg = /^\d{1,6}(\.\d{1,2})?$/
+        let reg = /^[-]?((\d+)|(\d+\.\d+))$/
         return reg.test(price)
+    },
+    // 只能输入两位小数
+    float2(float){
+        let res=/^\d+(\.\d{0,2})?$/
+        return res.test(float);
     },
     // 折扣验证
     discount(n) {

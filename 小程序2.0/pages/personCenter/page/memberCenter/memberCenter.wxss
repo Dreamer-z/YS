@@ -1,0 +1,249 @@
+/* pages/personCenter/page/memberCenter/memberCenter.wxss */
+
+.box {
+  height: 100%;
+}
+
+.member-card-container {
+  box-sizing: border-box;
+  width: 100%;
+  height: 500rpx;
+  padding-top: 15rpx;
+  background-color: #47443f;
+  overflow: hidden;
+  position: relative;
+}
+
+.member-card, .member-card image, .member-card .card-msg {
+  width: 660rpx;
+  height: 380rpx;
+  border-radius: 30rpx;
+}
+
+.member-card {
+  position: relative;
+  z-index: 100;
+  margin: 0 auto;
+}
+
+.member-card.gold {
+  color: rgb(164, 118, 17);
+}
+
+.member-card.silver {
+  color: rgb(137, 135, 131);
+}
+
+.member-card.other {
+  color: rgb(170, 131, 71);
+}
+
+.member-card .card-msg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  padding: 26rpx 45rpx;
+}
+
+.member-card .card-msg .card-type {
+  height: 73rpx;
+  width: 100%;
+  padding-bottom: 2rpx;
+}
+
+.member-card .card-msg .card-type .type {
+  font-size: 40rpx;
+  font-weight: bold;
+  flex: 1;
+}
+
+.member-card .card-msg .card-type .level {
+  font-size: 30rpx;
+  width: auto;
+}
+
+.member-card.gold .card-msg .card-type .level {
+  color: rgba(164, 118, 17, 0.8);
+}
+
+.member-card.silver .card-msg .card-type .level {
+  color: rgba(137, 135, 131, 0.8);
+}
+
+.member-card.other .card-msg .card-type .level {
+  color: rgba(170, 131, 71, 0.8);
+}
+
+.member-card .card-msg .card-type .level image {
+  width: 31rpx;
+  height: 27rpx;
+  margin-right: 8rpx;
+}
+
+.member-card .member-msg .msg .person {
+  font-size: 34rpx;
+  color: #a47611;
+  margin-bottom: 30rpx;
+}
+
+.member-card .member-msg .msg .person .time{	
+  font-size: 24rpx;
+	color: #a47611;
+}
+
+.member-card .member-msg .msg .card-number {
+  color: #fff;
+  font-size: 46rpx;
+  font-weight: bold;
+}
+
+.member-card .member-msg .option {
+  color: #fff;
+  font-size: 24rpx;
+}
+
+.member-card .member-msg .option .to-be-member {
+  box-sizing: border-box;
+  width: 260rpx;
+  height: 50rpx;
+  line-height: 48rpx;
+  text-align: center;
+  border: solid 1rpx #fff;
+  border-radius: 25rpx;
+}
+
+.member-card-container .shadow {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 99;
+}
+
+.box-bottom{
+  box-sizing: border-box;
+  padding: 0 30rpx;
+}
+
+.member-option-container {
+  width: 100%;
+  height: 260rpx;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 110;
+}
+
+.member-option-container .member-option {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.member-option-container .member-option .bg {
+  width: 100%;
+  height: 242rpx;
+  position: absolute;
+  bottom: 0;
+}
+
+.member-option-container .member-option .content {
+  box-sizing: border-box;
+  padding: 35rpx 0;
+  position: absolute;
+  bottom: 0;
+  color: #fff;
+}
+
+.member-option-container .member-option .content .column .section{
+  font-size: 50rpx;
+	color: #f8d08f;
+  margin-top:15rpx;
+}
+
+.member-option-container .member-option .content .column .section text{
+  font-size: 24rpx;
+}
+
+.member-option-container .member-option .content .line{
+  width: 1rpx;
+  height: 70rpx;
+  background-color: #e6e6e6;
+  opacity: .4;
+}
+
+.balance-integral {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 30rpx 0;
+}
+
+.balance-integral .column {
+  box-sizing: border-box;
+  width: 240rpx;
+	height: 70rpx;
+  border-radius: 35rpx;
+  color: #fff;
+  font-size: 26rpx;
+}
+
+.balance-integral .column .icon {
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 15rpx;
+}
+
+.balance-integral .column:nth-of-type(1){
+  background-image: linear-gradient(133deg,#a47611 0%,#ca921a 100%);
+}
+
+.balance-integral .column:nth-of-type(2){
+  color: #a47611;
+  border: solid 1rpx #a47611;
+  margin-left: 95rpx;
+}
+
+.member-privilege {
+  box-sizing: border-box;
+  padding:0 20rpx;
+  background-color: #fff9f0;
+  border-radius: 20rpx 20rpx 0 0;
+}
+
+.member-privilege .title {
+  font-size: 34rpx;
+  color: #47443f;
+  padding: 55rpx 0 35rpx 0;
+}
+
+.member-privilege .title image{
+  width: 38rpx;
+	height: 38rpx;
+  margin-right: 10rpx;
+}
+
+.member-privilege .content{
+  box-sizing: border-box;
+  padding:0 20rpx;
+  background-color: #fff;
+  overflow-y: auto;
+}
+
+.member-privilege .content .column {
+  box-sizing: border-box;
+  padding: 32rpx 45rpx;
+  font-size: 24rpx;
+  color: #b3b3b3;
+  border-bottom: solid 1rpx #e6e6e6;
+}
+
+.member-privilege .content .column .column-title {
+  font-size: 28rpx;
+  color: #4d4d4d;
+}
+
+.member-privilege .content .column .column-msg {
+  text-indent: 1em;
+}

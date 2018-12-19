@@ -60,13 +60,15 @@
     </checkbox-group>
   </view>
 </view> -->
-<button class="checkOut" bindtap='checkOut' hidden='{{doing}}'>退房</button>
-<view class="checkOut ing"  hidden='{{!doing}}'>退房中</view>
+<form report-submit="{{true}}" bindsubmit='checkOut'>
+  <button class="checkOut" hidden='{{doing}}' form-type='submit'>退房</button>
+</form>
+<view class="checkOut ing" hidden='{{!doing}}'>退房中</view>
 <view class="popup" hidden='{{out}}'>
   <view class="verification bg-white">
     <view class="title">验证码</view>
     <view class="content">
-      <input type='text' bindblur='getCode' value='{{codeNum}}' placeholder='请输入验证码'></input>
+      <input type='text' bindinput='getCode' value='{{codeNum}}' placeholder='请输入验证码'></input>
       <view class="code" bindtap='code'>
         <image hidden='{{codeImg==""?true:false}}' src='{{codeImg}}'></image>
         <view hidden='{{codeImg==""?false:true}}'>获取图片失败</view>

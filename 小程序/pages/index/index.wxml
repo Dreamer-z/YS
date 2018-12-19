@@ -1,6 +1,6 @@
 <!--index.wxml-->
 <view class="pages {{addTap||starTap||sortTap||filterTap?'height100':''}}">
-  <view class="nav-head">
+  <!-- <view class="nav-head">
     <view class="nav-head-item">
       <view class="title" id="addTap" catchtap='change'>
         <text>位置</text>
@@ -46,9 +46,6 @@
                 <radio value="{{item.label}}" />{{item.label}}
               </label>
             </radio-group>
-            <!-- <view class="sliderValue sliderMin">{{slider.min}}</view>
-            <view class="sliderValue sliderMax">{{slider.max}}</view> -->
-            <!-- <slider catchchange="sliderChange" value="{{slider.value}}" step="{{slider.step}}" min="{{slider.min}}" max="{{slider.max}}" block-size="{{slider.size}}" selected-color="#437ff8" show-value/> -->
           </view>
         </view>
         <view class="navOption">
@@ -115,13 +112,14 @@
         </view>
       </view>
     </view>
-  </view>
+  </view> -->
   <view class="hotel">
     <view class="noData" wx:if="{{hotelList.length <= 0}}">暂无数据</view>
     <view style='height:100%;' wx:else>
       <navigator open-type='navigate' wx:for="{{hotelList}}" wx:key='{{key}}' url='/pages/index/page/hotel/hotel?id={{item.id}}&photo={{item.logo}}'>
         <view class="li">
-          <image class="photo" src='{{item.logo?item.logo:"../../images/ls.png"}}'></image>
+          <!-- <image class="photo" src='{{item.logo?item.logo:"../../images/ls.png"}}'></image> -->
+          <view class="photo" style='background-image:url({{item.logo?item.logo:"../../images/ls.png"}});background-size:cover;' data-index="{{index}}"></view>
           <view class="message">
             <view class="name">{{item.hotel_name}}</view>
             <view class="starLevel">

@@ -43,7 +43,7 @@
         <ul class="log-list">
           <li>
             <input @focus="isMobileFalse = false" @blur="checkMobile(mobile)" v-model="mobile" placeholder="手机号" type="text">
-            <span style="color: red;position: absolute;top: 42px;left:0;z-index: 10;" v-show="isMobileFalse">手机号码输入有误</span>
+            <span style="color: red;position: absolute;top: 42px;left:0;z-index: 10;" v-show="isMobileFalse">输入有误</span>
           </li>
           <li>
             <input @blur="checkPassword(passWord)" v-model="passWord" placeholder="密码" type="password">
@@ -56,12 +56,12 @@
               </div>
               <span class="middle">记住密码</span>
             </nav>
-            <section style="margin-top: 6px; cursor: pointer" class="fr">
+            <!-- <section style="margin-top: 6px; cursor: pointer" class="fr">
               <div @click="setForget" class="box middle">
                 <i style="margin-left: -2px;font-weight: bold;color:#6a9df6;font-size: 20px;" :class="{'icon-gou': forget}" class="iconfont"></i>
               </div>
               <span class="middle">忘记密码</span>
-            </section>
+            </section> -->
           </li>
           <li style="font-size: 16px;" @click="login" class="bornone">
             登录
@@ -73,262 +73,281 @@
 </template>
 
 <script>
-  import API from "@/store/API"
-  import { mapActions } from 'vuex'
-  let loc = window.localStorage
-  export default {
-    name: 'register',
-    data() {
-      return {
-        isPasswordFalse: false,
-        isMobileFalse: false,
-        passWord: '',
-        mobile: '',
-        autoplay: 1,
-        remeber: false,
-        forget: false
-      }
-    },
-    methods: {      
-      ...mapActions([
-        'setUser'
-      ]),
-      setForget() {
-        this.forget = !this.forget
-        this.remeber = false
-        if (loc.userName) {
-          loc.removeItem('userName')
-          loc.removeItem('pass')
-        }
-      },
-      setRemeber() {
-        this.remeber = !this.remeber
-        this.forget = false
-      },
-      checkPassword(e) {
-        if(e.length == 0) {
-          return this.isPasswordFalse = false
-        }
-        if(e.length < 6 || e.length > 20) {
-          this.isPasswordFalse = true
-        }else{
-          this.isPasswordFalse = false
-        }
-      },
-      checkMobile(e) {
-        if(e.length == 0) {
-          return this.isMobileFalse = false
-        }
-        let reg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0|3,5-9]))\d{8}$|^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(14[5|7])|(15([0-3]|[5-9]))|(18[0|3,5-9]))\d{8}$/;
-        reg.test(e)? this.isMobileFalse = false : this.isMobileFalse = true
-      },
-      login() {
-        //this.$router.push({ path: 'choicehotel' })
-        if (!this.mobile.length || !this.passWord.length || this.isMobileFalse || this.isPasswordFalse) {
-          this.$alert('请填写正确的帐号密码', '操作提示', {
-            confirmButtonText: '确定'
-          })
-          return
-        }
-       
-        var self = this 
-        API.login({mobile:this.mobile,password:this.passWord}).then(res=>{
-            if(res.error_code != 0){
-                alert(res.msg)
-                return  
-            }
-            console.log(res)
-            console.log('login succeess')
-             if (self.remeber) {
-              loc.setItem('userName', self.mobile)
-              loc.setItem('pass', self.passWord)
-            }else{
-              loc.removeItem('userName')
-              loc.removeItem('pass')
-            }
-            self.setUser({
-              name:res.data.name,
-              username:res.data.username,
-              mobile:self.mobile,
-              websocketUri:res.data.url,
-              roleId:res.data.role_id
-            })
-            self.$store.dispatch('setToken',res.data.token)
-            self.$router.push({path:'/hotellist'})
-        })
-      },
-      setauto() {
-        setInterval(() => {
-          this.autoplay++
-          if(this.autoplay == 4){
-            this.autoplay = 1
-          }
-        }, 3000)
-      }
-    },
-    mounted() {
-      this.setauto()
+import API from "@/store/API";
+import { mapActions } from "vuex";
+let loc = window.localStorage;
+export default {
+  name: "register",
+  data() {
+    return {
+      isPasswordFalse: false,
+      isMobileFalse: false,
+      passWord: "",
+      mobile: "",
+      autoplay: 1,
+      remeber: false,
+      forget: false
+    };
+  },
+  methods: {
+    ...mapActions(["setUser"]),
+    setForget() {
+      this.forget = !this.forget;
+      this.remeber = false;
       if (loc.userName) {
-        this.mobile = loc.userName
-        this.passWord = loc.pass
-        this.remeber = true 
+        loc.removeItem("userName");
+        loc.removeItem("pass");
       }
+    },
+    setRemeber() {
+      this.remeber = !this.remeber;
+      this.forget = false;
+    },
+    checkPassword(e) {
+      if (e.length == 0) {
+        return (this.isPasswordFalse = false);
+      }
+      if (e.length < 6 || e.length > 20) {
+        this.isPasswordFalse = true;
+      } else {
+        this.isPasswordFalse = false;
+      }
+    },
+    checkMobile(e) {
+      if (e.length == 0) {
+        return (this.isMobileFalse = false);
+      } else if (e.length < 6) {
+        this.isMobileFalse = true;
+      } else {
+        this.isMobileFalse = false;
+      }
+      // let reg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0|3,5-9]))\d{8}$|^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(14[5|7])|(15([0-3]|[5-9]))|(18[0|3,5-9]))\d{8}$/;
+      // reg.test(e)? this.isMobileFalse = false : this.isMobileFalse = true
+    },
+    login() {
+      //this.$router.push({ path: 'choicehotel' })
+      if (
+        !this.mobile.length ||
+        !this.passWord.length ||
+        this.isMobileFalse ||
+        this.isPasswordFalse
+      ) {
+        this.$alert("请填写正确的帐号密码", "操作提示", {
+          confirmButtonText: "确定"
+        });
+        return;
+      }
+
+      var self = this;
+      API.login({ username: this.mobile, password: this.passWord }).then(
+        res => {
+          if (res.error_code != 0) {
+            this.$message.error(`${res.msg}`);
+            return;
+          }
+          // console.log(res)
+          // console.log('login succeess')
+          if (self.remeber) {
+            loc.setItem("userName", self.mobile);
+            loc.setItem("pass", self.passWord);
+          } else {
+            loc.removeItem("userName");
+            loc.removeItem("pass");
+          }
+          self.setUser({
+            name: res.data.name,
+            username: res.data.username,
+            mobile: self.mobile,
+            websocketUri: res.data.url,
+            roleId: res.data.role_id,
+            is_admin: res.data.is_admin,
+            staff_id: res.data.staff_id
+          });
+          self.$store.dispatch("setToken", res.data.token);
+          self.$router.push({ path: "/hotellist" });
+        }
+      );
+    },
+    setauto() {
+      setInterval(() => {
+        this.autoplay++;
+        if (this.autoplay == 4) {
+          this.autoplay = 1;
+        }
+      }, 3000);
+    }
+  },
+  created() {
+    document.title = '飞鸟云宿酒店管理系统'
+  },
+  mounted() {
+    this.setauto();
+    if (loc.userName) {
+      this.mobile = loc.userName;
+      this.passWord = loc.pass;
+      this.remeber = true;
     }
   }
+};
 </script>
 
 <style lang="scss" scoped>
-  .applogin{
-    ::-webkit-input-placeholder {
-    color:    #e5e5e5;
-    }
-    :-moz-placeholder {
-        color:    #e5e5e5;
-    }
-    ::-moz-placeholder {
-        color:    #e5e5e5;
-    }
-    :-ms-input-placeholder {
-        color:    #e5e5e5;
-    }
-    .fade-enter-active {
-      transition: all .3s ease;
-    }
-    .fade-leave-active {
-      transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-    }
-    .fade-enter, .fade-leave-to{
-      transform: translateX(10px);
-      opacity: 0;
-    }   
-    .middle{
-      display: inline-block;
-      vertical-align: middle
-    }
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    .left{
-      position: absolute;
-      top: 0;left: 0;
-      height: 100%;
-      width: 50%;
-      background: #fff;
-      header{
-        margin-top: 4%;
-        margin-left: 4%;
-        img{
-          margin-right: 12px;
-        }
-        h3{
-          font-size: 23px;
-        }
+.applogin {
+  ::-webkit-input-placeholder {
+    color: #e5e5e5;
+  }
+  :-moz-placeholder {
+    color: #e5e5e5;
+  }
+  ::-moz-placeholder {
+    color: #e5e5e5;
+  }
+  :-ms-input-placeholder {
+    color: #e5e5e5;
+  }
+  .fade-enter-active {
+    transition: all 0.3s ease;
+  }
+  .fade-leave-active {
+    transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+  }
+  .fade-enter,
+  .fade-leave-to {
+    transform: translateX(10px);
+    opacity: 0;
+  }
+  .middle {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  .left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    background: #fff;
+    header {
+      margin-top: 4%;
+      margin-left: 4%;
+      img {
+        margin-right: 12px;
       }
-      footer{
-        position: absolute;
-        bottom: 0;
-        font-size: 14px;
-        width: 100%;
+      h3 {
+        font-size: 23px;
+      }
+    }
+    footer {
+      position: absolute;
+      bottom: 0;
+      font-size: 14px;
+      width: 100%;
+      height: 70px;
+      div {
+        width: 416px;
         height: 70px;
-        div{
-          width: 416px;
-          height: 70px;
-          margin: 0 auto;
-          box-sizing: border-box;
-          padding-top:20px;
-          .mgr{
-              margin-right: 80px;
-          }
-          p{
-            margin-bottom: 10px;
-          }
-        }
-      }
-    }
-    .ol-list{
-      position: relative;
-      width: 100px;
-      margin: 0 auto;
-      .bj{
-        background: #6a9df6;
-      }
-      li{
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #e7e7e7;
-        margin-right: 20px;
-      }
-    }
-    .right{
-      position: absolute;
-      top: 0;right: 0;
-      height: 100%;
-      width: 50%;
-      background: #fafafa;
-      .log{
-        width: 60%;
-        height: 80%;
-        background: #fff;
         margin: 0 auto;
-        margin-top: 10%;
         box-sizing: border-box;
-        padding: 15% 5% 13% 5%;
-        h3{
-          font-size: 22px;
-          margin-bottom: 30px;
+        padding-top: 20px;
+        .mgr {
+          margin-right: 80px;
         }
-        ul{
-          width: 100%;
-          .bornone{
-            border: none;
-            background: #6a9df6;
-            color: #fff;
-            text-align: center;
-            line-height: 40px;
-            border-radius: 4px;
-            margin-top: 20px;
-            cursor: pointer;
-          }
-          li{
-            width: 100%;
-            height: 40px;
-            border-bottom: 1px solid #f9f9f9;
-            margin-bottom: 10px;
-            position: relative;
-            .get{
-              width: 100px;
-              height: 40px;
-              line-height: 40px;
-              border-radius: 4px;
-              color: #fff;
-              background: #6a9df6;
-              text-align: center;
-              position: absolute;
-              right: 0;
-              bottom: 4px;
-              cursor: pointer;
-            }
-            input{
-              height: 40px;
-              width: 100%;
-            }
-          }
+        p {
+          margin-bottom: 10px;
         }
       }
-    }
-    .mobileError{
-      position: absolute;
-      bottom:0;
-      left: 0;
-      color: red;
-    }
-    .box{
-      width: 15px;
-      height: 15px;
-      border-radius: 1px;
-      border: 1px solid #ccc;
-      margin-right: 10px;
     }
   }
-
+  .ol-list {
+    position: relative;
+    width: 100px;
+    margin: 0 auto;
+    .bj {
+      background: #6a9df6;
+    }
+    li {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #e7e7e7;
+      margin-right: 20px;
+    }
+  }
+  .right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 50%;
+    background: #fafafa;
+    .log {
+      width: 60%;
+      height: 80%;
+      background: #fff;
+      margin: 0 auto;
+      margin-top: 10%;
+      box-sizing: border-box;
+      padding: 15% 5% 13% 5%;
+      h3 {
+        font-size: 22px;
+        margin-bottom: 30px;
+      }
+      ul {
+        width: 100%;
+        .bornone {
+          border: none;
+          background: #6a9df6;
+          color: #fff;
+          text-align: center;
+          line-height: 40px;
+          border-radius: 4px;
+          margin-top: 20px;
+          cursor: pointer;
+        }
+        li {
+          width: 100%;
+          height: 40px;
+          border-bottom: 1px solid #f9f9f9;
+          margin-bottom: 10px;
+          position: relative;
+          .get {
+            width: 100px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 4px;
+            color: #fff;
+            background: #6a9df6;
+            text-align: center;
+            position: absolute;
+            right: 0;
+            bottom: 4px;
+            cursor: pointer;
+          }
+          input {
+            height: 40px;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+  .mobileError {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: red;
+  }
+  .box {
+    width: 15px;
+    height: 15px;
+    border-radius: 1px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+  }
+}
 </style>

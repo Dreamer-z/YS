@@ -1,0 +1,17 @@
+<!--pages/hotelService/page/statement/statement.wxml-->
+<view class='statementLayer'>
+  <view class='title'>《用户协议及免责声明》</view>
+  <view class='contentContainer'>
+    <view class='content'>
+      <view class='contentTitle'>一、使用协议</view>
+      <view class='item' wx:for="{{agreement}}" wx:key="{{item.key}}">{{item}}</view>
+    </view>
+    <view class='content'>
+      <view class='contentTitle'>二、免责声明</view>
+      <view class='item' wx:for="{{statement}}" wx:key="{{item.key}}">{{item}}</view>
+    </view>
+  </view>
+  <view class='agree'>
+    <button class='colorButton' bindtap='agree'>我已阅读</button>
+  </view>
+</view>

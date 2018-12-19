@@ -1,83 +1,85 @@
 <template>  <!-- 快速预定 -->
 	<div @click="setIndex" class="batch-reservation" v-loading="orderLoading" element-loading-text="操作进行中" element-loadig-spinner="el-icon-loading" element-loading-background="rgba(0,0,0,.4)">
 		<div class="whitetext">
-			<header>
-				<span class="middle">当前位置</span>
-				<span style="margin-right: 18px;" class="middle">：</span>
-				<span style="margin-right: 18px;" class="middle">预定管理</span>
-				<span style="margin-right: 18px;" class="middle">></span>
-				<span style="color: #437ff9;" class="middle">快速预定</span>
-		  </header>
 		  <ul class="list">
 		  	<li class="title">基本信息</li>
         <li v-show="isFillInAll" style="color: red; position: absolute; top: 0;left: 50%; margin-left: -56px;font-size: 16px;">有必填项没有填写</li>
 		  	<li class="one">
-		  		<nav style="margin-right: 50px;" class="middle">
-		  			<span style="width: 56px; text-align: right" class="middle">预定人</span>
-		  			<span class="middle">：<span class="red">*</span></span>
-		  			<input v-model="headjson.reservations" style="width: 168px;" class="middle" type="text">
+		  		<nav style="margin-right: 260px;" class="middle">
+            <p style="width: 113px;" class="middle">
+              <span class="mar-right4">*</span>
+              <span>预订人：</span>
+            </p>
+		  			<!-- <input v-model="headjson.reservations" style="width: 198px;" class="middle" type="text"> -->
+            <el-input style="width: 198px;" size="small" class="middle" type="text" v-model="headjson.reservations"></el-input>
 		  		</nav>
 		  		<section class="middle">
-		  			<span class="middle">预定手机</span>
-		  			<span class="middle">：<span class="red">*</span></span>
-		  			<input @blur="checkPhone(headjson.reservationPhone)" v-model="headjson.reservationPhone" style="width: 168px;" class="middle" type="number">
+		  			<span class="middle">预订手机：</span>
+		  			<!-- <input @blur="checkPhone(headjson.reservationPhone)" v-model="headjson.reservationPhone" style="width: 198px;" class="middle" type="number"> -->
+            <el-input @blur="checkPhone(headjson.reservationPhone)" style="width: 198px;" size="small" class="middle" type="number" v-model="headjson.reservationPhone"></el-input>
             <span style="color: red;">{{phoneErrorText}}</span>
 		  		</section>
 		  	</li>
-		  	<li class="two">
-		  		<nav style="margin-right: 42px;" class="middle">
-		  			<span class="middle">客源渠道</span>
-			  		<span class="middle">：<span class="red">*</span></span>
-			  		<el-select v-model="headjson.reservationWay" size="mini" filterable placeholder="请选择">
-					    <el-option
-					      v-for="item in sourceChannelArr"
-					      :key="item.value"
-					      :label="item.label"
-					      :value="item.value">
-					    </el-option>
-					  </el-select>
-		  		</nav>
-		  		<section style="position: relative;" class="middle">
-		  			<span class="middle">会员卡号</span>
-		  			<span class="middle">：</span>
-		  			<input @blur="checkCardNumber(headjson.cardNumber)" v-model="headjson.cardNumber" style="width: 138px; margin-right: 8px;margin-left: 6px;" class="middle" type="text"><span style="position:absolute; top: 90%;left:80px; color: red;">{{cardNumberErrorText}}</span>
-		  			<div @click="checkIsMember(headjson.cardNumber)" class="middle sou">搜索</div>
-		  		</section>
-		  		<section style="margin-left: 40px;" class="middle">
-		  			<span class="middle">协议单位</span>
-		  			<span class="middle">：</span>
-		  			<input v-model="headjson.agreementunit" style="width: 138px; margin-right: 8px;margin-left: 6px;" class="middle" type="text">
-		  			<div class="middle sou">搜索</div>
-		  		</section>
-		  	</li>
-		  	<li class="three">
+        <li class="three">
 		  		<nav class="middle">
-		  			<span class="middle">入住时间</span>
-		  			<span style="margin-right: 14px;" class="middle red">*</span>
-		  			<el-date-picker @change="getStartDateTime" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions" size="mini" type="datetime" v-model="headjson.startDateTime">
+            <p style="width: 113px;" class="middle">
+              <span class="mar-right4">*</span>
+              <span>入住时间：</span>
+            </p>
+		  			<el-date-picker @change="getStartDateTime" value-format="yyyy-MM-dd HH:mm:ss" :picker-options="pickerOptions" size="small" style="width:200px;" type="datetime" v-model="headjson.startDateTime">
 						</el-date-picker>
 		  		</nav>
-		  		<div style="margin: 0 30px;" class="middle">
-		  			<span @click="deleOneDay" class="middle dele">
-		  				<span class="del"></span>
-		  			</span>
-		  			<span class="middle num">{{stayHowManyDay}}</span>
-		  			<span>天</span>
-		  			<span @click="addOneDay" class="middle add">＋</span>
-		  		</div>
+          <el-input-number style="margin:0 55px;" v-model="stayHowManyDay" @change="handleChange" :min="1" size="small"></el-input-number>
 		  		<nav class="middle">
-		  			<span class="middle">离店时间</span>
-		  			<span style="margin-right: 14px;" class="middle red">*</span>
-		  			<el-date-picker @change="countHowManyDay" value-format="yyyy-MM-dd HH:mm:ss" size="mini" :picker-options="pickerOptions" type="datetime" v-model="headjson.endDateTime">
+            <span style="margin-right: 4px;" class="middle red">*</span>
+		  			<span class="middle">离店时间：</span>
+		  			<el-date-picker @change="countHowManyDay" :default-time="hotel.leave_time" value-format="yyyy-MM-dd HH:mm:ss" size="small" style="width:200px;" :picker-options="pickerOptions" type="datetime" v-model="headjson.endDateTime">
 						</el-date-picker>
             <span style="color: red;">{{dateTimeErrorText}}</span>
 		  		</nav>
 		  	</li>
+		  	<li class="two">
+		  		<nav style="margin-right: 42px;" class="middle">
+            <p style="width: 113px;" class="middle">
+              <span class="mar-right4">*</span>
+              <span>客户类型：</span>
+            </p>
+			  		<el-select v-model="headjson.reservationWay" @change="letTotalRoomManyArrNone" style="width:200px;" size="small" filterable placeholder="请选择">
+					    <el-option
+					      v-for="item in sourceChannelArr" 
+					      :key="item.type"
+					      :label="item.name"
+					      :value="item.type">
+					    </el-option>
+					  </el-select>
+            <p v-if="headjson.reservationWay == 1" @click="letCheckMemberShow" style="marginLeft:10px;cursor: pointer;" class="middle">
+              <span style="color: #437ff9;">选择会员</span>
+            </p>
+		  		</nav>
+          <div v-if="headjson.reservationWay == 1" class="test-box">
+            <div style="marginBottom: 8px;">
+              <p style="width:192px;" class="middle">
+                <span>会员姓名：</span>
+                <span>{{saveMemberMsg.name}}</span>
+              </p>
+              <p style="width:250px;" class="middle">
+                <span>会员卡号：</span>
+                <span>{{saveMemberMsg.card_number}}</span>
+              </p>
+              <p class="middle">
+                <span>会员等级：</span>
+                <span>{{saveMemberMsg.card_level}}</span>
+              </p>
+            </div>
+          </div>
+		  	</li>
 		  	<li class="four">
-		  		<nav style="margin-right: 50px;" class="middle">
-		  			<span style="width: 56px; text-align: right" class="middle">房型</span>
-		  			<span class="middle">：<span class="red">*</span></span>
-		  			<el-select @change="checkDateTime(headjson)" v-model="headjson.roomType" size="mini" filterable placeholder="请选择">
+		  		<nav style="width: 564px;" class="middle">
+            <p style="width: 113px;" class="middle">
+              <span class="mar-right4">*</span>
+              <span>房型：</span>
+            </p>
+		  			<el-select @change="checkDateTime(headjson)" v-model="headjson.roomType" style="width:200px;" size="small" filterable placeholder="请选择">
               <el-option
                 v-for="item in roomTypeArr"
                 :key="item.value"
@@ -86,103 +88,66 @@
               </el-option>
             </el-select>
 		  		</nav>
-		  		<nav style="margin-right: 72px;" class="middle">
-		  			<span style="width: 56px; text-align: right" class="middle">间数</span>
-		  			<span class="middle">：<span class="red">*</span></span>
-		  			<div class="middle room-number-click">
-              <input @blur="checkRoomMany(headjson.roomMany)" v-model="headjson.roomMany" style="width: 168px;" class="middle" type="text">
-              <nav class="many-block">
-                <div @click="checkAddRoomMany" class="addmany">
-                  <img style="transform: rotate(180deg);" class="img" src="@/assets/images/sjx.png" alt="">
-                </div>
-                <div @click="checkDeleRoomMany" class="delemany">
-                  <img class="img" src="@/assets/images/sjx.png" alt="">
-                </div>
-              </nav>  
-            </div>
-            <span style="color: red;" class="middle">可预订数量{{maxRoomManyShow}}间</span>
-		  		</nav>
-		  		<nav style="margin-right: 50px;position: absolute;" class="middle">
-		  			<span style="width: 56px; text-align: right" class="middle">预定定金</span>
-		  			<span class="middle">：<span class="red"></span></span>
-		  			<input @blur="checkReservationMoney(headjson.reservationMoney)" v-model="headjson.reservationMoney" style="width: 168px;" class="middle" type="text">
-            <span style="position:absolute; top: 90%;left:88px; color: red;">{{reservationMoneyErrorText}}</span>
+		  		<nav class="middle">
+            <p style="width:84px;" class="middle">
+              <span class="mar-right4">*</span>
+              <span>间数：</span>
+            </p>
+            <el-input-number @blur="checkRoomMany(headjson.roomMany)" v-model="headjson.roomMany" size="small" 
+            controls-position="right" :min="0" :max="maxRoomManyShow" @change="handleChangeRoom"></el-input-number>
+            <span style="color: red;marginLeft:16px;" class="middle">可预订数量{{maxRoomManyShow}}间</span>
 		  		</nav>
 		  	</li>
 		  	<li class="four">
-		  		<!-- <nav style="margin-right: 50px;" class="middle">
-		  			<span style="width: 56px; text-align: right" class="middle">担保</span>
-		  			<span class="middle">：<span class="red">*</span></span>
-		  			<el-select v-model="headjson.guarantee" size="mini" filterable placeholder="请选择">
-              <el-option
-                v-for="item in guaranteeArr"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-		  		</nav>
-		  		<nav style="margin-right: 44px;" class="middle">
-		  			<span style="width: 56px; text-align: right" class="middle">保留时效</span>
-		  			<span class="middle">：<span class="red">*</span></span>
-		  			<el-select v-model="headjson.retentionTime" size="mini" filterable placeholder="请选择">
-              <el-option
-                v-for="item in retentionTimeArr"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-		  		</nav> -->
 		  		<nav style="margin-right: 50px;" class="middle">
-		  			<span class="middle">预计到达时间</span>
-		  			<span class="middle">：<span class="red">*</span></span>
-            <el-time-picker @change="mayBeTimeChange" v-model="headjson.mayBeTime" size="mini" format='HH:mm:ss'></el-time-picker>
-		  			<!-- <el-select v-model="headjson.mayBeTime" size="mini" filterable placeholder="请选择">
-              <el-option
-                v-for="item in arrivalTimeArr":key="item.value"
-                :label="item.label"
-                :value="item.value"
-                >
-              </el-option>
-            </el-select> -->
-            <!-- <input v-model="headjson.mayBeTime" style="width: 168px;" class="middle" type="text"> -->
+		  			<!-- <span class="middle">预计到达时间</span>
+		  			<span class="middle">：<span class="red">*</span></span> -->
+            <p style="width: 113px;" class="middle">
+              <span class="mar-right4">*</span>
+              <span>预订到达时间：</span>
+            </p>
+            <el-time-picker @change="mayBeTimeChange" v-model="headjson.mayBeTime" style="180px;" size="small" format='HH:mm:ss'></el-time-picker>
 		  		</nav>
 		  	</li>
 		  	<li class="five">
-		  		<nav style="margin-right: 50px;" class="middle">
-		  			<span style="width: 56px; text-align: right" class="middle">备注</span>
-		  			<span class="middle">：</span>
-		  			<textarea v-model="headjson.remarks" style="margin-left: 8px;" class="listarea middle"></textarea>
+		  		<nav style="margin-right: 16px;" class="middle">
+		  			<p style="width:113px;" class="middle">
+              <span>备注：</span>
+            </p>
+		  			<!-- <textarea v-model="headjson.remarks" class="listarea middle"></textarea> -->
+            <el-input class="middle" style="width:740px;" v-model="headjson.remarks" type="textarea" placeholder="请输入内容"></el-input>
 		  		</nav>
           <section class="middle checkbox">
-            <nav @click="getTableList" class="prebox">
-              <div class="box middle">
+            <!-- <nav @click="getTableList" class="prebox"> -->
+              <!-- <div class="box middle">
                 <span style="margin-left: -2px;font-size: 18px;font-weight: bold; color: #6a9df6;" :class="{'icon-gou' : iconShow}" class="iconfont"></span>
               </div>
-              <span class="middle">预订并排房</span>
-            </nav>
+              <span class="middle">预订排房</span>
+            </nav> -->
+            <!-- <div  @click="getTableList" class="new-btn middle">预订排房</div> -->
+            <el-button @click="getTableList" type="primary">预订排房</el-button>
           </section>
 		  	</li>
 		  </ul>
 		  <ul class="angeroom">
 		  	<li class="title">排房</li>
-		  	<li @click="changeTotalRoomManyArr" class="btn">自动排房</li>
-		  	<li style="color: #fff; background: #4b5967;" class="angelist">
+		  	<!--<li @click="changeTotalRoomManyArr" class="btn">自动排房</li> -->
+        <li style="margin-top:20px;"></li>
+		  	<li style="background: #f2f2f2;" class="angelist">
 		  		<ul class="list-title">
-		  			<li style="border-bottom: none;" class="one">序号</li>
-		  			<li style="border-bottom: none;" class="two">房型</li>
-		  			<!-- <li style="border-bottom: none;" class="two">价格方案</li> -->
-		  			<li style="border-bottom: none;" class="two">房号</li>
-		  			<li style="border-bottom: none;" class="one">房价</li>
-		  			<li style="border-bottom: none;" class="three">预抵</li>
-		  			<li style="border-bottom: none;" class="three">预离</li>
-		  			<li style="border-bottom: none;" class="three">入住人</li>
-		  			<li style="border-right: 1px solid #a9bfd6;border-bottom: none;" class="one last">操作</li>
+		  			<li class="one">序号</li>
+		  			<li class="two">房型</li>
+		  			<li class="two">房号</li>
+		  			<li class="one">房价</li>
+            <li class="one">会员房价</li>
+		  			<li class="three">预抵</li>
+		  			<li class="three">预离</li>
+		  			<!-- <li style="border-bottom: none;" class="three">入住人</li> -->
+		  			<li class="one last">操作</li>
 		  		</ul>
 		  	</li>
-		  	<li class="angelist">
-		  		<ul v-for="(item, index) in totalRoomManyArr" class="list-title">
+		  	<li style="borderBottom:1px solid #e5e5e5;" class="angelist">
+		  		<ul v-for="(item, index) in totalRoomManyArr" :key="index" class="list-title">
 		  			<li class="one">{{index + 1}}</li>
 		  			<li class="two">{{item.room_type_name}}</li>
 		  			<!-- <li @click.stop="letPriceListShow(index)" class="two">
@@ -195,7 +160,7 @@
                 <li @click.stop="getPriceName(item,data)" v-for="(data, num) in priceListArr" style="border: none;" id="slider-list-li">{{data.name}}</li>
               </ul>   
             </li> -->
-		  			<li :title="item.name" style="position: relative;overflow:hidden;" @click.stop="letRoomNumShow(index)" class="two">
+		  			<li :title="item.name" style="position: relative;overflow:hidden;" @click.stop="letRoomNumShow(index,item)" class="two">
               <!-- <span v-if="item.fanghao.length">{{item.fanghao}}</span>
               <span style="color: #ccc;" v-else>请选择</span>
               <div id="slider">
@@ -212,10 +177,11 @@
               </el-cascader> -->
               <div id="cascader">
                 <span>{{item.room_name}}</span>
-                <span v-show="item.room_name == ''" style="color: #437ff9;" class="middle">点击排房</span>
+                <span v-show="item.room_name == ''" style="color: #1dceb1;" class="middle">点击排房</span>
               </div>   
             </li>
 		  			<li class="one">{{item.price}}</li>
+            <li class="one">{{item.member_price}}</li>
 		  			<li style="overflow: hidden;" class="three start-time">
 		  				<!-- <el-date-picker @change="startDateTimeChange" ref="startdate" value-format="yyyy-MM-dd HH:mm" size="mini" placehoder="2010-00-00" type="datetime" v-model="item.startDateTime">
 							</el-date-picker> -->
@@ -238,21 +204,27 @@
 								</p>
 							</div>
 		  			</li>
-		  			<li @click.stop="getRuzhuren(index)" class="three">
+		  			<!-- <li @click.stop="getRuzhuren(index)" class="three">
               <span style="color: #ccc;" v-show="ruzhurenIndex != index && item.ruzhuren.length == 0">{{item.ruzhurenTitle}}</span>
               <input @blur="checkLength(item.ruzhuren)" v-show="ruzhurenIndex == index || item.ruzhuren.length != 0" v-model="item.ruzhuren" ref="ruzhuren" id="ruzhuren" type="text">     
-            </li>
-		  			<li @click="rightDele(index)" style="border-right: 1px solid #a9bfd6; color: red; cursor: pointer;" class="one">删除</li>
+            </li> -->
+		  			<li @click="rightDele(index)" style="color:#1dceb1;cursor: pointer;" class="one">删除</li>
 		  		</ul>
 		  	</li>
 		  </ul>
-      <footer @click="givePost" class="btn">确定</footer>
+      <footer class="btn">
+        <el-button style="width:98px;" type="primary" @click="givePost">确定</el-button>
+      </footer>
 		</div>
-    <room-number @giveNumSelected="getSelected" v-if="isRoomNumberShow" @roomNumberBeNone="numberBeNone" :roomList="buildFloorRoomArr"></room-number>
+    <check-member @checkMemberNone="letCheckMemberNone" v-if="isCheckMemberShow"></check-member>
+    <get-pay @letGetPayNone="setGetPayNone" v-if="isGetPayShow" :name="'预收订金'" :payWayList="childPayWayList" :id="preorder_id" :list="memberMsg"></get-pay>
+    <room-number @giveNumSelected="getSelected" v-if="isRoomNumberShow" @roomNumberBeNone="numberBeNone" :selected="selectedArr" :roomList="buildFloorRoomArr"></room-number>
 	</div>
 </template>
 
 <script>
+import checkMember from "@/components/public/checkmember"
+import getPay from "@/components/public/getpay"
 import roomNumber from "@/components/public/roomnumber"
 import { mapGetters } from 'vuex'
 import API from "@/store/API"
@@ -260,6 +232,13 @@ import API from "@/store/API"
 		name: 'quickPreorder',
 		data() {
 			return {
+        memberMsg: {},
+        preorder_id: '',  //  预订押金要的ID
+        saveRoomId: '',
+        isCheckMemberShow: false,
+        isGetPayShow: false,
+        childPayWayList: [],
+        selectedArr: [],
         isRoomNumberShow: false,
         iconShow: false,
         checkpointNum: 0,
@@ -275,7 +254,7 @@ import API from "@/store/API"
         cardNumberErrorText: '',
         phoneErrorText: '',
         roomTypeArr: [],       //房型
-        sourceChannelArr: [],  //客源渠道
+        sourceChannelArr: [],  //客户类型
         arrivalTimeArr: [],    //预抵时间
         retentionTimeArr: [],  //保留失效
         guaranteeArr: [],      //担保
@@ -330,29 +309,66 @@ import API from "@/store/API"
         nowIndex: -1,
         // hotelId: 1,
         roomId: '',
-        tablistJsonArr: []
+        tablistJsonArr: [],
+        saveMemberMsg: {}
 			}
 		},
     computed: {
-      // start() {
-      //   let d = new Date()
-      //   let yaer = d.getFullYear()
-      //   let month = d.getMonth()
-      //   let date = d.getDate()
-      //   // let hour = d.getTime()
-      //   let hour = d.getHours()
-      //   let min = d.getMinutes()
-      //   let sec = d.getSeconds()
-      //   // let str = d.getDay()
-      //   return [`${yaer}-${month<10?'0'+month:month}-${date<10?'0'+date:date}`,`${hour<10?'0'+hour:hour}:${min<10?'0'+min:min}:${sec<10?'0'+sec:sec}`].join(' ')
-      // },
       ...mapGetters({
         hotel:'currHotel'
       })
     },
 		methods:{
+      setGetPayNone(e) {
+        this.isGetPayShow = false
+        if (e) {
+          
+        }
+      },
+      letTotalRoomManyArrNone() {
+        if (this.totalRoomManyArr.length > 0) {
+          this.totalRoomManyArr = []
+        }
+      },
+      letCheckMemberNone(e) {
+        this.isCheckMemberShow = false
+        if (e) {
+          this.headjson.member_id = e.id
+          this.saveMemberMsg = {...e}
+          this.memberMsg = {}
+          API.get("/pms/vip/balance?id=" + e.id).then(res => {
+            if (res.error_code == 0) {
+              this.memberMsg = {
+                balance: res.data.balance,
+                card_level_name: res.data.card_level_name,
+                card_number: res.data.card_number,
+                security_deposit: res.data.security_deposit
+              }
+            }
+          })
+        }
+      },
+      letCheckMemberShow() {
+        this.isCheckMemberShow = true
+      },
+      getPayWayList() {
+        API.get("/pms/common/payway?vip=" + 1).then(res => {
+          if (res.error_code == 0) {
+            this.childPayWayList = res.data
+          } else {
+            this.childPayWayList = []
+          }
+        })
+      },
       checkIsMember(e) {
         
+      },
+      getTypes() {
+        API.get("/pms/usertype").then(res => {
+          if (res.error_code == 0) {
+            this.sourceChannelArr = res.data
+          }
+        })
       },
       start() {
         let d = new Date()
@@ -368,8 +384,16 @@ import API from "@/store/API"
       },
       getSelected(e) {
         // console.log('mmmmmm>>>>>>',e)
-        this.totalRoomManyArr[this.nowIndex].room_name = e.name
-        this.totalRoomManyArr[this.nowIndex].id = e.id
+        if (e) {
+          // this.selectedArr = []
+          if (this.saveRoomId !== '') {
+            let find = this.selectedArr.indexOf(this.saveRoomId)
+            this.selectedArr.splice(find, 1)
+          }
+          this.selectedArr.push(e.id)
+          this.totalRoomManyArr[this.nowIndex].room_name = e.name
+          this.totalRoomManyArr[this.nowIndex].id = e.id
+        }
         // console.log('mmmmmm>>>>>>',this.nowIndex)
         // console.log('mmmmmm>>>>>>',this.totalRoomManyArr)
         this.numberBeNone()
@@ -413,10 +437,11 @@ import API from "@/store/API"
           //   })
           //   return
           // }
+          console.log('mmmmmmmmmmmm',v)
           let n = typeof(v.id)
           arr.push({
             "room_id": n == 'undefined'?0:v.id, //v.id,
-            "member": this.changeRuzhurenArr(v.ruzhuren.split('|')),
+            // "member": this.changeRuzhurenArr(v.ruzhuren.split('|')),
             "come_time": v.come_time,
             "leave_time": v.leave_time,
             "room_type_id":v.room_type_id,
@@ -432,7 +457,8 @@ import API from "@/store/API"
             leave_time: this.headjson.endDateTime,
             total_count: this.headjson.roomMany,
             member_num: this.headjson.cardNumber,
-            member_id: 0,
+            member_id: this.headjson.member_id?this.headjson.member_id:0,
+            vip_card_num: this.saveMemberMsg.card_number?this.saveMemberMsg.card_number:'',
             partner_id: 0,
             hotel_id: this.hotel.id,
             remark: this.headjson.remarks,
@@ -451,7 +477,7 @@ import API from "@/store/API"
               this.headjson.roomType = ''
               this.headjson.reservationPhone = ''
               this.headjson.arrivalTime = ''
-              this.headjson.startDateTime = ''
+              // this.headjson.startDateTime = ''
               this.headjson.endDateTime = ''
               this.headjson.roomMany = ''
               this.headjson.cardNumber = ''
@@ -463,10 +489,13 @@ import API from "@/store/API"
               this.phoneErrorText = ''
               this.stayHowManyDay = 0
               this.maxRoomManyShow = 0
+              this.preorder_id = res.data.id
               this.$alert('操作成功', '', {
                 confirmButtonText: '确定',
                 callback: ()=>{
                   this.getarrivalTimeArr()
+                  this.buildFloorRoomArr = []
+                  this.isGetPayShow = true
                 }
               })
             } else {
@@ -478,21 +507,6 @@ import API from "@/store/API"
         }
       },
       endDateTimeChange(e) {
-        // let obj = {
-        //   come_time: this.headjson.startDateTime,
-        //   hotel_id: this.hotelId,
-        //   room_type_id: this.headjson.roomType,
-        //   leave_time: this.headjson.endDateTime
-        // }
-        // API.post("/pms/preorder/roomtype", obj).then(res=>{
-        //   // console.log('21321213',res)
-        //   if(res.error_code == 0) {
-        //     this.headjson.maxRoomMany = res.data.num;
-        //     this.maxRoomManyShow = res.data.num;
-        //     this.roomNumArr = res.data.rooms
-
-        //   }
-        // })
       },
       startDateTimeChange(e) {
         // console.log('fsdffds1010101',e)
@@ -552,19 +566,20 @@ import API from "@/store/API"
           }
         })
       },
-      getSourceChannelArr() { //客源渠道
-        API.getFromWayList().then(res=>{
-          if(!res.Error_code) {
-            let arr = res.data
-            arr.forEach((e, i)=>{
-              this.sourceChannelArr.push({
-                label: e.name,
-                value: e.id
-              })
-            })
-          }
-        })
-      },
+      // getSourceChannelArr() { //客户类型
+      //   API.getFromWayList().then(res=>{
+      //     if(res.error_code == 0) {
+      //       // 
+      //       this.sourceChannelArr = res.data
+      //       // arr.forEach((e, i)=>{
+      //       //   this.sourceChannelArr.push({
+      //       //     label: e.name,
+      //       //     value: e.id
+      //       //   })
+      //       // })
+      //     }
+      //   })
+      // },
       getRoomType() {  //房型
         API.getRoomType(this.hotel.id).then(res=>{
           if(!res.Error_code) {
@@ -579,9 +594,12 @@ import API from "@/store/API"
         })
       },
       checkReservationMoney(e) {
-        if (e.length == 0){return}
+        if (e.length == 0){
+          this.reservationMoneyErrorText = ''
+          return
+        }
         let reg = /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/
-        reg.test(e)?this.reservationMoneyErrorText = '': this.reservationMoneyErrorText = '请输入正确的金额格式'
+        reg.test(e)?this.totalRoomManyArr: this.reservationMoneyErrorText = '请输入正确的金额格式'
       },
       checkCardNumber(e) {
         if (e.length == 0){return}
@@ -590,7 +608,7 @@ import API from "@/store/API"
       },
       checkPhone(e) {
         if (e.length == 0){return}
-        let reg = /^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0|3,5-9]))\d{8}$/; //$|^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}
+        let reg = /^1\d{10}$/; //$|^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}
         reg.test(e)? this.phoneErrorText = '' : this.phoneErrorText = '请输入正确的手机号码'
       },
       // getFanghaoName(e,v) {
@@ -606,6 +624,9 @@ import API from "@/store/API"
         this.totalRoomManyArr.splice(i, 1)
         this.headjson.roomMany -= 1
         this.maxRoomManyShow ++
+        if (this.totalRoomManyArr.length == 0) {
+          this.iconShow = false
+        }
       },
       getRuzhuren(i) {
         this.ruzhurenIndex = i
@@ -618,6 +639,9 @@ import API from "@/store/API"
         if (e == null) {
           this.headjson.startDateTime = ''
           this.headjson.endDateTime = ''
+          return
+        }
+        if (this.headjson.startDateTime == '') {
           return
         }
         if (this.headjson.startDateTime == this.headjson.endDateTime) {
@@ -660,10 +684,36 @@ import API from "@/store/API"
       //   this.isPriceListShow = true;
       //   this.isRoomNumShow = false
       // },
-      letRoomNumShow(i) {
+      async letRoomNumShow(i, e) {
+        if (this.buildFloorRoomArr.length == 0) {
+          let data = {
+            member_id: this.headjson.member_id,
+            come_time: this.headjson.startDateTime,
+            num: -1,
+            room_type_id: this.headjson.roomType,
+            leave_time: this.headjson.endDateTime
+          }
+          let resData = await API.quickRoomAuto(data).then(res=>{
+            if(res.error_code == 0) {
+              return res.data
+            }
+          })
+          if (!resData[0].rooms.length) {
+            this.$message.error(`该房型没有可预订房间`)
+            return
+          }
+          // this.buildFloorRoomArr = []
+          resData[0].rooms.forEach((e,i)=>{
+            this.buildFloorRoomArr.push({
+              id: e.id,
+              name: e.room_name
+            })
+          })
+        }
+        if (e.id) {
+          this.saveRoomId = e.id
+        }
         this.nowIndex = i;
-        // this.isPriceListShow = false;
-        // this.isRoomNumShow = true
         this.isRoomNumberShow = true
       },
       changeTotalRoomManyArr() {
@@ -687,54 +737,117 @@ import API from "@/store/API"
         })
       },
       async getTableList() {
-        if(this.headjson.reservations == '' || this.headjson.reservationPhone == '' || this.headjson.reservationWay == '' || this.headjson.startDateTime == '' || this.headjson.endDateTime == ''  || this.headjson.mayBeTime == '' || this.headjson.roomtype == '' || this.headjson.roomMany <= 0) {
+        // || this.headjson.reservationWay == ''   客户类型
+        if(this.headjson.reservations == '' || this.headjson.reservationWay === '' || this.headjson.reservationPhone == ''  || this.headjson.startDateTime == '' || this.headjson.endDateTime == ''  || this.headjson.mayBeTime == '' || this.headjson.roomType == '' || this.headjson.roomMany <= 0) {
           return this.isFillInAll = true
+        }
+        if (this.headjson.reservationWay == 1) {
+          if (!this.headjson.member_id) {
+            this.$message.error('请选择会员')
+            return
+          }
+          this.getPayWayList()
+        } else if (this.headjson.reservationWay == 0) {
+          API.get("/pms/common/payway?").then(res => {
+            if (res.error_code == 0) {
+              this.childPayWayList = res.data
+            } else {
+              this.childPayWayList = []
+            }
+          })
         }
         this.iconShow = true;
         this.roomNumArr = []
         this.isFillInAll = false;
-        let data = {
-          come_time: this.headjson.startDateTime,
-          num: -1,
-          room_type_id: this.headjson.roomType,
-          leave_time: this.headjson.endDateTime
+        let obj = {
+          id: this.hotel.id, 
+          userType: this.headjson.reservationWay,  
+          start: this.headjson.startDateTime.split(' ')[0], 
+          end: this.headjson.endDateTime.split(' ')[0],
+          roomTypeIds: this.headjson.roomType?[this.headjson.roomType]:[], 
+          memberIds: this.headjson.member_id?[this.headjson.member_id]:[]
         }
-        let resData = await API.quickRoomAuto(data).then(res=>{
-          if(res.error_code == 0) {
-            return res.data
+        API.post("/pms/price/search", obj).then(res => {
+          if (res.error_code == 0) {
+            this.totalRoomManyArr = []
+            this.roomTypeArr.forEach((e, i)=>{
+              if(e.value == this.headjson.roomType) {
+                this.headjson.roomTypeName = e.label
+              }
+            })
+            if (obj.userType === 0) {
+              for(let i = 0; i < this.headjson.roomMany; i++) {
+                let json = {
+                  member_id: this.headjson.member_id,
+                  room_name: '',
+                  room_type_id: this.headjson.roomType,
+                  come_time: this.headjson.startDateTime,
+                  leave_time: this.headjson.endDateTime,
+                  room_type_name: this.headjson.roomTypeName,
+                  price: res.data[0].prices[0].price,
+                  member_price: '',
+                  ruzhuren: '',
+                  ruzhurenTitle: '多个用"|"分开',
+                }
+                this.totalRoomManyArr.push(json)
+              }
+            } else if(obj.userType === 1) {
+              for(let i = 0; i < this.headjson.roomMany; i++) {
+                let json = {
+                  member_id: this.headjson.member_id,
+                  room_name: '',
+                  room_type_id: this.headjson.roomType,
+                  come_time: this.headjson.startDateTime,
+                  leave_time: this.headjson.endDateTime,
+                  room_type_name: this.headjson.roomTypeName,
+                  price: res.data[0].prices[0].roomTypePrice,
+                  member_price: res.data[0].prices[0].price,
+                  ruzhuren: '',
+                  ruzhurenTitle: '多个用"|"分开',
+                }
+                this.totalRoomManyArr.push(json)
+              }
+            }
+            this.isOnce = false
+            this.checkpointNum = this.headjson.roomMany
+          } else {
+            if (res.msg) {
+              this.$message.error(`${res.msg}`)
+            }
           }
         })
-        // console.log('>>>>>',resData)
-        resData[0].rooms.forEach((e,i)=>{
-          this.buildFloorRoomArr.push({
-            id: e.id,
-            name: e.room_name
-          })
-        })
-        this.totalRoomManyArr = []
-        this.roomTypeArr.forEach((e, i)=>{
-          if(e.value == this.headjson.roomType) {
-            this.headjson.roomTypeName = e.label
-          }
-        })
-        // let num = this.headjson.roomMany - this.checkpointNum
-        for(let i = 0; i < this.headjson.roomMany; i++) {
-          let json = {
-            room_name: '',
-            room_type_id: this.headjson.roomType,
-            come_time: this.headjson.startDateTime,
-            leave_time: this.headjson.endDateTime,
-            room_type_name: this.headjson.roomTypeName,
-            price: resData[0].rooms[0].price,
-            ruzhuren: '',
-            ruzhurenTitle: '多个用"|"分开',
-          }
-          this.totalRoomManyArr.push(json)
-        }
-        // console.log('nnnnnmmmmmmnnnmmm00', this.headjson)
-        // console.log('nnnnnmmmmmmnnnmmm', this.totalRoomManyArr)
-        this.isOnce = false
-        this.checkpointNum = this.headjson.roomMany
+
+        // if (!resData[0].rooms.length) {
+        //   this.$message.error(`该房型没有可预订房间`)
+        //   return
+        // }
+        // resData[0].rooms.forEach((e,i)=>{
+        //   this.buildFloorRoomArr.push({
+        //     id: e.id,
+        //     name: e.room_name
+        //   })
+        // })
+        // this.totalRoomManyArr = []
+        // this.roomTypeArr.forEach((e, i)=>{
+        //   if(e.value == this.headjson.roomType) {
+        //     this.headjson.roomTypeName = e.label
+        //   }
+        // })
+        // for(let i = 0; i < this.headjson.roomMany; i++) {
+        //   let json = {
+        //     room_name: '',
+        //     room_type_id: this.headjson.roomType,
+        //     come_time: this.headjson.startDateTime,
+        //     leave_time: this.headjson.endDateTime,
+        //     room_type_name: this.headjson.roomTypeName,
+        //     price: resData[0].rooms[0].price,
+        //     ruzhuren: '',
+        //     ruzhurenTitle: '多个用"|"分开',
+        //   }
+        //   this.totalRoomManyArr.push(json)
+        // }
+        // this.isOnce = false
+        // this.checkpointNum = this.headjson.roomMany
       },
       checkRoomMany(e) {
         if(Math.floor(e) > Math.floor(this.headjson.maxRoomMany)){
@@ -796,79 +909,6 @@ import API from "@/store/API"
           this.headjson.roomMany = 0
         }
       },
-      addOneDay() {
-        if(this.stayHowManyDay < 28) {
-          if (this.headjson.startDateTime == '') {return}
-          this.stayHowManyDay++
-          let mydate = new Date(this.headjson.startDateTime.split(' ')[0])  //this.headjson.startDateTime.split(':')[0]
-          let year = mydate.getFullYear()
-          let month = Math.floor(mydate.getMonth())
-          let date = mydate.getDate()   
-          let days = new Date(year, month + 1, 0).getDate()
-          let newdate;
-          if((Math.floor(date) + Math.floor(this.stayHowManyDay)) > Math.floor(days)) {
-            month = (month + 2) < 10 ? '0' + (month + 2) :(month + 2)
-            if(Math.floor(month) < 12) {
-              newdate = Math.floor(this.stayHowManyDay) - (Math.floor(days) - Math.floor(date))
-              newdate = newdate < 10? '0' + newdate : newdate
-              this.headjson.endDateTime = [`${year}-${month}-${newdate}`, this.headjson.startDateTime.split(' ')[1]].join(' ')
-            }else{
-              year = Math.floor(mydate.getFullYear()) + 1
-              month = '01'
-              newdate = Math.floor(this.stayHowManyDay) - (Math.floor(days) - Math.floor(date))
-              newdate = newdate < 10? '0' + newdate : newdate
-              this.headjson.endDateTime = [`${year}-${month}-${newdate}`, this.headjson.startDateTime.split(' ')[1]].join(' ')   //`${year}-${month}-${newdate}`
-            }
-          }else{
-            newdate =  (Math.floor(date) + Math.floor(this.stayHowManyDay))
-            this.headjson.endDateTime = [`${year}-${month + 1 < 10?'0'+(month + 1):month + 1}-${newdate < 10?'0'+newdate:newdate}`, this.headjson.startDateTime.split(' ')[1]].join(' ')
-          }
-        }
-        if(this.dateTimeLock) {
-          this.getMaxDay()
-        }
-        if(!this.isOnce) {
-          this.totalRoomManyArr = []
-          this.iconShow = false
-          this.headjson.roomMany = 0
-        }
-      },
-      deleOneDay() {
-        if(this.stayHowManyDay > 0) {
-          this.stayHowManyDay--
-          let mydate = new Date(this.headjson.startDateTime.split(' ')[0])
-          let year = mydate.getFullYear()
-          let month = Math.floor(mydate.getMonth())
-          let date = mydate.getDate()   
-          let days = new Date(year, month + 1, 0).getDate()
-          let newdate;
-          if((Math.floor(date) + Math.floor(this.stayHowManyDay)) > Math.floor(days)) {
-            month = (month + 2) < 10 ? '0' + (month + 2) :(month + 2)
-            if(Math.floor(month) < 12) {
-              newdate = Math.floor(this.stayHowManyDay) - (Math.floor(days) - Math.floor(date))
-              newdate = newdate < 10? '0' + newdate : newdate
-              this.headjson.endDateTime = [`${year}-${month}-${newdate}`, this.headjson.startDateTime.split(' ')[1]].join(' ')
-            }else{
-              year = Math.floor(mydate.getFullYear()) + 1
-              month = '01'
-              newdate = Math.floor(this.stayHowManyDay) - (Math.floor(days) - Math.floor(date))
-              newdate = newdate < 10? '0' + newdate : newdate
-              this.headjson.endDateTime = [`${year}-${month}-${newdate}`, this.headjson.startDateTime.split(' ')[1]].join(' ')   //`${year}-${month}-${newdate}`
-            }
-          }else{
-            newdate =  (Math.floor(date) + Math.floor(this.stayHowManyDay))
-            this.headjson.endDateTime = [`${year}-${month + 1 < 10?'0'+(month + 1):month + 1}-${newdate < 10?'0'+newdate:newdate}`, this.headjson.startDateTime.split(' ')[1]].join(' ')
-          }
-        }
-        if(this.dateTimeLock) {
-          this.getMaxDay()
-        }
-        if(!this.isOnce) {
-          this.totalRoomManyArr = []
-          this.iconShow = false
-          this.headjson.roomMany = 0
-        }
-      },
       getStartTime(e) {
         this.headjson.startTime = e;
         this.isStartTimeShow = false
@@ -882,15 +922,49 @@ import API from "@/store/API"
 			},
 			getEnddate(i) {
 				// this.$refs.enddate[i].focus()
-			}
-		},
+      },
+      handleChangeRoom(value) {
+        if(!this.isOnce) {
+          this.totalRoomManyArr = []
+          this.iconShow = false
+        }
+      },
+      handleChange(value){
+        let start = (new Date(this.headjson.startDateTime)).getTime()/1000
+        let end = (start+value*24*3600)*1000;
+        this.headjson.endDateTime =  this.formatDateTime(end)
+      },
+      formatDateTime(inputTime) {  
+        var date = new Date(inputTime);
+        var y = date.getFullYear();  
+        var m = date.getMonth() + 1;  
+        m = m < 10 ? ('0' + m) : m;  
+        var d = date.getDate();  
+        d = d < 10 ? ('0' + d) : d;  
+    //     var h = date.getHours();
+    //     h = h < 10 ? ('0' + h) : h;
+    //     var minute = date.getMinutes();
+    //     var second = date.getSeconds();
+    //     minute = minute < 10 ? ('0' + minute) : minute;  
+    //     second = second < 10 ? ('0' + second) : second; 
+        return y + '-' + m + '-' + d+' '+this.hotel.leave_time;  
+      }
+    },
+    watch: {
+      stayHowManyDay(newval) {
+        this.handleChange(newval)
+      }
+    },
     components: {
-      roomNumber
+      roomNumber,
+      getPay,
+      checkMember
     },
     created() {
+      this.getTypes()
       this.start()
       this.getRoomType()
-      this.getSourceChannelArr()
+      // this.getSourceChannelArr()
       this.getGuaranteeArr()
       this.getarrivalTimeArr()
     }
@@ -900,9 +974,7 @@ import API from "@/store/API"
 <style lang="scss" scoped>
   .batch-reservation{
     user-select: none;
-  	padding-top: 50px;
-  	font-size: 14px;
-  	background: #f2f2f2;
+  	font-size: 12px;
   	position: relative;
   	input{
   		height: 28px;
@@ -916,14 +988,26 @@ import API from "@/store/API"
   	.red{
   		color: red;
   	}
+    .test-box{
+      width: 736px;
+      background: #f4f9ff;
+      margin-left: 118px;
+      margin-top:10px;
+      box-sizing: border-box;
+      padding: 14px 16px 6px;
+    }
   	.whitetext{
   		width: 100%;
   		box-sizing: border-box;
-  		padding-left: 250px;
+  		padding-left: 35px;
   		background: #fff;
-  		padding-top: 40px;
-  		padding-right: 50px;
+  		padding-top: 15px;
+  		padding-right: 35px;
   	}
+    .mar-right4{
+      margin-right: 4px;
+      color: red;
+    }
   	header{
   		margin-bottom: 30px;
   	}
@@ -978,12 +1062,14 @@ import API from "@/store/API"
   			width: 100%;
   			display: flex;
   			flex: 33;
+        border:1px solid #e5e5e5;
+        border-bottom:none;
   			li{
   				height: 40px;
   				line-height: 40px;
   				text-align: center;  				
-  				border-left: 1px solid #a9bfd6;
-  				border-bottom: 1px solid #a9bfd6;
+  				// border-left: 1px solid #e5e5e5;
+  				// border-bottom: 1px solid #e5e5e5;
           position: relative;
   			}
   			.one{
@@ -1024,6 +1110,18 @@ import API from "@/store/API"
         cursor: pointer;
 		  }
   	}
+    .new-btn{
+		  	width: 80px;
+		  	height: 30px;
+		  	background: #6a9df6;
+		  	color: #fff;
+		  	line-height: 30px;
+		  	text-align: center;
+		  	// margin-top: 25px;
+		  	border-radius: 4px;
+		  	// margin-bottom: 10px;
+        cursor: pointer;
+		  }
   	.list{
   		width: 100%;
   		position: relative;
@@ -1039,8 +1137,6 @@ import API from "@/store/API"
 		  	background: #fff;
 		  	display: inline-block;
 		  	padding: 0 16px;
-		  }
-		  .one{
 		  }
 		  .two{
 		  	.sou{
@@ -1123,14 +1219,14 @@ import API from "@/store/API"
 		  		}
 		  	}
 		  }
-		  .four{
-
-		  }
+      .el-date-editor.el-input, .el-date-editor.el-input__inner{
+        width: 200px;
+      }
 		  .five{
 		  	.listarea{
 		  		border: 1px solid #f2f2f2;
 		  		border-radius: 6px;
-		  		width: 856px;
+		  		width: 738px;
 		  		height: 48px;
 		  	}
 		  }
@@ -1147,17 +1243,7 @@ import API from "@/store/API"
     .checkbox{
       position: relative;
       height: 50px;
-      width: 100px;
-      .prebox{
-        position: absolute;
-        left: 0; bottom: 0;
-        .box{
-          width: 14px;
-          height: 14px;
-          border: 1px solid #ccc;
-          border-radius: 1px;
-        }
-      }
+      line-height: 50px;
     }
     #slider{
       position: absolute;
@@ -1193,13 +1279,11 @@ import API from "@/store/API"
       padding-left: 6px;
     }
     footer.btn{
-      width: 100px;
+      width: 100%;
       height: 40px;
       border-radius: 4px;
       line-height: 40px;
       text-align: center;
-      color: #fff;
-      background: #6a9df6;
       margin: 0 auto;
       margin-top: 50px;
       cursor: pointer;

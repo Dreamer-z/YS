@@ -1,0 +1,186 @@
+/* pages/personCenter/page/payForIt/payForIt.wxss */
+@import "../../../components/wallet/wallet.wxss";
+.orderDetails {
+  padding: 30rpx;
+  border-bottom: 1rpx solid #e6e6e6;
+}
+
+.orderDetails .status {
+  font-size: 34rpx;
+  color: #fc8c2c;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rpx;
+}
+
+.orderDetails .status image {
+  width: 30rpx;
+  height: 30rpx;
+  margin-left: 10rpx;
+}
+
+.orderDetails .orderNo {
+  color: #fc8c2c;
+  font-size: 26rpx;
+  margin-bottom: 15rpx;
+}
+
+.orderDetails .orderNo text {
+  color: #333;
+  margin-left: 5rpx;
+}
+
+.orderDetails .remind {
+  color: #b3b3b3;
+  font-size: 22rpx;
+}
+
+.hotelMsg{
+  padding: 30rpx 40rpx;
+  border-bottom: 1rpx solid #e6e6e6;
+}
+
+.hotelMsg .hotel{
+  padding-bottom: 40rpx;
+  border-bottom: 1rpx solid #e6e6e6;
+}
+
+.hotelMsg .hotel .hotelName{
+  color: #4d4d4d;
+  font-size: 30rpx;
+  margin-bottom: 10rpx;
+}
+
+.hotelMsg .hotel .address{
+  color:#b3b3b3;
+}
+
+.hotelMsg .room{
+  padding-top: 40rpx;
+}
+
+.hotelMsg .room .roomMsg{
+  color: #4d4d4d;
+  font-size: 26rpx;
+}
+
+.hotelMsg .room .roomMsg{
+  color: #4d4d4d;
+  font-size: 26rpx;
+}
+
+.hotelMsg .room .roomLi{
+  color: #4d4d4d;
+  margin-top: 10rpx;
+  display: flex;
+  align-items: center;
+}
+
+.hotelMsg .room .roomLi .liTitle{
+  color: #b3b3b3;
+  width: 160rpx;
+  white-space: wrap;
+}
+
+.hotelMsg .room .roomLi .liTitle .liName{
+  margin-right: 15rpx;
+}
+
+.orderOption{
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.orderOption>view{
+  flex: 1;
+  padding: 35rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orderOption>view>image{
+  width: 39rpx;
+  height: 39rpx;
+  margin-right: 15rpx;
+}
+
+.orderMsg .price{
+  padding: 30rpx;
+  color: #b3b3b3;
+  border-bottom: 1rpx solid #e6e6e6;
+}
+
+.orderMsg .price>view{
+  overflow: hidden;
+}
+
+.orderMsg .price>view>text{
+  color: #f4703c;
+  font-size: 28rpx;
+  float: right;
+}
+
+.orderMsg .price .totalPrice{
+  margin-bottom: 15rpx;
+}
+
+.orderMsg .payment{
+  text-align: right;
+  font-size: 28rpx;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #e6e6e6;
+}
+
+.orderMsg .payment text{
+  color: #f4703c;
+  font-size: 28rpx;
+}
+
+.orderMsg .orderTime{
+  color: #b3b3b3;
+  padding: 30rpx;
+}
+
+.orderMsg .orderTime text{
+  color: #4d4d4d;
+  margin-left: 20rpx;
+}
+
+.OrderRemind{
+  padding: 30rpx 30rpx 120rpx 30rpx;
+  font-size: 20rpx;
+	color: #b3b3b3;
+}
+
+.option{
+  width: 100%;
+  height: 90rpx;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  z-index: 8;
+}
+
+.option view{
+  flex: 1;
+  height: 100%;
+  line-height: 90rpx;
+  font-size: 30rpx;
+  border-radius: 0;
+  border: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.option view.cancel{
+	color: #4d4d4d;
+  background-color:#fff;
+}
+
+.option view.payFor{
+	color: #fff;
+  background-color:#437ff8;
+}

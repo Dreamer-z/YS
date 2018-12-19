@@ -1,15 +1,6 @@
 <template>  <!-- 预定单列表 -->
-	<div @click="nowPriceIndex = -1" class="one-order-list">
+	<div v-loading="loading" @click="nowPriceIndex = -1" class="one-order-list">
 		<div class="whitetext">
-			<header>
-				<span class="middle">当前位置</span>
-				<span style="margin-right: 18px;" class="middle">：</span>
-				<span style="margin-right: 18px;" class="middle">预定管理</span>
-				<span style="margin-right: 18px;" class="middle">></span>
-				<span style="margin-right: 18px;" class="middle">预定单列表</span>
-				<span style="margin-right: 18px;" class="middle">></span>
-				<span style="color: #437ff9;" class="middle">查看详情</span>
-		  </header>
 		  <ul class="title">
 		  	<li>
 		  		<h6 style="font-size: 16px;font-weight: bold;" class="mgb10">入住信息</h6>
@@ -38,7 +29,7 @@
 		  	<li>
 		  		<h6 style="font-size: 16px;font-weight: bold;" class="mgb10">其他信息</h6>
 		  		<p class="mgb10">
-		  			<span class="middle">渠道</span>
+		  			<span class="middle">客源渠道</span>
 		  			<span class="middle">：</span>
 		  			<span class="middle">{{totalMessage.from?totalMessage.from_name:''}}</span>
 		  		</p>
@@ -50,7 +41,7 @@
 		  		<p class="mgb10">
 		  			<span class="middle">预订金额</span>
 		  			<span class="middle">：</span>
-		  			<span class="middle">{{totalMessage.sum?totalMessage.sum:''}}</span>
+		  			<span class="middle">{{totalMessage.sum}}</span>
 		  		</p>
 		  		<p class="mgb10">
 		  			<span class="middle">预计到店时间</span>
@@ -65,29 +56,44 @@
 		  	</li>
 		  	<li class="line"></li>
 		  	<li class="last">
-		  		<div class="absolute">
+		  		 <!-- <div class="absolute">
+						<p class="">
+			  			<span class="middle">客户类型</span>
+			  			<span class="middle">：</span>
+			  			<span class="middle">犀利哥</span>
+			  		</p>
+						<p style="marginTop: 10px;">
+			  			<span class="middle">会员卡号</span>
+			  			<span class="middle">：</span>
+			  			<span class="middle">007</span>
+			  		</p>
 		  			<p class="middle">
 			  			<span class="middle">订单状态</span>
 			  			<span class="middle">：</span>
 			  			<span class="middle">{{totalMessage.order_status?totalMessage.order_status:''}}</span>
 			  		</p>
-			  		<nav @click="deleOrder" class="dele middle">
+			  		<nav v-show="totalMessage.is_cancel?totalMessage.is_cancel:''" @click="deleOrder" class="dele middle">
 			  			<span>取消预订</span>
 			  		</nav>
-		  		</div>
+           <nav @click="idDepositShow = true" class="dele middle">
+              <span>订金</span>
+            </nav> 
+		  		</div>-->
 		  	</li>
 		  </ul>
 		  <div class="play">
+				<!--
 		  	<nav @click="automaticRoom" class="auto middle">
 		  		<span>自动排房</span>
 		  	</nav>
+				-->
 		  	<!-- <section @click="deleList" class="delebtn middle click">
 		  		<span>删除</span>
 		  	</section> -->
 		  </div>
 		  <div class="table">
-		  	<ul class="thead tbody">
-		  		<li @click="deleAll" class="one">
+		  	<ul style="borderTop:1px solid #e5e5e5;" class="thead tbody">
+		  		<li style="border-left: 1px solid #e5e5e5;" @click="deleAll" class="one">
 		  			<div :class="{'bor': isDeleAll}" class="squre">
 		  				<div :class="{'bj': isDeleAll}" class="block"></div>
 		  			</div>
@@ -101,10 +107,10 @@
 		  		<li class="five">预离</li>
 		  		<li class="five">入住人</li>
 		  		<li class="six">入住状态</li>
-		  		<li style="border-right: 1px solid #a9bfd6;" class="three">操作</li>
+		  		<li style="border-right: 1px solid #e5e5e5;" class="three">操作</li>
 		  	</ul>
-		  	<ul v-for="(item, index) in totalList" class="tbody">
-		  		<li @click="mayBeDele(index)" class="one">
+		  	<ul v-for="(item, index) in totalList" :key="index" class="tbody">
+		  		<li style="border-left: 1px solid #e5e5e5;" @click="mayBeDele(index)" class="one">
 		  			<div :class="{'bor': willBeDele.includes(index)}" class="squre">
 		  				<div :class="{'bj': willBeDele.includes(index)}" class="block"></div>
 		  			</div>
@@ -144,7 +150,7 @@
 		  		<li class="five starttime">
 		  			<!-- <el-date-picker @change="setStartModel(item.startdatetime)" v-show="cover" @blur="cover = false" ref="starttime" value-format="yyyy-MM-dd HH:mm" size="mini" type="datetime" v-model="item.startdatetime">
 						</el-date-picker> -->
-						<div @click="changeStartTime(index)" class="cover">
+						<div @click="changeStartTime(index)">
 							<!-- <span>{{startDate}}&nbsp;</span>
 							<span>{{startTime}}&nbsp;</span> -->
 							{{item.come_time}}
@@ -154,7 +160,7 @@
 		  		<li class="five endtime">
 		  			<!-- <el-date-picker v-show="cover2" @blur="cover2 = false" ref="endtime" value-format="yyyy-MM-dd HH:mm" size="mini" type="datetime" v-model="item.enddatetime">
 						</el-date-picker> -->
-						<div @click="changeEndTime(index)" class="cover">
+						<div @click="changeEndTime(index)">
 							{{item.leave_time}}
 							<!-- <i>icon</i> -->
 						</div>
@@ -165,28 +171,37 @@
             <span>{{item.customer}}</span>
 		  		</li>
 		  		<li class="six">{{item.set_status_name}}</li>    <!-- open -->
-		  		<li v-if="item.set_status == 0" @click="open" style="border-right: 1px solid #a9bfd6; color: #6a9df6;cursor: pointer;" class="three">办理入住</li>
-          <li v-if="item.set_status == 1" @click="letOrderBestayShow(item,index)" style="border-right: 1px solid #a9bfd6; color: #6a9df6;cursor: pointer;" class="three">办理入住</li>
-          <li v-if="item.set_status == 2" @click="letGetMoneyShow(item)" style="border-right: 1px solid #a9bfd6; color: #6a9df6;cursor: pointer;" class="three">查看客房详情</li>
-          <li v-if="item.set_status == 3" style="border-right: 1px solid #a9bfd6; color: #ccc;cursor: pointer;" class="three">已经退房</li>
+		  		<li v-if="item.set_status == 0 && item.is_order" @click="open" style="border-right: 1px solid #e5e5e5; color: #6a9df6;cursor: pointer;" class="three">办理入住</li>
+          <li v-else-if="item.set_status == 1 && item.is_order" @click="letOrderBestayShow(item,index)" style="border-right: 1px solid #e5e5e5; color: #6a9df6;cursor: pointer;" class="three">办理入住</li>
+          <li v-else-if="item.set_status == 2 && item.is_order" @click="letGetMoneyShow(item)" style="border-right: 1px solid #e5e5e5; color: #6a9df6;cursor: pointer;" class="three">查看客房详情</li>
+          <li v-else-if="item.set_status == 3 && item.is_order" style="border-right: 1px solid #e5e5e5; color: #ccc;cursor: pointer;" class="three">已经退房</li>
+          <li v-else style="border-right: 1px solid #e5e5e5; color: #ccc;" class="three">办理入住</li>
 		  	</ul>
 		  </div>
 		  <footer>
-		  	<nav @click="saveRoomId" class="middle">
+		  	<!-- <nav @click="saveRoomId" class="middle">
 		  		<span>确定</span>
 		  	</nav>
 		  	<section @click="goBack" class="middle">
 		  		<span>返回</span>
-		  	</section>
+		  	</section> -->
+				<el-button style="width:100px;" type="primary" @click="saveRoomId">确定</el-button>
+				<el-button style="width:100px;" @click="goBack">返回</el-button>
 		  </footer>
 		</div>
-    <order-bestay @getStayBeNone="orderBestayNone" v-show="isorderBestayShow"></order-bestay>
+		<new-stay-order :orderType="orderNewStayMsg" @letNewStayNone="setStayBeNone" v-if="isorderBestayShow"></new-stay-order>  <!--isorderBestayShow-->
+    <!-- <order-bestay @getStayBeNone="orderBestayNone" v-show="isorderBestayShow"></order-bestay> -->
     <order-getmoney v-show="isGetMoneyShow"></order-getmoney>
-    <room-number @giveNumSelected="getSelected" v-if="isRoomNumberShow" @roomNumberBeNone="numberBeNone" :roomList="buildFloorRoomArr"></room-number>
+		<!-- <new-room-number v-if="isRoomNumberShow" @letNewRoomNumberNone="setNewRoomNumberNone"></new-room-number> -->
+    <room-number :selected="selectedArr" @giveNumSelected="getSelected" v-if="isRoomNumberShow" @roomNumberBeNone="numberBeNone" :roomList="buildFloorRoomArr"></room-number>
+		<deposit @depositNone="letDepositNone" v-if="idDepositShow"></deposit>
 	</div>
 </template>
 
 <script>
+import newRoomNumber from "@/components/public/newroomnumber"
+import newStayOrder from "@/components/public/newstayorder"
+import deposit from "@/components/public/deposit" //  订金
 import roomNumber from "@/components/public/roomnumber"
 import orderBestay from "@/components/public/orderBestay"   //   办理入住yuding de
 import orderGetmoney from "@/components/public/orderGetmoney"
@@ -196,6 +211,10 @@ import bus from "@/store/bus"
 		name: 'oneOrderList',
 		data() {
 			return {
+				loading: false,
+				selectedArr: [],
+				orderNewStayMsg: {},
+				idDepositShow: false,
         paramsId: '',
         nowIndex: -1,
         isRoomNumberShow: false,
@@ -245,11 +264,51 @@ import bus from "@/store/bus"
 		},
     created() {
       this.fetchData()
-      bus.ev.$on('getMoneyBeNone',()=>{
+      bus.ev.$on('getMoneyBeNone',(e)=>{
+				console.log('getMoneyBeNone')
         this.isGetMoneyShow = false
+        if(e) {
+          e.set_status = 3
+        }
       })
     },
 		methods:{
+			setNewRoomNumberNone() {
+				this.isRoomNumberShow = false
+			},
+			setStayBeNone(e) {
+				// this.stayShow = false
+				this.isorderBestayShow = false
+				if (typeof e != 'undefined') {
+          // this.totalList[this.nowIndex].room_name = e.name
+          // this.totalList[this.nowIndex].room_id = e.id
+          this.totalList[this.nowIndex].set_status_name = '已入住'
+          this.totalList[this.nowIndex].set_status = 2
+          this.totalList[this.nowIndex].customer = e.nameStr
+          this.totalList[this.nowIndex].order_id = e.order_id
+          console.log(e)
+        }
+				// if(e) {
+				// 	console.log('fdsfsdfhehehehehehe00',e)
+				// 	this.showFloor[e.floorIndex].rooms[e.roomIndex].status = e.statu
+        //   this.showFloor[e.floorIndex].rooms[e.roomIndex].icon = 'icon-zaizhu'
+        //   this.showFloor[e.floorIndex].rooms[e.roomIndex].order_id = e.orderId
+
+        //   // _this.showFloor[i].rooms[n].status = 2
+        //   // _this.showFloor[i].rooms[n].icon = 'icon-zaizhu'
+        //   // _this.showFloor[i].rooms[n].order_id = e.order_id
+        //   this.roomStatuArr.forEach((val,i)=>{
+        //     if (val.status == e.statu) {
+        //       this.roomStatuArr[i].count++
+        //     } else if (val.status == 0) {
+        //       this.roomStatuArr[i].count--
+        //     }
+        //   })
+				// }
+			},
+			letDepositNone() {
+				this.idDepositShow = false
+			},
       orderBestayNone(e) {
         this.isorderBestayShow =false
         if (typeof e != 'undefined') {
@@ -295,6 +354,9 @@ import bus from "@/store/bus"
         })
       },
       getRoomName(e,i) {
+				if (e.set_status !== 0) {
+					return
+				}
         this.nowIndex = i;
         let obj = {
           "come_time": e.come_time,
@@ -319,6 +381,8 @@ import bus from "@/store/bus"
       getSelected(e) {
         // console.log('>>>>',e)
         if (e != '') {
+					this.selectedArr = []
+					this.selectedArr.push(e.id)
           this.totalList[this.nowIndex].room_name = e.name
           this.totalList[this.nowIndex].room_id = e.id
           this.totalList[this.nowIndex].set_status_name = '已排房'
@@ -418,9 +482,21 @@ import bus from "@/store/bus"
         // console.log(item)
         // return
         this.nowIndex = i
-        this.isorderBestayShow = true
-      //  item.orderId = this.totalMessage.id
-        bus.ev.$emit('willBeOrderBestay', item)
+				//  item.orderId = this.totalMessage.id
+				this.orderNewStayMsg = {...item}
+				this.loading = true
+				API.get(`/pms/order/preorder?preorder_id=${this.orderNewStayMsg.preorder_id}&room_id=${this.orderNewStayMsg.room_id}&snap_id=${this.orderNewStayMsg.id}`).then(res=>{
+					this.loading = false
+					if (res.error_code == 0) {
+						this.orderNewStayMsg.status = 1
+				    this.isorderBestayShow = true
+					} else {
+						if (res.msg) {
+							this.$message.error(`${res.msg}`)
+						}
+					}
+				})
+        // bus.ev.$emit('willBeOrderBestay', item)
       },
       open() {
         this.$alert('请先排房', '操作提示', {
@@ -449,7 +525,7 @@ import bus from "@/store/bus"
       //   console.log('sdfdsf1111',this.$refs,this.$refs.cascader)
       // },
       goBack() {
-        this.$router.back()
+        this.$router.push({name:'orderList',params:this.$route.params.keepCatch})
       },
       fetchData () {
         if(this.$route.params.id) {
@@ -461,8 +537,9 @@ import bus from "@/store/bus"
               // data.customer.push(data.snap_items)
               this.totalList = data.snap
               this.totalList.forEach((e,i)=>{
-                e.come_time = data.come_time
-                e.leave_time = data.leave_time
+                // e.come_time = data.come_time
+                // e.leave_time = data.leave_time
+                // e.is_order = data.is_order
               })
               // console.log('mmmmmmmmm>>>',data)
               // API.get()
@@ -559,18 +636,19 @@ import bus from "@/store/bus"
 			}
 		},
     components: {
+			newStayOrder,
       orderGetmoney,
       orderBestay,
-      roomNumber
+			roomNumber,
+			deposit,
+			newRoomNumber
     }
 	}
 </script>
 
 <style lang="scss" scoped>
   .one-order-list{
-  	padding-top: 50px;
-  	font-size: 14px;
-  	background: #f2f2f2;
+  	font-size: 12px;
   	position: relative;
   	input{
   		height: 28px;
@@ -578,7 +656,7 @@ import bus from "@/store/bus"
   		border-radius: 4px;
   	}
   	.mgb10{
-  		margin-bottom: 10px;
+  		margin-bottom: 20px;
   	}
   	.middle{
   		display: inline-block;
@@ -587,10 +665,10 @@ import bus from "@/store/bus"
   	.whitetext{
   		width: 100%;
   		box-sizing: border-box;
-  		padding-left: 250px;
   		background: #fff;
   		padding-top: 20px;
-  		padding-right: 50px;
+  		padding-right: 35px;
+			padding-left: 35px;
   	}
   	header{
   		margin-bottom: 20px;
@@ -600,6 +678,8 @@ import bus from "@/store/bus"
   		border-bottom: 1px solid #e6e6e6;
   		box-sizing: border-box;
   		padding-bottom: 20px;
+			// padding-right: 35px;
+			// padding-left: 35px;
   		li{
   			display: inline-block;
   			vertical-align: top;
@@ -613,7 +693,7 @@ import bus from "@/store/bus"
   	}
   	.last{
   		position: relative;
-  		width: 260px;
+  		width: 360px;
   		height: 140px;
   	}
   	.dele{
@@ -653,21 +733,22 @@ import bus from "@/store/bus"
   	}
   	.thead{
 			li{
-				background: #4b5967;
-				color: #fff;
-				border-bottom-color: #4b5967;
+				background: #f2f2f2;
+				border-bottom-color: #e5e5e5;
 			}
   	}
   	.tbody{
   		width: 100%;
   		display: flex;
   		flex: 87;
+			&:hover{
+				background: #f0f9fe;
+			}
   		li{
   			height: 39px;
   			line-height: 39px;
   			text-align: center;
-  			border-left: 1px solid #a9bfd6;
-  			border-bottom: 1px solid #a9bfd6;
+  			border-bottom: 1px solid #e5e5e5;
   			white-space: nowrap;
   			text-overflow:ellipsis;
   		}
@@ -719,16 +800,6 @@ import bus from "@/store/bus"
   	.starttime,.endtime{
   		position: relative;
   		overflow: hidden;
-  		.cover{
-  			z-index: 100;
-  			width: 100%;
-  			height: 100%;
-  			position: absolute;
-  			top: 0;left: 0;right: 0;bottom: 0;
-  			background: #fff;
-  			white-space: nowrap;
-  			text-overflow:ellipsis;
-  		}
   	}
   	footer{
   		margin: 0 auto;
@@ -790,9 +861,9 @@ import bus from "@/store/bus"
       width: 100%;
       height: 100%;
       pointer-events: none;
-      position: absolute;
-      top:0;left:0;
-      background: #fff;
+      // position: absolute;
+      // top:0;left:0;
+      // background: #fff;
     }
   }
 </style>

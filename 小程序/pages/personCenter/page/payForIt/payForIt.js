@@ -49,13 +49,13 @@ Page({
   },
   // 查看地图
   map:function(){
-    let latitude = parseFloat(wx.getStorageSync("latitude"));
-    let longitude = parseFloat(wx.getStorageSync("longitude"));
+    let latitude = Number(this.data.orderDetails.hotel.lat);
+    let longitude = Number(this.data.orderDetails.hotel.lng);
     wx.openLocation({
       latitude: latitude,
       longitude: longitude,
       scale: 15,
-      // name: '',
+      name: this.data.orderDetails.hotel.hotel_name,
       // address: 
     });
   },

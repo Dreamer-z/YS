@@ -279,7 +279,8 @@
   /* height: 100%; */
   width: 100%;
   position: absolute;
-  top: 90rpx;
+  /* top: 90rpx; */
+  top: 0;
   z-index: 99;
 }
 
@@ -296,6 +297,7 @@
 }
 
 .hotel .li .photo {
+  display: inline-block;
   width: 235rpx;
   height: 235rpx;
 }

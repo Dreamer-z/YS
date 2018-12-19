@@ -8,18 +8,19 @@
 			</div>
 			<div class="empty"></div>
 		</div>
-		<el-collapse accordion>
-			<el-collapse-item v-for="(item,index) in list" :key="index">
+		<el-collapse accordion @change="read" :value="pagination.init">
+			<el-collapse-item v-for="(item,index) in list" :key="index" :name="item.id">
 				<template slot="title">
-					<div class="item-title" :class="[item.noRead?'no-read':'']">
+					<div class="item-title" :class="[item.status == 0?'no-read':'']">
 						<div class="cont elli">{{item.title}}</div>
-						<div class="source elli">{{item.source}}</div>
-						<div class="time elli">{{item.time}}</div>
+						<div class="source elli">{{item.type_name}}</div>
+						<div class="time elli">{{item.create_time}}</div>
 					</div>
 				</template>
 				<div class="item-content">{{item.content}}</div>
 			</el-collapse-item>
 		</el-collapse>
+    <el-pagination v-show="list.length>0?true:false" class="pagination" :page-size='pagination.num' background layout="prev, pager, next" :total="pagination.total" @current-change="current"></el-pagination>
 	</div>
 </template>
 
@@ -27,7 +28,21 @@
 export default {
   props: {
     list: Array,
-  }
+    pagination:{},
+  },
+  data () {
+    return {
+      init:-1
+    }
+  },
+  methods:{
+    read(activeNames){
+      this.$emit('fn',activeNames);
+    },
+    current(n){
+      this.$emit('changePage',n);
+    }
+  },
 }
 </script>
 

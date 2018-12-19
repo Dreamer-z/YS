@@ -1,0 +1,14 @@
+<!--pages/personCenter/page/distributeOrder/distributeOrder.wxml-->
+<view class='distribute-order bg-white' wx:if="{{list.length>0}}">
+  <view class='item' wx:for="{{list}}" wx:for-index="index" wx:key="{{index}}" wx:if="{{list.length>0}}">
+    <view class='item-left'>
+      <view class='hotel'><image src='/images/distribute/hotel.png'></image>{{item.hotel_name}}</view>
+      <view class='time'>{{item.create_time}}</view>
+    </view>
+    <view class='item-right'>
+      <view>消费金额：{{item.amount}}</view>
+      <view class='amount'>返利佣金：<text>{{item.commission}}</text></view>
+    </view>
+  </view>
+</view>
+<view class='distribute-order bg-white' wx:else style="text-align:center;line-height:80rpx;">暂无订单</view>

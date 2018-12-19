@@ -1,0 +1,11 @@
+<!--pages/personCenter/page/myClientele/myClientele.wxml-->
+<view class='my-clientele flex flex-vertical'>
+  <view class='clientele-num'>我的客户：<text>{{customer.length==0?"您还没有客户":customer.length}}</text></view>
+  <view class='list flex-1'>
+    <view class='li' wx:for="{{customer}}" wx:for-index="index" wx:key="{{index}}">
+      <image src='{{item.avatar_url}}'></image>
+      <view class='name'>{{item.nickname}}</view>
+      <view class='time'>{{item.create_time}}</view>
+    </view>
+  </view>
+</view>

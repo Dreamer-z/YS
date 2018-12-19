@@ -2,8 +2,11 @@
 <!-- 房间简介 -->
 <view class="roomPhotoList">
   <swiper class="roomPhoto" autoplay interval="5000" circular bindchange="roomPhoto">
-    <swiper-item wx:for="{{roomImg}}" wx:key="{{key}}">
+    <!-- <swiper-item wx:for="{{roomImg}}" wx:key="{{key}}">
       <image src='{{roomImg?item:"../../../../images/ls.png"}}'></image>
+    </swiper-item> -->
+    <swiper-item wx:for="{{roomImg}}" wx:key="{{key}}">
+      <view style='height: 415rpx;width: 100%;background-image:url({{item}});background-size:cover;'></view>
     </swiper-item>
   </swiper>
   <view class="roomPhotoIndex">
@@ -13,7 +16,7 @@
 </view>
 <!-- 房间信息 -->
 <view class="roomDetails bg-white">
-  <view class="roomType">{{roomData.name}}({{roomData.window}}）</view>
+  <view class="roomType">{{roomData.name}}({{roomData.window_name}}）</view>
   <view class="address">{{roomData.hotel.address}}</view>
   <view class="item facility">
     <view class="itemTitle">房间设施</view>
@@ -118,14 +121,15 @@
       </view>
       <!-- <view class="facilityLi">可住<text>{{roomData.bed_type}}人</text></view>  -->
       <view class="facilityLi">窗户
-        <text>{{roomData.window}}</text>
+        <text>{{roomData.window_name}}</text>
       </view>
       <!-- <view class="facilityLi">早餐<text>无早餐</text></view> -->
       <view class="facilityLi">床型
         <text>{{roomData.bed_length}}米/张</text>
       </view>
       <view class="facilityLi">卫浴
-        <text>{{roomData.bathroom}}</text>
+        <!-- <text>{{roomData.bathroom_name}}</text> -->
+        <text>{{roomData.bathroom_name}}</text>
       </view>
     </view>
   </view>

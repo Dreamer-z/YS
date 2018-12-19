@@ -1,6 +1,7 @@
 // pages/personCenter/personCenter.js
+import Host from "../../utils/hosts.js";
+let app = getApp();
 //获取应用实例
-const app = getApp()
 Page({
   /* 页面的初始数据*/
   data: {
@@ -10,7 +11,7 @@ Page({
   /* 生命周期函数--监听页面加载*/
   onLoad: function (options) {
     this.setData({ 
-      version:app.data.version,
+      version: Host.hosts.version,
       userMsg: app.globalData.userInfo
     })
   },
@@ -26,12 +27,18 @@ Page({
       url: './page/bill/bill',
     })
   },
-  // 我的发票
-  invoice:function(e){
+  // 分享
+  share(){
     wx.navigateTo({
-      url: './page/myInvoice/myInvoice',
+      url: './page/share/share',
     })
   },
+  // // 我的发票
+  // invoice:function(e){
+  //   wx.navigateTo({
+  //     url: './page/myInvoice/myInvoice',
+  //   })
+  // },
   // 常用旅客
   user:function(){
     wx.navigateTo({

@@ -1,6 +1,5 @@
 <template>
   <div class="adMem-container">
-    <bread-crumb :child-msg='router'></bread-crumb>
     <div class="title">会员基本资料</div>
     <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm" v-loading="loading">
       <div class="column requiredColumn">
@@ -82,8 +81,6 @@
 </template>
 
 <script>
-import BreadCrumb from '@/components/public/breadcrumb' //面包屑导航栏
-import { routs } from '@/assets/js/routs'
 
 import { mapGetters } from 'vuex'
 import API from '@/store/API/index'
@@ -101,13 +98,8 @@ export default {
   //   })
   //   //console.log(this.$route.query)
   // },
-  components: {
-    BreadCrumb
-  },
   data() {
     return {
-      // 面包屑导航路径及名称
-      router: [routs.index, routs.addMember],
       ruleForm: {
         hotel_id: '',
         name: '',

@@ -1,0 +1,88 @@
+/* pages/personCenter/page/withdraw/withdraw.wxss */
+.page-withdraw{
+  height: 100%;
+}
+
+.can-withdraw{
+  box-sizing: border-box;
+  padding: 32rpx 0;
+  text-align: center;
+}
+
+.can-withdraw .title{
+	color: #999;
+}
+
+.can-withdraw .amount{
+  font-size: 26rpx;
+	color: #ff4b13;
+}
+
+.can-withdraw .amount text{
+  font-size: 50rpx;
+}
+
+.hotel{
+  box-sizing: border-box;
+  padding: 41rpx 0;
+  margin-top: 10rpx;
+  overflow-y: auto;
+}
+
+.hotel .li{
+  width: 690rpx;
+  height: 420rpx;
+  margin: 20rpx auto;
+  border-radius: 9rpx;
+  box-shadow: 0 0 20rpx rgba(0, 0, 0, .2);
+  overflow: hidden;
+}
+
+.hotel .li .hotel-name{
+  box-sizing: border-box;
+  font-size: 28rpx;
+  height:90rpx;
+  line-height: 89rpx;
+  padding: 0 34rpx;
+  border-bottom: solid 1rpx #e6e6e6;
+}
+
+.hotel .li .hotel-name image{
+  width: 36rpx;
+	height: 36rpx;
+  margin-right: 14rpx;
+}
+
+.hotel .li .hotel-content{
+  box-sizing: border-box;
+  padding: 0 34rpx;
+}
+
+.hotel .li .hotel-content .li-title{
+  color: #b3b3b3;
+}
+
+.hotel .li .hotel-content .amount{
+  font-size: 26rpx;
+	color: #1a1a1a;
+  margin-top: 25rpx;
+}
+
+.hotel .li .hotel-content .amount text{
+  font-size: 50rpx;
+}
+
+.hotel .li .hotel-content .remind{
+	color: #fc8c2c;
+  margin-top: 10rpx;
+}
+
+.hotel .li>button{
+  width: 100%;
+	height: 80rpx;
+  font-size: 28rpx;
+  line-height: 80rpx;
+  color: #fff;
+	background-color: #437ff9;
+	border-radius: 0 0 9rpx 9rpx;
+}

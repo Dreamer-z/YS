@@ -1,6 +1,5 @@
 <template>
   <div class="aM-container">
-    <bread-crumb :child-msg='router'></bread-crumb>
     <ul class="menuCloumn" v-loading="loading">
       <li class="cloumn">
         <div class="title require">上级：</div>
@@ -45,16 +44,11 @@
 </template>
 
 <script>
-import BreadCrumb from '@/components/public/breadcrumb' //面包屑导航栏
-import { routs } from '@/assets/js/routs'
 import { mapGetters } from 'vuex'
 import API from '@/store/API'
 
 import TreeMeun from '@/assets/js/treeMeun'
 export default {
-  components: {
-    BreadCrumb
-  },
   computed: {
     ...mapGetters({
       hotel: 'currHotel'
@@ -62,8 +56,6 @@ export default {
   },
   data() {
     return {
-      // 面包屑导航路径及名称
-      router: [routs.index, routs.addMenu],
       prams: null,
       formData: {
         parent_id: '',

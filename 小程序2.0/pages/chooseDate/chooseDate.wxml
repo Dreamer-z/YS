@@ -1,0 +1,2 @@
+<!--pages/chooseDate/chooseDate.wxml-->
+<ys-calendar bindgetDate="getDate" continueMode="{{continueMode}}" arrive="{{checkIn}}" leave="{{checkOut}}"></ys-calendar>

@@ -1,0 +1,45 @@
+/* pages/personCenter/page/invoice/invoice.wxss */
+.invoice>.title{
+  padding: 20rpx 30rpx;
+  font-size: 26rpx;
+	color: #808080;
+}
+
+.invoice .columnOne{
+  font-size: 26rpx;
+}
+
+.invoice .columnOne .title{
+  width: 160rpx;
+  margin-right:50rpx;
+}
+
+
+.invoice .columnOne .content{
+  color:#b3b3b3;
+}
+
+.invoice .columnOne .type{
+  display: flex;
+  align-items: center;
+}
+
+.invoice .columnOne .type label{
+  margin-left: 30rpx;
+  color: #333;
+  display: flex;
+  align-items: center;
+}
+
+.invoice .columnOne .content input{
+  color:#b3b3b3;
+}
+
+.invoice .columnOne.price .content text{
+  color: #f86f41;
+}
+
+.invoice .push{
+  position: fixed;
+  bottom: 0;
+}

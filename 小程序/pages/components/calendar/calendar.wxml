@@ -1,67 +1,88 @@
-<!--pages/components/calendar/calendar.wxml-->
-<template name="calendar">
-  <view class="calendar">
-    <view class="chooseType">
-      <view>入住</view>
-      <view>离店</view>
-    </view>
-    <view class="chooseData">
-      <input placeholder='{{checkIn}}' placeholder-style="color:#000;" disabled='true'></input>
-      <input placeholder='{{checkOut}}' placeholder-style="color:#000;" disabled='true'></input>
-    </view>
-    <view class="page">
-      <view class="box">
-        <view class="box-flex">
-          <view class="flex-item">
-            <view class="item-content" bindtap="rander" data-key='left'>
-              <view class="previous">
-                <image src='../../../../images/right.png'></image>
-              </view>
+<!--pages/components/cal/calendar.wxml-->
+<view class="calendar">
+  <view class="chooseType">
+    <view>入住</view>
+    <view>离店</view>
+  </view>
+  <view class="chooseData">
+    <input placeholder='{{checkIn}}' placeholder-style="color:#000;" disabled='true'></input>
+    <input placeholder='{{checkOut}}' placeholder-style="color:#000;" disabled='true'></input>
+  </view>
+  <view class="page">
+    <view class="box">
+      <view class="box-flex">
+        <view class="flex-item">
+          <view class="item-content" bindtap="doDay" data-key='left' wx:if="{{!continue}}">
+            <view class="previous">
+              <image src='/images/right.png'></image>
             </view>
           </view>
-          <view class="flex-item item-content-current-day">
-            <view class="item-content">{{currentDate}}</view>
-          </view>
-          <view class="flex-item">
-            <view class="item-content" bindtap="rander" data-key="right">
-              <view class="next">
-                <image src='../../../../images/right.png' style='transform:rotateY(180deg);'></image>
-              </view>
+          <view class="item-content" bindtap="doOneDay" data-key='left' wx:else>
+            <view class="previous">
+              <image src='/images/right.png'></image>
             </view>
           </view>
         </view>
-        <view class="box-flex">
-          <view class="flex-item">
-            <view class="item-content">日</view>
+        <view class="flex-item item-content-current-day">
+          <view class="item-content">{{currentDate}}</view>
+        </view>
+        <view class="flex-item">
+          <view class="item-content" bindtap="doDay" data-key="right" wx:if="{{!continue}}">
+            <view class="next">
+              <image src='/images/right.png' style='transform:rotateY(180deg);'></image>
+            </view>
           </view>
-          <view class="flex-item">
-            <view class="item-content">一</view>
-          </view>
-          <view class="flex-item">
-            <view class="item-content">二</view>
-          </view>
-          <view class="flex-item">
-            <view class="item-content">三</view>
-          </view>
-          <view class="flex-item">
-            <view class="item-content">四</view>
-          </view>
-          <view class="flex-item">
-            <view class="item-content">五</view>
-          </view>
-          <view class="flex-item">
-            <view class="item-content">六</view>
+          <view class="item-content" bindtap="doOneDay" data-key="right" wx:else>
+            <view class="next">
+              <image src='/images/right.png' style='transform:rotateY(180deg);'></image>
+            </view>
           </view>
         </view>
-        <view class="box-flex" bindtouchstart='slideStart' bindtouchend='slideEnd'>
-          <view class="flex-item" wx:for="{{currentDayList}}" wx:key="{{item}}">
-            <view class="item-content item-day {{index%7==0||index%7==6?'week':''}} {{index==today?'today':''}} {{item.choose =='dis'?'disable':''}} {{item.choose == true?'chooseday':''}}" id='{{item.value}}' data-choose='{{item.choose}}' data-index='{{index}}' bindtap='chooseDay'>{{item.value}}</view>
+      </view>
+      <view class="box-flex">
+        <view class="flex-item">
+          <view class="item-content">日</view>
+        </view>
+        <view class="flex-item">
+          <view class="item-content">一</view>
+        </view>
+        <view class="flex-item">
+          <view class="item-content">二</view>
+        </view>
+        <view class="flex-item">
+          <view class="item-content">三</view>
+        </view>
+        <view class="flex-item">
+          <view class="item-content">四</view>
+        </view>
+        <view class="flex-item">
+          <view class="item-content">五</view>
+        </view>
+        <view class="flex-item">
+          <view class="item-content">六</view>
+        </view>
+      </view>
+      <view class="box-flex" data-type="1" bindtouchstart='slideStart' bindtouchend='slideEnd' wx:if="{{!continue}}">
+        <view class="flex-item" wx:for="{{currentDayList}}" wx:key="{{item}}">
+          <view class="item-content item-day {{index%7==0||index%7==6?'week':''}} {{index==today?'today':''}} {{item.choose =='dis'?'disable':''}} {{item.choose == true?'chooseday':''}}" id='{{item.value}}' data-choose='{{item.choose}}' data-index='{{index}}' catchtap='choose'>
+            {{item.value}}
+            <view class='check {{item.tag == "in" && item.choose == true?"":"hide"}}'>入住</view>
+            <view class='check {{item.tag == "out" && item.choose == true?"":"hide"}}'>离店</view>
+          </view>
+        </view>
+      </view>
+      <view class="box-flex" data-type="2" bindtouchstart='slideStart' bindtouchend='slideEnd' wx:else>
+        <view class="flex-item" wx:for="{{currentDayList}}" wx:key="{{item}}">
+          <view class="item-content item-day {{index%7==0||index%7==6?'week':''}} {{item.choose =='dis'?'disable':''}} {{item.choose == true?'chooseday':''}}" id='{{item.value}}' data-choose='{{item.choose}}' data-index='{{index}}' catchtap='chooseOne'>
+            {{item.value}}
+            <view class='check {{item.tag == "in" && item.choose == true?"":"hide"}}'>入住</view>
+            <view class='check {{item.tag == "out" && item.choose == true?"":"hide"}}'>离店</view>
           </view>
         </view>
       </view>
     </view>
-    <view class="affirm">
-      <button bindtap='closeCalendar'>选择完毕</button>
-    </view>
   </view>
-</template>
+  <view class="affirm">
+    <button catchtap='closeCalendar'>选择完毕</button>
+  </view>
+</view>

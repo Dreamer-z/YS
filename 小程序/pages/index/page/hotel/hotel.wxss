@@ -1,6 +1,4 @@
 /* pages/index/page/hotel/hotel.wxss */
-@import "../../../components/calendar/calendar.wxss";
-
 .hotel {
   height: 100%;
   width: 100%;
@@ -15,6 +13,7 @@
 }
 
 .photoShow .showLi {
+  display: inline-block;
   width: 180rpx;
   height: 100%;
   margin-right: 3rpx;
@@ -165,7 +164,7 @@
 }
 
 .calendarValue .time .date {
-  width: 140rpx;
+  width: 150rpx;
   font-size: 34rpx;
   color: #333;
   text-align: center;
@@ -245,9 +244,9 @@
   align-content: center;
 }
 .roomList .room .intro .photo {
-  width: 155rpx;
+  width: 200rpx;
   height: 155rpx;
-  border-radius: 8rpx;
+  border-radius: 4rpx;
 }
 
 .roomList .room .intro .msg {
@@ -262,6 +261,11 @@
 .roomList .room .intro .msg view {
   margin-top: 10rpx;
 }
+
+.roomList .room .intro .msg view:nth-of-type(1) {
+  margin-top: 0;
+}
+
 
 .roomList .room .intro .msg .type {
   font-size: 30rpx;
@@ -338,4 +342,27 @@
 
 .roomList .room .roomDetails .li .partthree {
   flex: 1;
+}
+
+
+/* 隐藏 */
+
+.hide {
+  display: none;
+}
+
+/* 日历 */
+
+.calendar {
+  height: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 999;
+}
+
+.calendar .empty {
+  flex: 1;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }

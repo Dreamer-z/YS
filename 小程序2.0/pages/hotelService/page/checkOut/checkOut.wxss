@@ -1,0 +1,219 @@
+/* pages/hotelService/page/checkOut/checkOut.wxss */
+.head{
+  box-sizing: border-box;
+  width: 100%;
+	height: 120rpx;
+  padding: 0 30rpx;
+	background-color: #fff;
+  margin-bottom: 10rpx;
+  font-size: 32rpx;
+  color: #999999;
+}
+
+.head .status text{
+  color: #437ff9;
+}
+
+.head .remind{
+  font-size: 24rpx;
+	color: #fc8c2c;
+}
+
+.checkInMsg {
+  padding: 30rpx;
+  font-size: 26rpx;
+  color: #808080;
+  margin-bottom: 10rpx;
+}
+
+.checkInMsg .title {
+  font-size: 32rpx;
+	color: #1a1a1a;
+  margin-bottom: 15rpx;
+}
+
+.checkInMsg .list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.checkInMsg:nth-of-type(1) .list .li {
+  width: 100%;
+  padding-top: 8rpx;
+}
+
+.checkInMsg:nth-of-type(2) .list .li {
+  width: 100%;
+  padding-top: 8rpx;
+}
+
+.checkInMsg .list .li text {
+  color: #333;
+}
+
+.checkInMsg .list .li.checkInPerson text{
+  position: relative;
+  padding-right: 30rpx;
+}
+
+.checkInMsg .list .li.checkInPerson text::after{
+  content: "、";
+  width: 20rpx;
+  text-align: right;
+  position: absolute;
+  right: 0;
+}
+
+.checkInMsg .list .li.checkInPerson text:nth-last-of-type(1)::after{
+  content: "";
+}
+
+.checkInMsg .list .li.endStatus text{
+  color: red;
+}
+
+.checkInMsg.bill{
+  padding: 48rpx 30rpx;
+}
+
+.checkInMsg.bill .list .li{
+  width: 50%;
+}
+
+.checkInMsg.bill .bill-column{
+  font-size: 28rpx;
+	color: #999;
+  margin-bottom: 26rpx;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.checkInMsg.bill .bill-column text{
+  color: #333;
+  margin-left: 12rpx;
+}
+
+.checkInMsg.bill .total{
+  height: 100rpx;
+  line-height: 100rpx;
+  margin-bottom: 36rpx;
+  margin-top: 36rpx;
+  border-top:solid 1rpx #e6e6e6; 
+  border-bottom:solid 1rpx #e6e6e6; 
+}
+
+.checkInMsg.bill .total text{
+  margin-left: 50rpx;
+}
+
+.checkInMsg.bill .predict-pay,.checkInMsg.bill .predict-pay text{
+  color: #ff4a13;
+}
+
+.rules {
+  padding: 30rpx;
+  color: #808080;
+}
+
+.rules .content {
+  margin-bottom: 50rpx;
+}
+
+.rules .agree {
+  text-align: center;
+}
+
+.checkOut {
+  width: 100%;
+  height: 98rpx;
+  line-height: 98rpx;
+  text-align: center;
+  border-radius: 0;
+  background-color: #437ff8;
+  font-size: 34rpx;
+  color: #fff;
+  position: fixed;
+  bottom: 0;
+  z-index: 7;
+}
+
+.checkOut.ing{
+  background-color: #b3b3b3;
+}
+
+.popup{
+  box-sizing: border-box;
+  padding-top: 300rpx;
+}
+
+.popup .verification{
+  width: 600rpx;
+  border-radius: 8rpx;
+  overflow: hidden;
+  margin: 0 auto;
+  font-size: 26rpx;
+}
+
+.popup .verification .title{
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #fff;
+	background-color: #6b9ef7;
+  text-align: center;
+}
+
+.popup .verification .content{
+  padding: 60rpx 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup .verification .content input{
+  box-sizing: border-box;
+  width: 300rpx;
+	height: 90rpx;
+  padding: 0 30rpx;
+	border-radius: 6rpx;
+	border:2rpx solid  #e6e6e6;
+}
+
+.popup .verification .content .code{
+  height: 100rpx;
+  width: 160rpx;
+  margin-left: 30rpx;
+  font-size: 20rpx;
+  line-height: 90rpx;
+}
+
+
+.popup .verification .content .code image{
+  height: 100%;
+  width: 100%;
+}
+
+.popup .verification .option{
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  display: flex;
+  border-top: 1rpx solid #e6e6e6;
+}
+
+.popup .verification .option view{
+  line-height: 90rpx;
+  font-size: 26rpx;
+  border-radius:0rpx;
+  border: none;
+  flex: 1;
+  width: 50%;
+  background-color: #fff;
+  position: static;
+}
+
+.popup .verification .option view.confirm{
+  color: #437ff9;
+  border-left: 1rpx solid #e6e6e6;
+}

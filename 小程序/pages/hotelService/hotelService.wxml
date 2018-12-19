@@ -85,3 +85,25 @@
     <view class='msg' wx:if='{{noCheckIn == false?true:false}}'>{{noCheckInMsg}}</view>
   </view>
 </view>
+  <!-- 开门密码 -->
+<view class='popup popup-open-door {{door == 1?"hide":""}}'>
+  <view class='content'>
+    <view class='head'>
+      <view class='title'>开门密码</view>
+      <view class='bg'></view>
+    </view>
+    <view class='main flex flex-align-center flex-pack-center'>
+      <view class="main-left">
+        123456
+      </view>
+      <view class="main-right">
+        <image src='/images/door_password.png'></image>
+      </view>
+    </view>
+    <view class='foot flex flex-vertical flex-pack-center'>
+      <view class='child-title'>温馨提示：</view>
+      <view>请将上方蓝色字体密码输入在门锁按键上，请注意周边环境勿将密码泄露给他人</view>
+    </view>
+  </view>
+  <view class='close flex flex-align-center flex-pack-center' bindtap='closeDoorPopup'><image src='/images/close.png'></image></view>
+</view>

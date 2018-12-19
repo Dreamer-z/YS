@@ -1,0 +1,18 @@
+<!--pages/personCenter/page/popularizeDetails/popularizeDetails.wxml-->
+<canvas class='share-msg' canvas-id="poster" disable-scroll="{{true}}"></canvas>
+<view class='popularize-details'>
+  <view class='option'>
+    <button bindtap='getText'>生成推广文案</button>
+    <button class='save-img' bindtap='preview'>保存图片</button>
+  </view>
+  <view class='ops'>保存至相册，可分享至朋友圈</view>
+</view>
+<cover-view class='popup flex flex-vertical flex-align-center flex-pack-center {{text_pop?"":"hide"}}'>
+  <cover-view class='content'>
+    <cover-view class='section'>{{text}}</cover-view>
+    <cover-view class='op flex flex-align-center'>
+      <cover-view class='cancel flex-1' bindtap='getText'>取消</cover-view>
+      <cover-view class='copy flex-1' bindtap='copy'>复制</cover-view>
+    </cover-view>
+  </cover-view>
+</cover-view>

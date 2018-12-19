@@ -1,0 +1,49 @@
+<!--pages/personCenter/page/memberInformation/memberInformation.wxml-->
+<view class='box flex flex-vertical'>
+  <view class='person-msg bg-white flex flex-align-center'>
+    <view class='photo'>
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+    <view class='name flex-1'>
+      <open-data type="userNickName"></open-data>
+    </view>
+    <view class='tabs'>{{msg.card_level_name}}</view>
+  </view>
+  <view class='member-msg bg-white flex-1'>
+    <view class='part-title'>个人资料</view>
+    <view class='msg-box'>
+      <view class='item'>
+        <view class='item-title'>姓名</view>
+        <view class='item-msg'>{{msg.name}}</view>
+      </view>
+      <view class='item'>
+        <view class='item-title'>身份证号</view>
+        <view class='item-msg'>{{msg.idcard}}</view>
+      </view>
+      <!-- <view class='item'>
+        <view class='item-title'>国家/地区</view>
+        <view class='item-msg'>{{msg.card_level_name}}</view>
+      </view> -->
+      <view class='item'>
+        <view class='item-title'>手机号码</view>
+        <view class='item-msg'>{{msg.mobile}}</view>
+      </view>
+    </view>
+    <view class='part-title'>会员卡资料</view>
+    <view class='msg-box'>
+      <view class='item'>
+        <view class='item-title'>会员类型</view>
+        <view class='item-msg'>{{msg.card_level_name}}</view>
+      </view>
+      <view class='item'>
+        <view class='item-title'>会员卡号</view>
+        <view class='item-msg'>{{msg.card_number}}</view>
+      </view>
+      <view class='item'>
+        <view class='item-title'>会员卡余额</view>
+        <view class='item-msg'>{{msg.balance}}元</view>
+      </view>
+    </view>
+    <view class='amend' bindtap='amend'>修改个人资料</view>
+  </view>
+</view>

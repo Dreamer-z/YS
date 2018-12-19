@@ -65,7 +65,7 @@ import API from "@/store/API"
 import bus from "@/store/bus"
 	export default{
 		name: 'checkOut',
-		props: ['mes','orderId','memberId'],
+		props: ['item','mes','orderId','memberId'],
 		data() {
 			return {
 				paywayListArr: [],
@@ -105,9 +105,7 @@ import bus from "@/store/bus"
 					pay_amount: Number(this.money)
 				}
 				if (obj.pay_way == '') {
-					this.$alert('没有支付方式', '', {
-	          confirmButtonText: '确定'
-	        })
+	        this.$message.error(`没有支付方式`)
 	        return
 				}
 				API.put("/pms/roomstatus/end", obj).then(res=>{
@@ -116,9 +114,13 @@ import bus from "@/store/bus"
 						this.$alert('操作成功', '', {
 		          confirmButtonText: '确定',
 		          callback: ()=>{
-		          	bus.ev.$emit('checkoutNone',this.mes)
+		          	bus.ev.$emit('checkoutNone',this.item?this.item:this.mes)
 		          }
 		        })
+					} else {
+						if (res.msg) {
+							this.$message.error(`${res.msg}`)
+						}
 					}
 				})
 			},

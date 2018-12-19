@@ -1,0 +1,26 @@
+<!--pages/personCenter/page/bankCard/bankCard.wxml-->
+<view class='bank-card'>
+  <view class='container'>
+    <view class='item' wx:for="{{bankCard}}" wx:for-index="index" wx:key="{{index}}">
+      <view class='section transform02' style='transform:translateX({{cardIndex==index&&display?-126:0}}rpx)' data-index="{{index}}" bindtouchstart='touchStart' bindtouchmove='touchMove'>
+        <view class='box'>
+          <image src='{{item.mini_logo}}'></image>
+          <view class='card-msg'>
+            <view class='name'>{{item.bank_name}}</view>
+            <view class='type'>{{item.type==0?"储蓄卡":"信用卡"}}</view>
+            <view class='num'>
+              <text>****</text>
+              <text>****</text>
+              <text>****</text>
+              <text>{{item.last_four_code}}</text>
+            </view>
+          </view>
+        </view>
+        <view class='del transform02 {{index==cardIndex&&display?"show":""}}' data-index="{{index}}" bindtap='del'>删除</view>
+      </view>
+    </view>
+  </view>
+</view>
+<view class='add-card flex flex-align-center flex-pack-center' bindtap='addCard'>
+  <image src="/images/add_on.png"></image>添加银行卡
+</view>

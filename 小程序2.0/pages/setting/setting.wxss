@@ -1,0 +1,115 @@
+/* pages/setting/setting.wxss */
+.box{
+  box-sizing: border-box;
+  height: 100%;
+  padding-top: 78rpx;
+  background-color: #caeff8;
+  display: flex;
+  flex-direction:column; 
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.box image{
+  width: 649rpx;
+	height: 556rpx;
+  margin-bottom: 139rpx;
+}
+
+.box>.remind{
+  box-sizing: border-box;
+  width: 335rpx;
+  padding-left: 20rpx;
+	font-size: 24rpx;
+  color: #333;
+  position: relative;
+  margin-bottom: 31rpx;
+}
+
+.box>.remind::before{
+  content: "·";
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+}
+
+.getUserInfo{
+  font-size: 28rpx;
+  color: #fff;
+  background-color: #437ff8;
+}
+
+.verifyBox{
+  width: 600rpx;
+  background-color: #fff;
+  border-radius: 6rpx;
+  position: fixed;
+  left: calc(50% - 300rpx);
+  top: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.verifyBox .title{
+  box-sizing: border-box;
+  font-size:30rpx; 
+  padding: 20rpx 30rpx;
+  color: #999;
+}
+
+.verifyBox .content{
+  box-sizing: border-box;
+  padding: 0 80rpx 30rpx 80rpx;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+}
+
+.verifyBox .content input{
+  box-sizing: border-box;
+  width: 100%;
+  height: 90rpx;
+  padding: 5rpx;
+  font-size: 28rpx;
+  color: #666;
+  text-align: center;
+  border: 1rpx solid #e6e6e6;
+  border-radius: 6rpx;
+}
+
+
+.verifyBox .content .remind{
+  margin-top: 20rpx;
+  color: #aaa;
+}
+
+.verifyBox .options{
+  display: flex;
+  align-items: center;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 28rpx;
+}
+
+.verifyBox .options .btn{
+  box-sizing: border-box;
+  height: 100%;
+  width: 50%;
+  text-align: center;
+  background-color: #fff;
+  color: green;
+}
+
+.verifyBox .options .btn.cancle{
+  border-top: 1rpx solid #e6e6e6;
+}
+
+.verifyBox .options .btn.confirm{
+  background-color: #437ff8;
+  color: #fff;
+}

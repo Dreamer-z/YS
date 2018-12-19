@@ -2,12 +2,12 @@
 <view class="personCenter">
   <view class="personMsg bg-white">
     <view class="personPhoto">
-       <open-data type="userAvatarUrl"></open-data> 
-       <!-- <image src='{{userMsg.avatarUrl}}'></image>  -->
+      <open-data type="userAvatarUrl"></open-data>
+      <!-- <image src='{{userMsg.avatarUrl}}'></image>  -->
     </view>
     <view class="levelName">
-        <open-data type="userNickName"></open-data> 
-       <!-- {{userMsg.nickName}} -->
+      <open-data type="userNickName"></open-data>
+      <!-- {{userMsg.nickName}} -->
     </view>
     <!-- <view class="edit" bindtap='edit'>
       <text>编辑</text>
@@ -29,13 +29,20 @@
       <view class="modName">退房账单</view>
       <view class="modMsg">在线退房</view>
     </view>
-    <view class="mod" bindtap='invoice'>
+    <view class="mod" bindtap='share'>
+      <view class="modImg">
+        <image src='/images/personcenter/share.png'></image>
+      </view>
+      <view class="modName">邀请好友</view>
+      <view class="modMsg">分享转发</view>
+    </view>
+    <!-- <view class="mod" bindtap='invoice'>
       <view class="modImg">
         <image src='/images/personcenter/invoice.png'></image>
       </view>
       <view class="modName">我的发票</view>
       <view class="modMsg">电子发票</view>
-    </view>
+    </view> -->
   </view>
   <view class="functionalMore bg-white">
     <view class="title">更多功能

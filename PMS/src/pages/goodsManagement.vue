@@ -1,13 +1,12 @@
 <template>
   <div class="gM-container">
-    <bread-crumb :child-msg='router'></bread-crumb>
     <el-row class="optionsBtn">
-      <el-button class="btn" type="primary" size="small" @click="add">新增</el-button>
+      <el-button class="btn" type="primary" size="mini" @click="add">新增</el-button>
       <!-- <el-button class="btn" size="small">停用</el-button>
       <el-button class="btn" size="small" @click="del">删除</el-button> -->
-      <el-button class="btn" size="small" :disabled="disableClick" @click="addGoods">保存</el-button>
+      <el-button class="btn" size="mini" :disabled="disableClick" @click="addGoods">保存</el-button>
     </el-row>
-    <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" height='85%' style="width: 1030px" border @selection-change="handleSelectionChange">
+    <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" height='85%' style="width: 1030px" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="58"></el-table-column>
       <el-table-column label="编号" width="100">
         <template slot-scope="scope">
@@ -59,8 +58,6 @@
 </template>
 
 <script>
-import BreadCrumb from '@/components/public/breadcrumb' //面包屑导航栏
-import { routs } from '@/assets/js/routs'
 import Reg from '@/assets/js/RegEx'
 import { mapGetters } from 'vuex'
 import API from '@/store/API'
@@ -70,13 +67,8 @@ export default {
       hotel: 'currHotel'
     })
   },
-  components: {
-    BreadCrumb
-  },
   data() {
     return {
-      // 面包屑导航路径及名称
-      router: [routs.index, routs.goodsManagement],
       // 表单数据
       tableData: [],
       // 选中表单条目数据
@@ -146,22 +138,25 @@ export default {
     // 验证是否重复
     judgeRep(arr) {
       let tableData = this.tableData
-      let n = 0
+      let n = []
       if (arr) {
         for (let i = 0; i < arr.length; i++) {
+          n[i] = 0
           for (let j = 0; j < tableData.length; j++) {
             if (arr[i].name == tableData[j].name || arr[i].num == tableData[j].num) {
-              n++;
+              n[i]++;
             }
           }
         }
       }
-      if (n > 1) {
-        this.$message({
-          type: 'warning',
-          message: '该商品已存在或编号重复，请不要重复添加！'
-        })
-        return false
+      for (let i = 0; i < n.length; i++) {
+        if (n[i] > 1) {
+          this.$message({
+            type: 'warning',
+            message: '该商品已存在或编号重复，请不要重复添加！'
+          })
+          return false
+        }
       }
     },
     // 选中表单条目数据
@@ -452,9 +447,8 @@ export default {
 <style lang="scss" scoped>
 .gM-container {
   box-sizing: border-box;
-  height: 100%;
-  font-size: 14px;
-  overflow: auto !important;
+  padding: 10px 35px;
+  overflow-y: auto;
   .el-table td .option {
     color: #e6e6e6;
   }
